@@ -1,15 +1,15 @@
 package ttm;
 public class Point {
-    double x = 0;
-    double y = 0;
+    public double x = 0;
+    public double y = 0;
 
-    Point(double xkoord, double ykoord){
+    public Point(double xkoord, double ykoord){
         x = xkoord;
         y = ykoord;
     }
 
     //returns the distance between this and p, with pithagorasz    
-    double distance(Point p){
+    public double distance(Point p){
 
         //calculating the diff
         double dx = Math.abs(p.x - this.x)  ;
