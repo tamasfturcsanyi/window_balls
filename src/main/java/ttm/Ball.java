@@ -1,13 +1,24 @@
 package ttm;
+
+import ttm.Point;
 import java.awt.geom.Ellipse2D;
 import java.util.Vector;
 
 public class Ball {
-    double bounciness = 1;
     
-    Ellipse2D.Double body;
+
+
+    //pos is modified by velocity every frame
+    Point velocity;
+
+    //velocity is modified by force/weight every frame
+    Point force;
+
+    double mass = 1;
+    double bounciness = 1; 
+
 
     Ball(){
-        body = new Ellipse2D.Double(0,0,100,100);
+        //visual = new Ellipse2D.Double(0,0,100,100);
     }
 }

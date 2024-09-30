@@ -4,7 +4,9 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
-public class ShapePanel extends JPanel{
+public class GraphicsPanel extends JPanel{
+
+
     @Override
     protected void paintComponent(Graphics g) {
         // TODO Auto-generated method stub
