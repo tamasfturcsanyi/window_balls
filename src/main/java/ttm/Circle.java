@@ -14,6 +14,7 @@ public class Circle {
     Circle(double x,double y, double radius){
         this.position = new Point2D.Double(x,y);
         this.radius = radius;
+        visual = new Ellipse2D.Double(0,0,0,0);
         calculateVisual(null);
     }
 

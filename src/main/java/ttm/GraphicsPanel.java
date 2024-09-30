@@ -1,10 +1,19 @@
 package ttm;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 
 public class GraphicsPanel extends JPanel{
+
+    List<Shape> shapes;
+
+    GraphicsPanel(){
+        shapes = new ArrayList<>();
+    }
 
 
     @Override
@@ -14,9 +23,13 @@ public class GraphicsPanel extends JPanel{
 
         Graphics2D g2 = (Graphics2D )g;
 
-        //g2.drawRect(50,30,50, 30);
+        for (Shape shape : shapes) {
+            g2.fill(shape);
+            System.out.println("drawn");
+        }
+    }
 
-        g2.fillOval(300,30,200,200);
-        System.out.print("dude");
+    void addShape(Shape s){
+        shapes.add(s);
     }
 }
