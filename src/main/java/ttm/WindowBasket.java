@@ -40,13 +40,10 @@ public class WindowBasket {
     }
 
     void run(){
-        //Circle circle = new Circle(100,100,200);
         Ball ball = new Ball(300, 100, 50, 1);
         gp.addVisual(ball);
         world.addBody(ball);
-        //gp.addShape(circle.getVisual());
 
-        //window.add()
         while(true){
             cycle();
         }
