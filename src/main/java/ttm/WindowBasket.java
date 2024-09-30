@@ -15,6 +15,8 @@ public class WindowBasket {
 
     WindowBasket(){
         windowBounds = new Rectangle(0,0,500,300);
+        gp = new GraphicsPanel();
+
 
         window = new JFrame("window_basket");
         window.setBounds(windowBounds);
@@ -22,30 +24,18 @@ public class WindowBasket {
         window.setResizable(false);
         window.setVisible(true);
 
-        Circle circle = new Circle(100,100,200);
-        windowBounds = window.getBounds();
-        circle.calculateVisual(windowBounds);
-        window.removeAll();
-        
-        gp = new GraphicsPanel();
-        gp.addShape(circle.getVisual());
-        window.add(gp);
-        window.repaint();
-
     }
 
     void run(){
         Circle circle = new Circle(100,100,200);
+        gp.addShape(circle.getVisual());
+
         //window.add()
         while(true){
             windowBounds = window.getBounds();
             circle.calculateVisual(windowBounds);
-            window.removeAll();
-            gp = new GraphicsPanel();
-            gp.addShape(circle.getVisual());
             window.add(gp);
             window.repaint();
-            //System.out.println("dude");
         }
     }
 }

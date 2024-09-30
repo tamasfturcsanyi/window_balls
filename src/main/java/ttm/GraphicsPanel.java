@@ -25,7 +25,7 @@ public class GraphicsPanel extends JPanel{
 
         for (Shape shape : shapes) {
             g2.fill(shape);
-            System.out.println("drawn");
+            //System.out.println(shape.toString() + "drawn");
         }
     }
 
