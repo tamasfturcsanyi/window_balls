@@ -1,24 +1,37 @@
 package ttm;
 
-import ttm.Point;
-import java.awt.geom.Ellipse2D;
-import java.util.Vector;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.geom.Point2D;
 
-public class Ball {
+public class Ball extends PhysicksBody implements Visual{ 
     
+    Circle body;
 
-
-    //pos is modified by velocity every frame
-    Point velocity;
-
-    //velocity is modified by force/weight every frame
-    Point force;
-
-    double mass = 1;
+    
     double bounciness = 1; 
 
 
-    Ball(){
-        //visual = new Ellipse2D.Double(0,0,100,100);
+    Ball(double x, double y, double radius, double bounciness){
+        body = new Circle(x,y,radius);
+        this.bounciness = bounciness; 
+    }
+
+    public Shape getShape(){
+        return body.getShape();
+    }
+
+    public void updateVisuals(Rectangle windowBounds){
+        body.updateVisuals(windowBounds);
+    }
+
+    @Override
+    Point2D getPos(){
+        return body.position;
+    }
+
+    @Override
+    void setPos(Point2D newPos){
+        body.position = newPos;
     }
 }

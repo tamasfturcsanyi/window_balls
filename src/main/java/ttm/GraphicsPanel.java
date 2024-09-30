@@ -1,6 +1,7 @@
 package ttm;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.Shape;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +10,17 @@ import javax.swing.JPanel;
 
 public class GraphicsPanel extends JPanel{
 
-    List<Shape> shapes;
+    List<Visual> visualElements;
 
     GraphicsPanel(){
-        shapes = new ArrayList<>();
+        visualElements = new ArrayList<>();
     }
 
+    void updateElements(Rectangle windowBounds){
+        for (Visual visual : visualElements) {
+            visual.updateVisuals(windowBounds);
+        }
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -23,13 +29,13 @@ public class GraphicsPanel extends JPanel{
 
         Graphics2D g2 = (Graphics2D )g;
 
-        for (Shape shape : shapes) {
-            g2.fill(shape);
+        for (Visual v : visualElements) {
+            g2.fill(v.getShape());
             //System.out.println(shape.toString() + "drawn");
         }
     }
 
-    void addShape(Shape s){
-        shapes.add(s);
+    void addVisual(Visual v){
+        visualElements.add(v);
     }
 }

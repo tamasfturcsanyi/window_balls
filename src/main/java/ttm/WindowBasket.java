@@ -1,8 +1,6 @@
 package ttm;
 
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.geom.Point2D;
 
 import javax.swing.JFrame;
 
@@ -10,12 +8,15 @@ public class WindowBasket {
     GraphicsPanel gp;
 
     JFrame window;
-
     Rectangle windowBounds;
 
+    PhysicksWorld world;
+
+
     WindowBasket(){
-        windowBounds = new Rectangle(0,0,500,300);
+        windowBounds = new Rectangle(0,0,1000,800);
         gp = new GraphicsPanel();
+        world = new PhysicksWorld();
 
 
         window = new JFrame("window_basket");
@@ -26,16 +27,28 @@ public class WindowBasket {
 
     }
 
+    void physicksUpdate(){
+        world.update();
+    }
+
+    void cycle(){
+        windowBounds = window.getBounds();
+        physicksUpdate();
+        gp.updateElements(windowBounds);
+        window.add(gp);
+        window.repaint();
+    }
+
     void run(){
-        Circle circle = new Circle(100,100,200);
-        gp.addShape(circle.getVisual());
+        //Circle circle = new Circle(100,100,200);
+        Ball ball = new Ball(300, 100, 50, 1);
+        gp.addVisual(ball);
+        world.addBody(ball);
+        //gp.addShape(circle.getVisual());
 
         //window.add()
         while(true){
-            windowBounds = window.getBounds();
-            circle.calculateVisual(windowBounds);
-            window.add(gp);
-            window.repaint();
+            cycle();
         }
     }
 }
