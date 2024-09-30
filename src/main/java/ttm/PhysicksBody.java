@@ -6,7 +6,6 @@ import java.awt.geom.Point2D;
 public abstract class PhysicksBody {
 
 
-
     long previousTime;
 
     //pos is modified by velocity every frame
