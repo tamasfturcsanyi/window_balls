@@ -49,7 +49,7 @@ public abstract class PhysicksBody {
     //calculates new position, applies forces, moves Body
     void physicksUpdate(Vector2D oldPos){
         long currentTime = System.nanoTime();
-        long nanoDelta = System.nanoTime() - previousTime;
+        long nanoDelta = currentTime - previousTime;
 
         //convert to seconds
         double delta = nanoDelta * 0.000000001 * PhysicksWorld.SPEED;

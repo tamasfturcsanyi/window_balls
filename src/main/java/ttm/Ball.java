@@ -3,7 +3,7 @@ package ttm;
 import java.awt.Rectangle;
 import java.awt.Shape;
 
-public class Ball extends PhysicksBody implements Visual{ 
+public class Ball extends Actor{ 
     
     Circle body;
 
