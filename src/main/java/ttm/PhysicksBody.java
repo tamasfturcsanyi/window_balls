@@ -14,11 +14,14 @@ public abstract class PhysicksBody {
     //velocity is modified by force/weight every frame
     Point2D force;
 
+    Point2D externalForces;
+
     double mass = 1;
 
     PhysicksBody(){
         Point2D nulla = new Point2D.Double(0,0);
         force = nulla;
+        externalForces = nulla;
         velocity = nulla;
         previousTime = System.nanoTime();
     }
@@ -30,6 +33,9 @@ public abstract class PhysicksBody {
         force = new Point2D.Double(0,0);
         //apply gravity
         force = new Point2D.Double(force.getX(), force.getY() + PhysicksWorld.GRAVITY);
+
+        force = new Point2D.Double(force.getX() + externalForces.getX(), force.getY() + externalForces.getY());
+        externalForces = new Point2D.Double(0,0);
     }
 
     void calculateNewVelocity(double delta){
@@ -57,7 +63,7 @@ public abstract class PhysicksBody {
     }
 
     void addForce(Point2D f){
-        force = new Point2D.Double(force.getX()+f.getX(),force.getY()+f.getY());
+        externalForces = new Point2D.Double(externalForces.getX()+f.getX(),externalForces.getY()+f.getY());
     }
 
     

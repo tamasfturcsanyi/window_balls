@@ -1,10 +1,15 @@
 package ttm;
 
 import java.awt.Rectangle;
+import java.awt.geom.Point2D;
 
 import javax.swing.JFrame;
 
 public class WindowBasket {
+
+    static int WINDOW_HEIGHT = 300;
+    static int WINDOW_WIDTH = 500;
+
     GraphicsPanel gp;
 
     JFrame window;
@@ -14,7 +19,7 @@ public class WindowBasket {
 
 
     WindowBasket(){
-        windowBounds = new Rectangle(0,0,1000,800);
+        windowBounds = new Rectangle(0,0,WINDOW_WIDTH,WINDOW_HEIGHT);
         gp = new GraphicsPanel();
         world = new PhysicksWorld();
 
@@ -40,10 +45,10 @@ public class WindowBasket {
     }
 
     void run(){
-        Ball ball = new Ball(300, 100, 50, 1);
+        Ball ball = new Ball(100, 300, 20, 1);
         gp.addVisual(ball);
         world.addBody(ball);
-
+        ball.addForce(new Point2D.Double(000,-5000));
         while(true){
             cycle();
         }
