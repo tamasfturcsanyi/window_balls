@@ -2,7 +2,6 @@ package ttm;
 
 import java.awt.Rectangle;
 import java.awt.Shape;
-import java.awt.geom.Point2D;
 
 public class Ball extends PhysicksBody implements Visual{ 
     
@@ -26,12 +25,12 @@ public class Ball extends PhysicksBody implements Visual{
     }
 
     @Override
-    Point2D getPos(){
+    Vector2D getPos(){
         return body.position;
     }
 
     @Override
-    void setPos(Point2D newPos){
+    void setPos(Vector2D newPos){
         body.position = newPos;
     }
 }

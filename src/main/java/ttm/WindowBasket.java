@@ -1,7 +1,6 @@
 package ttm;
 
 import java.awt.Rectangle;
-import java.awt.geom.Point2D;
 
 import javax.swing.JFrame;
 
@@ -48,7 +47,7 @@ public class WindowBasket {
         Ball ball = new Ball(100, 300, 20, 1);
         gp.addVisual(ball);
         world.addBody(ball);
-        ball.addForce(new Point2D.Double(000,-5000));
+        ball.addForce(new Vector2D(1000,-10000));
         while(true){
             cycle();
         }

@@ -1,6 +1,5 @@
 package ttm;
 
-import java.awt.geom.Point2D;
 
 
 public abstract class PhysicksBody {
@@ -9,49 +8,50 @@ public abstract class PhysicksBody {
     long previousTime;
 
     //pos is modified by velocity every frame
-    Point2D velocity;
+    Vector2D velocity;
 
     //velocity is modified by force/weight every frame
-    Point2D force;
+    Vector2D force;
 
-    Point2D externalForces;
+    Vector2D externalForces;
 
     double mass = 1;
 
     PhysicksBody(){
-        Point2D nulla = new Point2D.Double(0,0);
+        Vector2D nulla = new Vector2D();
         force = nulla;
         externalForces = nulla;
         velocity = nulla;
         previousTime = System.nanoTime();
     }
 
-    abstract Point2D getPos(); 
-    abstract void setPos(Point2D newPos);
+    abstract Vector2D getPos(); 
+    abstract void setPos(Vector2D newPos);
 
     void calculateForces(){
-        force = new Point2D.Double(0,0);
+        force = new Vector2D();
         //apply gravity
-        force = new Point2D.Double(force.getX(), force.getY() + PhysicksWorld.GRAVITY);
+        force = force.add(new Vector2D(0, PhysicksWorld.GRAVITY));
 
-        force = new Point2D.Double(force.getX() + externalForces.getX(), force.getY() + externalForces.getY());
-        externalForces = new Point2D.Double(0,0);
+        force = force.add(externalForces);
+        externalForces = new Vector2D(0,0);
     }
 
     void calculateNewVelocity(double delta){
-        Point2D acceleration = new Point2D.Double(force.getX()/mass,force.getY()/mass);
-        velocity = new Point2D.Double(velocity.getX() + acceleration.getX() * delta,velocity.getY() + acceleration.getY() * delta);
+        Vector2D acceleration = new Vector2D(force.getX()/mass,force.getY()/mass);
+        velocity = velocity.add(acceleration.stretch(delta));
     }
 
-    void calculateNewPosition(double delta, Point2D oldPos){
-        this.setPos( new Point2D.Double(oldPos.getX() + velocity.getX() * delta,oldPos.getY() + velocity.getY() * delta));
-        
+    void calculateNewPosition(double delta, Vector2D oldPos){
+        this.setPos( oldPos.add(velocity.stretch(delta)));
     }
     
     //calculates new position, applies forces, moves Body
-    void physicksUpdate(Point2D oldPos){
+    void physicksUpdate(Vector2D oldPos){
         long currentTime = System.nanoTime();
         long nanoDelta = System.nanoTime() - previousTime;
+
+        //convert to seconds
         double delta = nanoDelta * 0.000000001 * PhysicksWorld.SPEED;
         
         calculateForces();
@@ -62,8 +62,8 @@ public abstract class PhysicksBody {
         previousTime = currentTime;
     }
 
-    void addForce(Point2D f){
-        externalForces = new Point2D.Double(externalForces.getX()+f.getX(),externalForces.getY()+f.getY());
+    void addForce(Vector2D f){
+        externalForces = externalForces.add(f);
     }
 
     
