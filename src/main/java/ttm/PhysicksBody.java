@@ -17,7 +17,12 @@ public abstract class PhysicksBody {
 
     double mass = 1;
 
-    PhysicksBody(){
+    boolean fix = false;
+
+    PhysicksBody(double mass, boolean fix){
+        this.mass = mass;
+        this.fix = fix;
+
         Vector2D nulla = new Vector2D();
         force = nulla;
         externalForces = nulla;
@@ -66,7 +71,7 @@ public abstract class PhysicksBody {
     void physicksUpdate(Vector2D oldPos){
         long currentTime = System.nanoTime();
 
-        //if theres no previous time, skip
+        //if theres no previous time: skip
         if(previousTime == 0){
             previousTime = currentTime;
             return;

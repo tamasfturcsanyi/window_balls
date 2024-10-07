@@ -19,7 +19,9 @@ public class PhysicksWorld{
 
     public void update(){
         for (PhysicksBody physicksBody : bodies) {
-            physicksBody.physicksUpdate(physicksBody.getPos());
+            if (!physicksBody.fix){
+                physicksBody.physicksUpdate(physicksBody.getPos());   
+            }
         }
     }
 }

@@ -51,19 +51,29 @@ public class WindowBasket {
         Vector2D starterForce = new Vector2D(300,-1000);
         
 
-        Ball ball2 = new Ball(200, 600, 10, 1);
-        Ball ball3 = new Ball(300, 600, 10, 1);
+        Ball ball2 = new Ball(200, 600,10);
+        Ball ball3 = new Ball(300, 600,10);
 
         this.add(ball2);
         this.add(ball3);
+
+        Line line = new Line(100,200,700,100);
+
+        gp.addVisual(line);
         ball2.addForce(starterForce);
         ball3.addForce(starterForce);
         
         int i = 0;
         while(true){
             cycle();
-
+            if(line.visual.intersects(ball2.getShape().getBounds2D())){
+                System.out.println("beep");
+            }
             if(i % 10000000 == 0){
+                line.visual.getBounds2D();
+
+                System.out.println(line.getShape().getBounds2D());
+
                 System.out.println("ball 1 velocity: " + ball2.getVelocity().toString());
                 System.out.println("ball 1 position: " + ball2.getPos().toString());
                 System.out.println();

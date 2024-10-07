@@ -11,7 +11,7 @@ public class BallTest {
 
     @Test
     void testConstructor(){
-        Ball ball1 = new Ball(100,300,20,1);
+        Ball ball1 = new Ball(100,300,20);
 
         assertEquals(100, ball1.getPos().getX());
         assertEquals(300, ball1.getPos().getY());
@@ -20,7 +20,7 @@ public class BallTest {
 
     @Test
     void testExternalForce(){
-        Ball ball = new Ball(100, 100, 10, 1);
+        Ball ball = new Ball(100, 100, 10);
         PhysicksWorld world = new PhysicksWorld();
         world.addBody(ball);
         Vector2D starter = new Vector2D(0,-100);
