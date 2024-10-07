@@ -90,7 +90,15 @@ public class Vector2DTest {
 
     }
 
-    
+    @Test
+    void testDiff(){
+        Vector2D vect1 = new Vector2D(10,5);
+        Vector2D vect2 = new Vector2D(10,7);
+
+
+        assertEquals(new Vector2D(0,2),vect1.diff( vect2));
+        assertEquals(new Vector2D(0,-2),vect2.diff( vect1));
+    }
 
 
     

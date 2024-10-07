@@ -35,7 +35,7 @@ public class Vector2D {
     }
 
     public Vector2D diff(Vector2D vect){
-        return new Vector2D(this.x -vect.getX(),this.y - vect.getY());
+        return new Vector2D( vect.getX()- this.x, vect.getY()- this.y);
     }
 
     public double length(){
@@ -60,7 +60,6 @@ public class Vector2D {
             return true;
         }
 
-        // Check if the object is an instance of Person and not null
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }

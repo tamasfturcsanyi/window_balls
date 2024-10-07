@@ -49,32 +49,33 @@ public class WindowBasket {
     }
 
     void run(){
-        Vector2D starterForce = new Vector2D(300,-1000);
+        Vector2D starterForce1 = new Vector2D(600,-2000);
+        Vector2D starterForce2 = new Vector2D(-600,-2000);
         
 
-        Ball ball2 = new Ball(200, 600,10);
-        Ball ball3 = new Ball(300, 600,10);
+        Ball ball1 = new Ball(200, 600,10);
+        ball1.setColor(Color.BLUE);
+        Ball ball2 = new Ball(700, 600,10);
+        ball2.setColor(Color.RED);
 
+        this.add(ball1);
         this.add(ball2);
-        this.add(ball3);
 
-        //Line line = new Line(100,200,700,100);
-        ttm.Rectangle rect = new ttm.Rectangle(new Vector2D(100,300),new Vector2D(300,100),Color.CYAN);
-
-        gp.addVisual(rect);
-        ball2.addForce(starterForce);
-        ball3.addForce(starterForce);
+        //ttm.Rectangle rect = new ttm.Rectangle(new Vector2D(100,300),new Vector2D(300,100),Color.CYAN);
+        //gp.addVisual(rect);
+        ball1.addForce(starterForce1);
+        ball2.addForce(starterForce2);
         
         int i = 0;
         while(true){
             cycle();
             if(i % 10000000 == 0){
-                System.out.println("ball 1 velocity: " + ball2.getVelocity().toString());
-                System.out.println("ball 1 position: " + ball2.getPos().toString());
+                System.out.println("ball 1 velocity: " + ball1.getVelocity().toString());
+                System.out.println("ball 1 position: " + ball1.getPos().toString());
                 System.out.println();
 
-                System.out.println("ball 2 velocity: " + ball3.getVelocity().toString());
-                System.out.println("ball 2 position: " + ball3.getPos().toString());
+                System.out.println("ball 2 velocity: " + ball2.getVelocity().toString());
+                System.out.println("ball 2 position: " + ball2.getPos().toString());
                 System.out.println();
 
 

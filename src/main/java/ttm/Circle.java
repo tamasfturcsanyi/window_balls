@@ -35,6 +35,10 @@ public class Circle implements Visual{
         visual.setFrame(position.getX()- windowBounds.getX(),position.getY()-windowBounds.getY(),2* radius, 2* radius);
     }
 
+
+    void setColor(Color c){
+        color = c;
+    }
     public Color getColor(){
         return color;
     }

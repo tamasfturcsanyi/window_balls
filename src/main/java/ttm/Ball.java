@@ -43,6 +43,10 @@ public class Ball extends Actor{
         body.position = newPos;
     }
 
+    void setColor(Color c){
+        body.setColor(c);
+    }
+
     @Override
     public Color getColor() {
         return body.getColor();
