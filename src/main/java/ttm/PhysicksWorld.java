@@ -9,15 +9,15 @@ public class PhysicksWorld{
 
     List<PhysicksBody> bodies;
 
-    PhysicksWorld(){
+    public PhysicksWorld(){
         bodies = new ArrayList<>();
     }
 
-    void addBody(PhysicksBody b){
+    public void addBody(PhysicksBody b){
         bodies.add(b);
     }
 
-    void update(){
+    public void update(){
         for (PhysicksBody physicksBody : bodies) {
             physicksBody.physicksUpdate(physicksBody.getPos());
         }

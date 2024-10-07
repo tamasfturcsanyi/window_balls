@@ -22,11 +22,27 @@ public abstract class PhysicksBody {
         force = nulla;
         externalForces = nulla;
         velocity = nulla;
-        previousTime = System.nanoTime();
+        previousTime = 0;
+    }
+
+
+    public double getMass(){
+        return mass;
     }
 
     abstract Vector2D getPos(); 
+    
     abstract void setPos(Vector2D newPos);
+
+    public Vector2D getExternalForce(){
+        return externalForces;
+    }
+
+    public Vector2D getVelocity() {
+        return velocity;
+    }
+
+    
 
     void calculateForces(){
         force = new Vector2D();
@@ -49,6 +65,12 @@ public abstract class PhysicksBody {
     //calculates new position, applies forces, moves Body
     void physicksUpdate(Vector2D oldPos){
         long currentTime = System.nanoTime();
+
+        //if theres no previous time, skip
+        if(previousTime == 0){
+            previousTime = currentTime;
+            return;
+        }
         long nanoDelta = currentTime - previousTime;
 
         //convert to seconds
@@ -62,7 +84,7 @@ public abstract class PhysicksBody {
         previousTime = currentTime;
     }
 
-    void addForce(Vector2D f){
+    public void addForce(Vector2D f){
         externalForces = externalForces.add(f);
     }
 

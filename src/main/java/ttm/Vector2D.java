@@ -40,4 +40,24 @@ public class Vector2D {
     public Vector2D stretch(double ammount){
         return new Vector2D(x*ammount,y* ammount);
     }
+
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj) {
+            return true;
+        }
+
+        // Check if the object is an instance of Person and not null
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Vector2D vect = (Vector2D) obj;
+        return (this.x == vect.getX() && this.y == vect.getY());
+    }
+
+    @Override
+    public String toString(){
+        return "x: " + getX() + " y: " + getY();
+    }
 }

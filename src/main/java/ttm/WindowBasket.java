@@ -48,11 +48,11 @@ public class WindowBasket {
     }
 
     void run(){
-        Vector2D starterForce = new Vector2D(3000,-10000);
+        Vector2D starterForce = new Vector2D(300,-1000);
         
 
-        Ball ball2 = new Ball(200, 300, 10, 1);
-        Ball ball3 = new Ball(300, 300, 10, 1);
+        Ball ball2 = new Ball(200, 600, 10, 1);
+        Ball ball3 = new Ball(300, 600, 10, 1);
 
         this.add(ball2);
         this.add(ball3);
@@ -63,12 +63,19 @@ public class WindowBasket {
         while(true){
             cycle();
 
-            ++i;
             if(i % 10000000 == 0){
-                //Ball ball = new Ball(100, 300, 20, 1);
-                //this.add(ball);
-                //ball.addForce(new Vector2D(3000,-10000));
+                System.out.println("ball 1 velocity: " + ball2.getVelocity().toString());
+                System.out.println("ball 1 position: " + ball2.getPos().toString());
+                System.out.println();
+
+                System.out.println("ball 2 velocity: " + ball3.getVelocity().toString());
+                System.out.println("ball 2 position: " + ball3.getPos().toString());
+                System.out.println();
+
+
             }
+            ++i;
+
         }
     }
 }

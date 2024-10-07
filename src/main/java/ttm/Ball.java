@@ -11,7 +11,7 @@ public class Ball extends Actor{
     double bounciness = 1; 
 
 
-    Ball(double x, double y, double radius, double bounciness){
+    public Ball(double x, double y, double radius, double bounciness){
         body = new Circle(x,y,radius);
         this.bounciness = bounciness; 
     }
@@ -25,7 +25,7 @@ public class Ball extends Actor{
     }
 
     @Override
-    Vector2D getPos(){
+    public Vector2D getPos(){
         return body.position;
     }
 
