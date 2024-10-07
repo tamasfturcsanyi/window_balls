@@ -24,7 +24,7 @@ public class Circle implements Visual{
         this.position = new Vector2D(x,y);
         this.radius = radius;
         this.color = color;
-        visual = new Ellipse2D.Double(0,0,0,0);
+        visual = new Ellipse2D.Double(x,y,2*radius,2*radius);
         updateVisuals(null);
     }
 

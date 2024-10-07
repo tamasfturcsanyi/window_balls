@@ -53,18 +53,19 @@ public class WindowBasket {
         Vector2D starterForce2 = new Vector2D(-600,-2000);
         
 
-        Ball ball1 = new Ball(200, 600,10);
-        ball1.setColor(Color.BLUE);
-        Ball ball2 = new Ball(700, 600,10);
-        ball2.setColor(Color.RED);
+        Ball ball1 = new Ball(200, 600,40,100,true,1,Color.BLUE);
+        Ball ball2 = new Ball(200, 100,40,1,false,10,Color.RED);
+
+        Ball ball3 = new Ball(200, 300,40,1,false,1,Color.PINK);
 
         this.add(ball1);
         this.add(ball2);
+        this.add(ball3);
 
         //ttm.Rectangle rect = new ttm.Rectangle(new Vector2D(100,300),new Vector2D(300,100),Color.CYAN);
         //gp.addVisual(rect);
         ball1.addForce(starterForce1);
-        ball2.addForce(starterForce2);
+        //ball2.addForce(starterForce2);
         
         int i = 0;
         while(true){

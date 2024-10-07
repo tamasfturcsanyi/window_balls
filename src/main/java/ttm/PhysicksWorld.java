@@ -25,7 +25,7 @@ public class PhysicksWorld{
                 physicksBody.physicksUpdate(physicksBody.getPos());
             }
             for (Actor otherBody : bodies) {
-                if (!physicksBody.fix && otherBody != physicksBody){
+                if ( otherBody != physicksBody){
                     if(physicksBody.getShape().intersects(otherBody.getShape().getBounds2D())){
                         collide( physicksBody,otherBody);
                     }

@@ -52,7 +52,7 @@ public abstract class PhysicksBody {
     void calculateForces(){
         force = new Vector2D();
         //apply gravity
-        force = force.add(new Vector2D(0, PhysicksWorld.GRAVITY));
+        force = force.add(new Vector2D(0, PhysicksWorld.GRAVITY * mass));
 
         force = force.add(externalForces);
         externalForces = new Vector2D(0,0);
