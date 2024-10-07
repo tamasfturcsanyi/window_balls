@@ -28,6 +28,7 @@ public class GraphicsPanel extends JPanel{
         Graphics2D g2 = (Graphics2D )g;
 
         for (Visual v : visualElements) {
+            g2.setColor(v.getColor());
             g2.fill(v.getShape());
         }
     }

@@ -1,5 +1,6 @@
 package ttm;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 
 import javax.swing.JFrame;
@@ -57,23 +58,17 @@ public class WindowBasket {
         this.add(ball2);
         this.add(ball3);
 
-        Line line = new Line(100,200,700,100);
+        //Line line = new Line(100,200,700,100);
+        ttm.Rectangle rect = new ttm.Rectangle(new Vector2D(100,300),new Vector2D(300,100),Color.CYAN);
 
-        gp.addVisual(line);
+        gp.addVisual(rect);
         ball2.addForce(starterForce);
         ball3.addForce(starterForce);
         
         int i = 0;
         while(true){
             cycle();
-            if(line.visual.intersects(ball2.getShape().getBounds2D())){
-                System.out.println("beep");
-            }
             if(i % 10000000 == 0){
-                line.visual.getBounds2D();
-
-                System.out.println(line.getShape().getBounds2D());
-
                 System.out.println("ball 1 velocity: " + ball2.getVelocity().toString());
                 System.out.println("ball 1 position: " + ball2.getPos().toString());
                 System.out.println();

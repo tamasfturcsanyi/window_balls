@@ -20,7 +20,7 @@ public class PhysicksWorld{
     public void update(){
         for (PhysicksBody physicksBody : bodies) {
             if (!physicksBody.fix){
-                physicksBody.physicksUpdate(physicksBody.getPos());   
+                physicksBody.physicksUpdate(physicksBody.getPos());
             }
         }
     }

@@ -1,5 +1,6 @@
 package ttm;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.geom.Line2D;
 
@@ -24,6 +25,11 @@ public class Line implements Visual {
     @Override
     public void updateVisuals(Rectangle windowBounds) {
         visual.setLine(p1.getX()- windowBounds.getX(),p1.getY()-windowBounds.getY(),p2.getX()- windowBounds.getX(),p2.getY()-windowBounds.getY());
+    }
+
+    @Override
+    public Color getColor() {
+        return Color.BLACK;
     }
 
 }

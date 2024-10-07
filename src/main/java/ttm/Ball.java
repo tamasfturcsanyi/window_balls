@@ -2,6 +2,7 @@ package ttm;
 
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.Color;
 
 public class Ball extends Actor{ 
     
@@ -17,10 +18,10 @@ public class Ball extends Actor{
         body = new Circle(x,y,radius);
     }
 
-    public Ball(double x, double y, double radius,double mass, boolean fix, double bounciness){
+    public Ball(double x, double y, double radius,double mass, boolean fix, double bounciness,Color color){
         super(mass,fix);
 
-        body = new Circle(x,y,radius);
+        body = new Circle(x,y,radius,color);
         this.bounciness = bounciness; 
     }
 
@@ -40,5 +41,10 @@ public class Ball extends Actor{
     @Override
     void setPos(Vector2D newPos){
         body.position = newPos;
+    }
+
+    @Override
+    public Color getColor() {
+        return body.getColor();
     }
 }
