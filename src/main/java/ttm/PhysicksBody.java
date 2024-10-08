@@ -23,7 +23,7 @@ public abstract class PhysicksBody {
         this.mass = mass;
         this.fix = fix;
 
-        Vector2D nulla = new Vector2D();
+        Vector2D nulla = new Vector2D(0,0);
         force = nulla;
         externalForces = nulla;
         velocity = nulla;
@@ -59,7 +59,7 @@ public abstract class PhysicksBody {
     }
 
     void calculateNewVelocity(double delta){
-        Vector2D acceleration = new Vector2D(force.getX()/mass,force.getY()/mass);
+        Vector2D acceleration = force.stretch(1/mass);
         velocity = velocity.add(acceleration.stretch(delta));
     }
 
@@ -80,6 +80,12 @@ public abstract class PhysicksBody {
 
         //convert to seconds
         double delta = nanoDelta * 0.000000001 * PhysicksWorld.SPEED;
+        if(delta < PhysicksWorld.MIN_DELTA){
+            delta = PhysicksWorld.MIN_DELTA;
+        }
+        if(delta > PhysicksWorld.MAX_DELTA){
+            delta = PhysicksWorld.MAX_DELTA;
+        }
         
         calculateForces();
         calculateNewVelocity(delta);

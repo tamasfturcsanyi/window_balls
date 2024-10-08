@@ -1,5 +1,4 @@
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import ttm.Ball;
@@ -43,4 +42,33 @@ public class BallTest {
 
     }
 
+
+    @Test
+    void testDelta(){
+        int numOfTest = 100000;
+        Ball[] balls = new Ball[numOfTest];
+        PhysicksWorld world = new PhysicksWorld();
+        double avarage = 0;
+        for(int i = 0; i < numOfTest; ++i){
+            balls[i] = new Ball(i*100, 0, 1);
+            balls[i].addForce(new Vector2D(0,-1000));
+            world.addBody(balls[i]);
+        }
+
+        world.update();
+        double min = balls[0].getVelocity().getY();
+        double max = 0;
+        for(int i = 0; i < numOfTest; ++i){
+            if(balls[i].getVelocity().getY() < min){
+                min = balls[i].getVelocity().getY();
+            }
+            if(balls[i].getVelocity().getY() > max){
+                max = balls[i].getVelocity().getY();
+            }
+        }
+        double diff = max - min;
+        
+
+        assertEquals(0,diff);
+    }
 }

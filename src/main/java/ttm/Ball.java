@@ -51,4 +51,20 @@ public class Ball extends Actor{
     public Color getColor() {
         return body.getColor();
     }
+
+    @Override
+    public Vector2D getCenter() {
+        return getPos();
+    }
+
+    @Override
+    public Vector2D bounce(Actor a) {
+        double maxDistance = a.getShape().getBounds2D().getWidth()/2+getShape().getBounds2D().getWidth()/2 ;
+        Vector2D diff = getPos().diff(a.getPos());
+        double clip = maxDistance-diff.length();
+        if (clip < 0){
+            clip = 0;
+        }
+        return diff.stretch(clip);
+    }
 }

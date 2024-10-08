@@ -6,7 +6,9 @@ import java.util.List;
 public class PhysicksWorld{
     public static final double GRAVITY = 10;
     public static final double SPEED = 10;
-    public static final double BONCINESS = 20;
+    public static final double BONCINESS = 0.5;
+    public static final double MIN_DELTA = 0;
+    public static final double MAX_DELTA = 0.01;
 
 
     List<Actor> bodies;
@@ -36,13 +38,7 @@ public class PhysicksWorld{
     }
 
     void collide(Actor a, Actor b){
-
-        Vector2D diff = b.getPos().diff(a.getPos());
-        a.addForce(diff.stretch(BONCINESS));
-
-        diff = a.getPos().diff(b.getPos());
-        b.addForce(diff.stretch(BONCINESS));
-
-
+        a.addForce(b.bounce(a).stretch(BONCINESS));
+        b.addForce(a.bounce(b).stretch(BONCINESS));
     }
 }
