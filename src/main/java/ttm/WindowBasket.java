@@ -17,6 +17,8 @@ public class WindowBasket {
 
     PhysicksWorld world;
 
+    Wall[] walls;
+
 
     WindowBasket(){
         windowBounds = new Rectangle(0,0,WINDOW_WIDTH,WINDOW_HEIGHT);
@@ -30,6 +32,17 @@ public class WindowBasket {
         window.setResizable(false);
         window.setVisible(true);
         window.add(gp);
+
+        walls = new Wall[4];
+
+        walls[0] = new Wall(windowBounds,Direction.NORTH,50000);
+        walls[1] = new Wall(windowBounds,Direction.EAST,50000);
+        walls[2] = new Wall(windowBounds,Direction.SOUTH,50000);
+        walls[3] = new Wall(windowBounds,Direction.WEST,50000);
+
+        for (Wall wall : walls) {
+            this.add(wall);
+        }
     }
 
     void add(Actor actor){
@@ -48,62 +61,20 @@ public class WindowBasket {
         window.repaint();
     }
 
-    void run(){
-        Vector2D starterForce1 = new Vector2D(-0,-10);
-        Vector2D starterForce2 = new Vector2D(10,-1);
-        
-        Wall wall1 = new Wall(windowBounds,Direction.NORTH,500);
-        Wall wall2 = new Wall(windowBounds,Direction.EAST,500);
-        Wall wall3 = new Wall(windowBounds,Direction.SOUTH,500);
-        Wall wall4 = new Wall(windowBounds,Direction.WEST,500);
+    void run(){    
+        //example balls
+        Ball ball1 = new Ball(400, 200,20,1,false,1,Color.BLUE);
+        Ball ball2 = new Ball(500, 100,40,3,false,1,Color.RED);
+        Ball ball3 = new Ball(800, 300,40,2,false,1,Color.PINK);
 
-        Brick brick = new Brick(new Vector2D(300,600),new Vector2D(1000,200));
-
-        
-        Ball ball1 = new Ball(400, 200,40,1,false,1,Color.BLUE);
-        Ball ball2 = new Ball(500, 100,40,1,false,1,Color.RED);
-        Ball ball3 = new Ball(800, 300,40,1,false,1,Color.PINK);
-
-        this.add(ball1);
+        //adds to physicksWorld, and graphicsPanel
         this.add(ball2);
         this.add(ball3);
+        this.add(ball1);
 
-        //this.add(brick);
-
-        this.add(wall1);
-        this.add(wall2);
-        this.add(wall3);
-        this.add(wall4);
-
-        //ttm.Rectangle rect = new ttm.Rectangle(new Vector2D(100,300),new Vector2D(300,100),Color.CYAN);
-        //gp.addVisual(rect);
-        //ball1.addForce(starterForce1.stretch(10000));
-        //ball2.addForce(starterForce2.stretch(1000));
-        //
-        int i = 0;
+        //main loop, only exits if window is closed
         while(true){
             cycle();
-            if(i % 10000000 == 0){
-                //System.out.println(wall1.getPos());
-                //System.out.println(wall2.getPos());
-                System.out.println("pos " + wall3.getPos());
-                System.out.println("dim " + wall3.getBody().dimension);
-                System.out.println("shape " + wall3.getShape().getBounds2D());
-                //System.out.println(wall4.getPos());
-                System.out.println();
-
-                //System.out.println("ball 1 velocity: " + ball1.getVelocity().toString());
-                //System.out.println("ball 1 position: " + ball1.getPos().toString());
-                //System.out.println();
-//
-                //System.out.println("ball 2 velocity: " + ball2.getVelocity().toString());
-                //System.out.println("ball 2 position: " + ball2.getPos().toString());
-                //System.out.println();
-
-
-            }
-            ++i;
-
         }
     }
 }

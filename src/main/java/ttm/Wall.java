@@ -12,7 +12,12 @@ public class Wall extends Actor{
 
     double thickness;
 
-    double OFFSET = 50;
+    double offsetSouth = 50;
+    double offsetEast = 10;
+
+    double bonus = 50000;
+    
+    
 
     public Wall(Rectangle2D windowBounds,Direction d,double thickness){
         super(1,true);
@@ -25,32 +30,32 @@ public class Wall extends Actor{
     public void updateVisuals(java.awt.Rectangle windowBounds) {
         switch (direction){
             case NORTH:
-                body.position.x =  windowBounds.getX();
+                body.position.x =  windowBounds.getX() - bonus;
                 body.position.y = windowBounds.getY() - thickness;
 
-                body.dimension.x = windowBounds.getWidth();
+                body.dimension.x = windowBounds.getWidth() + bonus;
                 body.dimension.y = thickness;
                 break;
             case EAST:
-                body.position.x =  windowBounds.getX()+ windowBounds.getWidth();
-                body.position.y = windowBounds.getY() ;
+                body.position.x =  windowBounds.getX()+ windowBounds.getWidth() - offsetEast;
+                body.position.y = windowBounds.getY() -bonus;
 
                 body.dimension.x = thickness;
-                body.dimension.y = windowBounds.getHeight();
+                body.dimension.y = windowBounds.getHeight() + bonus;
                 break;
             case SOUTH:
-                body.position.x =  windowBounds.getX();
-                body.position.y = windowBounds.getY() + windowBounds.getHeight() - OFFSET;
+                body.position.x =  windowBounds.getX() - bonus;
+                body.position.y = windowBounds.getY() + windowBounds.getHeight() - offsetSouth;
 
-                body.dimension.x = windowBounds.getWidth();
+                body.dimension.x = windowBounds.getWidth() + bonus;
                 body.dimension.y = thickness;
                 break;
             case WEST:
                 body.position.x =  windowBounds.getX() - thickness;
-                body.position.y = windowBounds.getY();
+                body.position.y = windowBounds.getY() - bonus;
 
                 body.dimension.x = thickness;
-                body.dimension.y = windowBounds.getHeight();
+                body.dimension.y = windowBounds.getHeight() + bonus;
                 break;
             default:
                 break;
