@@ -7,8 +7,8 @@ import javax.swing.JFrame;
 
 public class WindowBasket {
 
-    static int WINDOW_HEIGHT = 1300;
-    static int WINDOW_WIDTH = 1500;
+    static int WINDOW_HEIGHT = 600;
+    static int WINDOW_WIDTH = 1000;
 
     GraphicsPanel gp;
 
@@ -52,31 +52,30 @@ public class WindowBasket {
         Vector2D starterForce1 = new Vector2D(-0,-10);
         Vector2D starterForce2 = new Vector2D(10,-1);
         
-        //Wall wall1 = new Wall(Direction.NORTH,100);
-        //Wall wall2 = new Wall(Direction.EAST,100);
-        //Wall wall3 = new Wall(Direction.SOUTH,100);
-        //Wall wall4 = new Wall(Direction.WEST,100);
+        Wall wall1 = new Wall(windowBounds,Direction.NORTH,500);
+        Wall wall2 = new Wall(windowBounds,Direction.EAST,500);
+        Wall wall3 = new Wall(windowBounds,Direction.SOUTH,500);
+        Wall wall4 = new Wall(windowBounds,Direction.WEST,500);
 
         Brick brick = new Brick(new Vector2D(300,600),new Vector2D(1000,200));
 
         
-        Ball ball1 = new Ball(400, 500,40,1,false,1,Color.BLUE);
-        Ball ball2 = new Ball(500, 100,40,10,false,1,Color.RED);
-
+        Ball ball1 = new Ball(400, 200,40,1,false,1,Color.BLUE);
+        Ball ball2 = new Ball(500, 100,40,1,false,1,Color.RED);
         Ball ball3 = new Ball(800, 300,40,1,false,1,Color.PINK);
 
         this.add(ball1);
         this.add(ball2);
         this.add(ball3);
 
-        this.add(brick);
+        //this.add(brick);
 
-        //this.add(wall1);
-        //this.add(wall2);
-        //this.add(wall3);
-        //this.add(wall4);
+        this.add(wall1);
+        this.add(wall2);
+        this.add(wall3);
+        this.add(wall4);
 
-        ttm.Rectangle rect = new ttm.Rectangle(new Vector2D(100,300),new Vector2D(300,100),Color.CYAN);
+        //ttm.Rectangle rect = new ttm.Rectangle(new Vector2D(100,300),new Vector2D(300,100),Color.CYAN);
         //gp.addVisual(rect);
         //ball1.addForce(starterForce1.stretch(10000));
         //ball2.addForce(starterForce2.stretch(1000));
@@ -87,9 +86,11 @@ public class WindowBasket {
             if(i % 10000000 == 0){
                 //System.out.println(wall1.getPos());
                 //System.out.println(wall2.getPos());
-                //System.out.println(wall3.getPos());
+                System.out.println("pos " + wall3.getPos());
+                System.out.println("dim " + wall3.getBody().dimension);
+                System.out.println("shape " + wall3.getShape().getBounds2D());
                 //System.out.println(wall4.getPos());
-                //System.out.println();
+                System.out.println();
 
                 //System.out.println("ball 1 velocity: " + ball1.getVelocity().toString());
                 //System.out.println("ball 1 position: " + ball1.getPos().toString());

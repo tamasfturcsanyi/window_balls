@@ -37,6 +37,6 @@ public class Rectangle implements Visual {
 
     @Override
     public void updateVisuals(java.awt.Rectangle windowBounds) {
-        visual.setRect(position.x - windowBounds.x, position.y - windowBounds.y,visual.width,visual.height);
+        visual.setRect(position.x - windowBounds.x, position.y - windowBounds.y,dimension.x,dimension.y);
     }
 }
