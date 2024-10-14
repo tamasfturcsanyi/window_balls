@@ -6,7 +6,7 @@ import ttm.PhysicksWorld;
 import ttm.Vector2D;
 
 
-public class BallTest {
+class BallTest {
 
     @Test
     void testConstructor(){

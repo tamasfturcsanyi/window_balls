@@ -3,7 +3,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import ttm.Vector2D;
 
-public class Vector2DTest {
+class Vector2DTest {
 
     double limes = 0.0000001;
 
@@ -50,7 +50,6 @@ public class Vector2DTest {
 
     @Test
     void testAdd(){
-        Vector2D nulla = new Vector2D();
         Vector2D vect1 = new Vector2D(1,2);
         Vector2D vect2 = new Vector2D(3, 4);
 

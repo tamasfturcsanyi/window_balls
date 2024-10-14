@@ -4,7 +4,7 @@ import ttm.Line;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class LineTest {
+class LineTest {
     @Test
     void testConstructor(){
         Line line = new Line(100,200,100,300);

@@ -3,8 +3,6 @@ package ttm;
 import java.awt.Color;
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
-
-import ttm.Visual;
 public class Rectangle implements Visual {
     Vector2D position;
     Vector2D dimension;
