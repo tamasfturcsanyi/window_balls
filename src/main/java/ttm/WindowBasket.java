@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 
 public class WindowBasket {
 
-    static int WINDOW_HEIGHT = 600;
+    static int WINDOW_HEIGHT = 700;
     static int WINDOW_WIDTH = 1000;
 
     GraphicsPanel gp;
@@ -64,7 +64,7 @@ public class WindowBasket {
     void run(){    
         //example balls
         Ball ball1 = new Ball(400, 200,20,1,false,1,Color.BLUE);
-        Ball ball2 = new Ball(500, 100,40,3,false,1,Color.RED);
+        Ball ball2 = new Ball(500, 100,40,10,false,1,Color.RED);
         Ball ball3 = new Ball(800, 300,40,2,false,1,Color.PINK);
 
         //adds to physicksWorld, and graphicsPanel

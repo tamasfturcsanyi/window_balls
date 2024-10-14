@@ -106,21 +106,16 @@ public class Wall extends Actor{
         return body.getShape();
     }
 
-    @Override
-    public Vector2D getExternalForce() {
-        return super.getExternalForce();
+    public double getBonus() {
+        return bonus;
     }
 
-    @Override
-    public double getMass() {
-        return super.getMass();
+    public double getOffsetEast() {
+        return offsetEast;
     }
-
-    @Override
-    public Vector2D getVelocity() {
-        return super.getVelocity();
+    public double getOffsetSouth() {
+        return offsetSouth;
     }
-
         
 
     public Rectangle getBody() {

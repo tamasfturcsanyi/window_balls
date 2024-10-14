@@ -7,9 +7,7 @@ public class PhysicksWorld{
     public static final double GRAVITY = 10;
     public static final double SPEED = 10;
     public static final double BONCINESS = 0.5;
-    public static final double MIN_DELTA = 0;
-    public static final double MAX_DELTA = 5;
-    public static final double ENERGY_LEFTOVER = 0.9999999;
+    public static final double ENERGY_LEFTOVER = 0.999998;
     public static final double SPEED_LIMIT = 500;
 
 

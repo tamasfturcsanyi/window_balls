@@ -7,11 +7,6 @@ public class Vector2DTest {
 
     double limes = 0.0000001;
 
-
-    boolean doubleCompare(double expected, double actual,double limes){
-        return Math.abs(actual-expected) < limes;
-    }
-
     @Test
     void testConstructorXY(){
         Vector2D p1 = new Vector2D();
@@ -29,28 +24,28 @@ public class Vector2DTest {
         Vector2D vect1 = new Vector2D(0, 1, true);
 
         assertEquals(1,vect1.getX());
-        assertTrue(doubleCompare(0, vect1.getY(), limes));
+        assertEquals(0, vect1.getY(), limes);
         
 
         Vector2D vect2 = new Vector2D(90, 1, true);
 
-        assertTrue(doubleCompare(0, vect2.getX(), limes));
+        assertEquals(0, vect2.getX(), limes);
         assertEquals(-1, vect2.getY());
 
         Vector2D vect3 = new Vector2D(45,Math.sqrt(2),true);
 
-        assertTrue(doubleCompare(1,vect3.getX(), limes));
-        assertTrue(doubleCompare(-1,vect3.getY(), limes));
+        assertEquals(1,vect3.getX(), limes);
+        assertEquals(-1,vect3.getY(), limes);
 
         Vector2D vect4 = new Vector2D(180,1,true);
 
-        assertTrue(doubleCompare(-1,vect4.getX(), limes));
-        assertTrue(doubleCompare(0,vect4.getY(), limes));
+        assertEquals(-1,vect4.getX(), limes);
+        assertEquals(0,vect4.getY(), limes);
 
         Vector2D vect5 = new Vector2D(270,1,true);
 
-        assertTrue(doubleCompare(0,vect5.getX(), limes));
-        assertTrue(doubleCompare(1,vect5.getY(), limes));
+        assertEquals(0,vect5.getX(), limes);
+        assertEquals(1,vect5.getY(), limes);
     }
 
     @Test
@@ -80,13 +75,13 @@ public class Vector2DTest {
         Vector2D vect1 = new Vector2D(0, 1, true);
         
 
-        assertTrue(doubleCompare(1, vect1.getX(), limes));
-        assertTrue(doubleCompare(0, vect1.getY(), limes));
+        assertEquals(1, vect1.getX(), limes);
+        assertEquals(0, vect1.getY(), limes);
 
         vect1 = vect1.rotate(Math.toRadians(90));
 
-        assertTrue(doubleCompare(0, vect1.getX(), limes));
-        assertTrue(doubleCompare(-1, vect1.getY(), limes));
+        assertEquals(0, vect1.getX(), limes);
+        assertEquals(-1, vect1.getY(), limes);
 
     }
 
