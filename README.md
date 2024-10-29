@@ -1,4 +1,4 @@
-# NAGYHÁZI 3 SPECIFIKÁCIÓ
+# Turcsányi Tamás (CQUG9B) SPECIFIKÁCIÓ
 
 ## Rövid ismertetés
 
@@ -22,7 +22,7 @@ Ebben a módban a felhasználó tervezhet és lejátszhat egy szimulációt mely
 
 A szimulációnak meghatározhatja a sebességét, gravitációját és, hogy mennyire vesszen el energia(milyen gyorsan áljanak meg a labdák). A szimulációt megtudja állítani, felgyorsítani vagy újra indítani.
 
-A falaknak és fix köröknek meglehet adni a méretét, helyzetét és színét. A labdáknak méretét, helyzetét, színét, tömegét, pattogóságát. A fix elemek mint a körök és falakról csak lepattannak a labdák, ők maguk nem mozdulnak.
+A falaknak és fix köröknek meg lehet adni a méretét, helyzetét és színét. A labdáknak méretét, helyzetét, színét, tömegét, pattogóságát. A fix elemek mint a körök és falakról csak lepattannak a labdák, ők maguk nem mozdulnak.
 
 A szimulációra az is hatással van hogyan mozog a program ablaka az asztalon. Ha megrázzuk akkor a falakról lepatannak a labdák.
 A szimulációkat el lehet menteni fáljba és késöbb megnyitni. Minden elmentődik a szimulációról, még az egyes labdák sebessége is.
@@ -47,7 +47,7 @@ A programban egy menün keresztül érhetjük el a különböző módokat. A men
 
 #### Menü
 A szimuláció menüjében egyik gomb egy üres szimulációt nyit meg. A másik pedig a program mappájában lévő szimulációk listáját nyitja meg, melyek közül választhat. Ha rányom egy szimuláció gombjára kijelöli azt. A kijelölt szimulációval két dolgot tehet.
-- lejátszás
+- megnyitás
 - törlés
 
 #### Futó
