@@ -1,7 +1,8 @@
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
-import ttm.Vector2D;
+import game.engine.Vector2D;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class Vector2DTest {
 

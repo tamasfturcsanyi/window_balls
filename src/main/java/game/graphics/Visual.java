@@ -1,4 +1,4 @@
-package ttm;
+package game.graphics;
 
 import java.awt.Color;
 import java.awt.Rectangle;

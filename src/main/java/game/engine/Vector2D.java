@@ -1,4 +1,4 @@
-package ttm;
+package game.engine;
 
 public class Vector2D {
     double x;
@@ -14,8 +14,8 @@ public class Vector2D {
         this.y = y;
     }
 
-    public Vector2D(double angle, double lenght,boolean DEG){
-        if(DEG){
+    public Vector2D(double angle, double lenght,boolean deg){
+        if(deg){
             angle = Math.toRadians(angle);
         }
         

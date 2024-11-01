@@ -1,4 +1,4 @@
-package ttm;
+package game.engine;
 
 
 
@@ -92,12 +92,6 @@ public abstract class PhysicksBody {
 
         //convert to seconds
         double delta = nanoDelta * 0.000000001 * PhysicksWorld.SPEED;
-        //if(delta < PhysicksWorld.MIN_DELTA){
-        //    delta = PhysicksWorld.MIN_DELTA;
-        //}
-        //if(delta > PhysicksWorld.MAX_DELTA){
-        //    delta = PhysicksWorld.MAX_DELTA;
-        //}
         
         calculateForces();
         calculateNewVelocity(delta);

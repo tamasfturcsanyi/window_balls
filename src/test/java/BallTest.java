@@ -1,9 +1,10 @@
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
-import ttm.Ball;
-import ttm.PhysicksWorld;
-import ttm.Vector2D;
+import game.engine.Ball;
+import game.engine.PhysicksWorld;
+import game.engine.Vector2D;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class BallTest {

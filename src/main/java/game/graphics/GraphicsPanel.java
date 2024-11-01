@@ -1,4 +1,4 @@
-package ttm;
+package game.graphics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -11,11 +11,11 @@ public class GraphicsPanel extends JPanel{
 
     transient List<Visual> visualElements;
 
-    GraphicsPanel(){
+    public GraphicsPanel(){
         visualElements = new ArrayList<>();
     }
 
-    void updateElements(Rectangle windowBounds){
+    public void updateElements(Rectangle windowBounds){
         for (Visual visual : visualElements) {
             visual.updateVisuals(windowBounds);
         }
@@ -30,11 +30,10 @@ public class GraphicsPanel extends JPanel{
         for (Visual v : visualElements) {
             g2.setColor(v.getColor());
             g2.fill(v.getShape());
-            //g2.draw(v.getShape().getBounds2D());
         }
     }
 
-    void addVisual(Visual v){
+    public void addVisual(Visual v){
         visualElements.add(v);
     }
 }

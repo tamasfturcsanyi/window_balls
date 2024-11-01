@@ -1,8 +1,10 @@
-package ttm;
+package game.engine;
 
 import java.awt.Color;
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
+
+import game.graphics.Visual;
 public class Rectangle implements Visual {
     Vector2D position;
     Vector2D dimension;

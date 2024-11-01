@@ -1,4 +1,4 @@
-package ttm;
+package game.engine;
 
 import java.awt.Color;
 import java.awt.Shape;
@@ -19,7 +19,7 @@ public class Wall extends Actor{
     
     
 
-    public Wall(Rectangle2D windowBounds,Direction d,double thickness){
+    public Wall(Direction d,double thickness){
         super(1,true);
         this.thickness = thickness;
         direction = d;

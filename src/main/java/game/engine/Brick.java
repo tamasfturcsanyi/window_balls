@@ -1,4 +1,4 @@
-package ttm;
+package game.engine;
 
 import java.awt.Color;
 import java.awt.Shape;
@@ -20,7 +20,7 @@ public class Brick extends Actor{
 
     @Override
     public Vector2D getCenter() {
-        return body.getPosition().add(body.dimension.stretch(1/2));
+        return body.getPosition().add(body.dimension.stretch(0.5));
     }
 
     @Override

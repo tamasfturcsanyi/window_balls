@@ -1,8 +1,10 @@
 import org.junit.jupiter.api.Test;
+
+import game.engine.Direction;
+import game.engine.Wall;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-import ttm.Direction;
-import ttm.Wall;
 import java.awt.Rectangle;
 
 
@@ -11,7 +13,7 @@ class WallTest{
     void testConstructorNorth(){
         Rectangle windowBounds = new Rectangle(0, 0, 500, 300);
 
-        Wall wall = new Wall(windowBounds,Direction.NORTH, 200);
+        Wall wall = new Wall(Direction.NORTH, 200);
         wall.updateVisuals(windowBounds);
 
         assertEquals(0 - wall.getBonus(),wall.getBody().getPosition().getX());
@@ -25,7 +27,7 @@ class WallTest{
     void testConstructorEast(){
         Rectangle windowBounds = new Rectangle(0, 0, 500, 300);
 
-        Wall wall = new Wall(windowBounds,Direction.EAST, 200);
+        Wall wall = new Wall(Direction.EAST, 200);
         wall.updateVisuals(windowBounds);
 
         assertEquals(500 - wall.getOffsetEast(),wall.getBody().getPosition().getX());
@@ -39,7 +41,7 @@ class WallTest{
     void testConstructorWest(){
         Rectangle windowBounds = new Rectangle(0, 0, 500, 300);
 
-        Wall wall = new Wall(windowBounds,Direction.WEST, 200);
+        Wall wall = new Wall(Direction.WEST, 200);
         wall.updateVisuals(windowBounds);
 
         assertEquals(-200,wall.getBody().getPosition().getX());

@@ -1,4 +1,4 @@
-package ttm;
+package game.engine;
 
 import java.awt.Rectangle;
 import java.awt.Shape;

@@ -1,4 +1,4 @@
-package ttm;
+package game.engine;
 
 public enum Direction{
     NORTH,
