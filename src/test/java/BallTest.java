@@ -49,7 +49,6 @@ class BallTest {
         int numOfTest = 100;
         Ball[] balls = new Ball[numOfTest];
         PhysicksWorld world = new PhysicksWorld();
-        double avarage = 0;
         for(int i = 0; i < numOfTest; ++i){
             balls[i] = new Ball(i*100, 0, 1);
             balls[i].addForce(new Vector2D(0,-1000));

@@ -11,8 +11,6 @@ public class PhysicksWorld{
     public static final double SPEED_LIMIT = 500;
 
 
-
-
     List<Actor> bodies;
 
     public PhysicksWorld(){

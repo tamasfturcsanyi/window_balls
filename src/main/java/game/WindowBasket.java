@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 
 import game.graphics.GraphicsPanel;
 import game.engine.*;
-import game.graphics.*;
 
 public class WindowBasket {
 
@@ -31,7 +30,7 @@ public class WindowBasket {
 
         window = new JFrame("window_basket");
         window.setBounds(windowBounds);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setVisible(true);
         window.add(gp);
