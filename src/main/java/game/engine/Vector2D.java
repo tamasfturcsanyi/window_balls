@@ -55,20 +55,6 @@ public class Vector2D {
     }
 
     @Override
-    public boolean equals(Object obj){
-        if (this == obj) {
-            return true;
-        }
-
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-
-        Vector2D vect = (Vector2D) obj;
-        return (this.x == vect.getX() && this.y == vect.getY());
-    }
-
-    @Override
     public String toString(){
         return "x: " + getX() + " y: " + getY();
     }
