@@ -2,9 +2,13 @@ package game.engine;
 
 import javax.swing.JFrame;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import game.graphics.GraphicsPanel;
 
 import java.awt.Color;
+import java.io.FileWriter;
 
 public class Simulation {
     String title = "Simulation";
@@ -72,6 +76,20 @@ public class Simulation {
 
         //adds to physicksWorld, and graphicsPanel
         this.add(brick);
+
+        Gson gson = new GsonBuilder()
+            .registerTypeAdapter(Color.class, new ColorTypeAdapter())
+                .create();
+
+        String worldJSON = gson.toJson(world);
+        try {
+            FileWriter writer = new FileWriter("src/main/resources/world.json");
+            writer.write(worldJSON);
+            writer.flush();
+            writer.close();
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
 
         //main loop, only exits if window is closed
         while(true){
