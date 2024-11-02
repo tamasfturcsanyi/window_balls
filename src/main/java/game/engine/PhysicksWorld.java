@@ -7,13 +7,9 @@ import java.awt.Color;
 import java.awt.Rectangle;
 
 public class PhysicksWorld{
-    public static final double GRAVITY = 10;
-    public static final double SPEED = 10;
-    public static final double BONCINESS = 0.5;
-    public static final double ENERGY_LEFTOVER = 0.999998;
-    public static final double SPEED_LIMIT = 500;
-
     String title = "Simulation";
+
+    SimulationParameters params = new SimulationParameters();
 
     List<Actor> bodies = new ArrayList<>();
     java.awt.Rectangle windowBounds = new Rectangle(0, 0, 500, 400);
@@ -39,7 +35,7 @@ public class PhysicksWorld{
     public void update(){
         for (Actor physicksBody : bodies) {
             if (!physicksBody.fix){
-                physicksBody.physicksUpdate(physicksBody.getPos());
+                physicksBody.physicksUpdate(params);
             }
             for (Actor otherBody : bodies) {
                 if ( otherBody != physicksBody){
@@ -56,18 +52,42 @@ public class PhysicksWorld{
         title = "Preset_1";
 
         for(int i = 0; i < 10;++i){
-            Ball ball = new Ball(20+i * 10, 200,10,1,false,1,Color.BLUE);
+            Ball ball = new Ball((20 + i * 10), 200,10,1,false,1,Color.BLUE);
             addBody(ball);
         }
 
         Brick brick = new Brick(new Vector2D(300,500),new Vector2D(500,15));
 
         addBody(brick);
+
+        wallInit();
+    }
+
+    void preset2(){
+        title = "Preset_2";
+
+        params = new SimulationParameters(10,10,0.5,0.999988,500); 
+
+        for(int i = 0; i < 10;++i){
+            Ball ball = new Ball((20 + i * 10), 200,10,1,false,1,Color.BLUE);
+            addBody(ball);
+        }
+
+        for(int i = 0; i < 10;++i){
+            Ball ball = new Ball((20 + i * 10), 300,10,1,false,1,Color.RED);
+            addBody(ball);
+        }
+
+        Brick brick = new Brick(new Vector2D(300,500),new Vector2D(500,15));
+
+        addBody(brick);
+
+        wallInit();
     }
 
     void collide(Actor a, Actor b){
-        a.addForce(b.bounce(a).stretch(BONCINESS));
-        b.addForce(a.bounce(b).stretch(BONCINESS));
+        a.addForce(b.bounce(a).stretch(params.bounciness));
+        b.addForce(a.bounce(b).stretch(params.bounciness));
     }
 
     public String getTitle() {

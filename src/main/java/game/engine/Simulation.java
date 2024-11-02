@@ -40,10 +40,10 @@ public class Simulation {
     }
 
     public void run(){    
-        world = loadWorld("src/main/resources/Preset_1.json");
-        //world.preset1();
-        //world.wallInit();
+        //world = loadWorld("src/main/resources/Preset_2.json");
+        world.preset2();
 
+        window.setBounds(world.windowBounds);
         initGraphicsPanel();
         //saveWorld();
 

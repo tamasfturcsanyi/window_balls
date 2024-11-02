@@ -3,8 +3,6 @@ package game.engine;
 
 
 public abstract class PhysicksBody {
-
-
     long previousTime;
 
     //pos is modified by velocity every frame
@@ -49,38 +47,38 @@ public abstract class PhysicksBody {
 
     
 
-    void calculateForces(){
+    void calculateForces(SimulationParameters params){
         force = new Vector2D();
         //apply gravity
-        force = force.add(new Vector2D(0, PhysicksWorld.GRAVITY * mass));
+        force = force.add(new Vector2D(0, params.gravity * mass));
 
         force = force.add(externalForces);
         externalForces = new Vector2D(0,0);
     }
 
-    void calculateNewVelocity(double delta){
+    void calculateNewVelocity(double delta, SimulationParameters params){
         Vector2D acceleration = force.stretch(1/mass);
 
-        
-
+        //apply acceleration
         velocity = velocity.add(acceleration.stretch(delta));
 
         //friction
-        velocity = velocity.stretch(PhysicksWorld.ENERGY_LEFTOVER);
+        velocity = velocity.stretch(params.energyLeftover);
 
-        if(velocity.length() > PhysicksWorld.SPEED_LIMIT){
+        //speed limit
+        if(velocity.length() > params.speedLimit){
             velocity = velocity.stretch(0.9);
         }
 
         
     }
 
-    void calculateNewPosition(double delta, Vector2D oldPos){
-        this.setPos( oldPos.add(velocity.stretch(delta)));
+    void calculateNewPosition(double delta){
+        this.setPos(getPos().add(velocity.stretch(delta)));
     }
     
     //calculates new position, applies forces, moves Body
-    void physicksUpdate(Vector2D oldPos){
+    void physicksUpdate(SimulationParameters params){
         long currentTime = System.nanoTime();
 
         //if theres no previous time: skip
@@ -91,11 +89,11 @@ public abstract class PhysicksBody {
         long nanoDelta = currentTime - previousTime;
 
         //convert to seconds
-        double delta = nanoDelta * 0.000000001 * PhysicksWorld.SPEED;
+        double delta = nanoDelta * 0.000000001 * params.speed;
         
-        calculateForces();
-        calculateNewVelocity(delta);
-        calculateNewPosition(delta, oldPos);
+        calculateForces(params);
+        calculateNewVelocity(delta, params);
+        calculateNewPosition(delta);
         
 
         previousTime = currentTime;
