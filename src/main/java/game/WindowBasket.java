@@ -5,7 +5,7 @@ import game.engine.Vector2D;
 
 public class WindowBasket {
 
-    Simulation sim = new Simulation(new Vector2D(500, 300));
+    Simulation sim = new Simulation();
 
     void run(){
         sim.run();

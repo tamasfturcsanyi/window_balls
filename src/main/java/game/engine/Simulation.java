@@ -11,48 +11,22 @@ import java.awt.Color;
 import java.io.FileWriter;
 
 public class Simulation {
-    String title = "Simulation";
-
-    final int WINDOW_WIDTH;
-    final int WINDOW_HEIGHT;
-
     GraphicsPanel gp;
 
     JFrame window;
-    java.awt.Rectangle windowBounds;
 
     PhysicksWorld world;
 
-    Wall[] walls;
 
-    public Simulation(Vector2D windowDimensions){
-        WINDOW_WIDTH = (int)windowDimensions.x;
-        WINDOW_HEIGHT = (int)windowDimensions.y;
-        windowBounds = new java.awt.Rectangle(0,0,WINDOW_WIDTH,WINDOW_HEIGHT);
-        gp = new GraphicsPanel();
+    public Simulation(){
         world = new PhysicksWorld();
-        window = new JFrame(title);
-        window.setBounds(windowBounds);
+        gp = new GraphicsPanel();
+        window = new JFrame(world.getTitle());
+        window.setBounds(world.windowBounds);
         window.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setVisible(true);
         window.add(gp);
-
-        walls = new Wall[4];
-
-        walls[0] = new Wall(Direction.NORTH,50000);
-        walls[1] = new Wall(Direction.EAST,50000);
-        walls[2] = new Wall(Direction.SOUTH,50000);
-        walls[3] = new Wall(Direction.WEST,50000);
-
-        for (Wall wall : walls) {
-            this.add(wall);
-        }
-    }
-
-    void add(Actor actor){
-        gp.addVisual(actor);
-        world.addBody(actor);
     }
 
     void physicksUpdate(){
@@ -60,36 +34,41 @@ public class Simulation {
     }
 
     void cycle(){
-        windowBounds = window.getBounds();
+        world.setWindowBounds(window.getBounds());
         physicksUpdate();
-        gp.updateElements(windowBounds);
+        gp.updateElements(world.windowBounds);
         window.repaint();
     }
 
-    public void run(){    
-        for(int i = 0; i < 10;++i){
-            Ball ball = new Ball(20+i * 10, 200,10,1,false,1,Color.BLUE);
-            add(ball);
-        }
-
-        Brick brick = new Brick(new Vector2D(300,500),new Vector2D(500,15));
-
-        //adds to physicksWorld, and graphicsPanel
-        this.add(brick);
-
+    void saveWorld(){
         Gson gson = new GsonBuilder()
             .registerTypeAdapter(Color.class, new ColorTypeAdapter())
-                .create();
+            .setPrettyPrinting()
+            .create();
 
         String worldJSON = gson.toJson(world);
         try {
-            FileWriter writer = new FileWriter("src/main/resources/world.json");
+            FileWriter writer = new FileWriter("src/main/resources/" + world.title + ".json");
             writer.write(worldJSON);
             writer.flush();
             writer.close();
         } catch (Exception e) {
             // TODO: handle exception
         }
+    }
+
+    void initGraphicsPanel(){
+        for (Actor actor : world.bodies) {
+            gp.addVisual(actor);
+        }
+    }
+
+    public void run(){    
+        world.preset1();
+        world.wallInit();
+
+        initGraphicsPanel();
+        saveWorld();
 
         //main loop, only exits if window is closed
         while(true){
