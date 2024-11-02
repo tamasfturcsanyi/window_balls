@@ -8,7 +8,11 @@ import com.google.gson.GsonBuilder;
 import game.graphics.GraphicsPanel;
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.CharArrayReader;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.nio.CharBuffer;
 
 public class Simulation {
     GraphicsPanel gp;
@@ -29,6 +33,26 @@ public class Simulation {
         window.add(gp);
     }
 
+    void initGraphicsPanel(){
+        for (Actor actor : world.bodies) {
+            gp.addVisual(actor);
+        }
+    }
+
+    public void run(){    
+        world = loadWorld("src/main/resources/Preset_1.json");
+        //world.preset1();
+        //world.wallInit();
+
+        initGraphicsPanel();
+        //saveWorld();
+
+        //main loop, only exits if window is closed
+        while(true){
+            cycle();
+        }
+    }
+
     void physicksUpdate(){
         world.update();
     }
@@ -42,8 +66,9 @@ public class Simulation {
 
     void saveWorld(){
         Gson gson = new GsonBuilder()
-            .registerTypeAdapter(Color.class, new ColorTypeAdapter())
             .setPrettyPrinting()
+            .registerTypeAdapter(Color.class, new ColorTypeAdapter())
+            .registerTypeAdapter(Actor.class, new ActorTypeAdapter())
             .create();
 
         String worldJSON = gson.toJson(world);
@@ -53,28 +78,29 @@ public class Simulation {
             writer.flush();
             writer.close();
         } catch (Exception e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
     }
 
-    void initGraphicsPanel(){
-        for (Actor actor : world.bodies) {
-            gp.addVisual(actor);
+    PhysicksWorld loadWorld(String path){
+        Gson gson = new GsonBuilder()
+            .setPrettyPrinting()
+            .registerTypeAdapter(Color.class, new ColorTypeAdapter())
+            .registerTypeAdapter(Actor.class, new ActorTypeAdapter())
+            .create();
+        PhysicksWorld newWorld = null;
+        try {
+            BufferedReader reader = new  BufferedReader( new FileReader(path));
+            StringBuilder worldJSON = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                worldJSON.append(line);
+            }
+            newWorld = gson.fromJson(worldJSON.toString(), PhysicksWorld.class);
+            reader.close();
+        } catch (Exception e) {
+            e.printStackTrace();     
         }
+        return newWorld;
     }
-
-    public void run(){    
-        world.preset1();
-        world.wallInit();
-
-        initGraphicsPanel();
-        saveWorld();
-
-        //main loop, only exits if window is closed
-        while(true){
-            cycle();
-        }
-    }
-
-
 }

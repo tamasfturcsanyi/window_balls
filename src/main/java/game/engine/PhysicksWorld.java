@@ -53,6 +53,8 @@ public class PhysicksWorld{
     }
 
     void preset1(){
+        title = "Preset_1";
+
         for(int i = 0; i < 10;++i){
             Ball ball = new Ball(20+i * 10, 200,10,1,false,1,Color.BLUE);
             addBody(ball);
