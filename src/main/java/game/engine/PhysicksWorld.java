@@ -68,9 +68,11 @@ public class PhysicksWorld{
             addBody(ball);
         }
 
-        Brick brick = new Brick(new Vector2D(300,500),new Vector2D(500,15));
+        //Brick brick = new Brick(new Vector2D(300,500),new Vector2D(500,15));
+        Brick brick2 = new Brick(new Vector2D(300,500),new Vector2D(15,500));
 
-        addBody(brick);
+        //addBody(brick);
+        addBody(brick2);
 
         wallInit();
     }

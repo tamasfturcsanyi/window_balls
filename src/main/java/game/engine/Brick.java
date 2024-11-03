@@ -43,16 +43,32 @@ public class Brick extends Actor{
         return body.getShape();
     }
 
+    Vector2D bounceVertically(Actor a, Rectangle2D intersectionRectangle){
+        if(body.position.getY() - a.getPos().getY() < 0){
+            return new Vector2D(0,intersectionRectangle.getHeight()).stretch(intersectionRectangle.getHeight()*bounciness);
+        }else if(body.position.getY() - a.getPos().getY() > 0){
+            return new Vector2D(0,-intersectionRectangle.getHeight()).stretch(intersectionRectangle.getHeight()*bounciness);
+        }
+        return new Vector2D(0,0);
+    }
+
+    Vector2D bounceHorizontally(Actor a, Rectangle2D intersectionRectangle){
+        if(body.position.getX() - a.getPos().getX() < 0){
+            return new Vector2D(intersectionRectangle.getWidth(),0).stretch(intersectionRectangle.getWidth()*bounciness);
+        }else if(body.position.getX() - a.getPos().getX() > 0){
+            return new Vector2D(-intersectionRectangle.getWidth(),0).stretch(intersectionRectangle.getWidth()*bounciness);
+        }
+        return new Vector2D(0,0);
+    }
+
     @Override
     public Vector2D bounce(Actor a) {
-        Rectangle2D rect =  getShape().getBounds2D().createIntersection(a.getShape().getBounds2D());
-        if (body.position.getY() - a.getPos().getY() < 0) {
-            return new Vector2D(0,rect.getHeight()).stretch(rect.getHeight()*bounciness);
-        }else if(body.position.getY() - a.getPos().getY() > 0){
-            return new Vector2D(0,-rect.getHeight()).stretch(rect.getHeight()*bounciness);
+        Rectangle2D intersectionRectangle =  getShape().getBounds2D().createIntersection(a.getShape().getBounds2D());
+        if(intersectionRectangle.getWidth() > intersectionRectangle.getHeight()){
+            return bounceVertically(a, intersectionRectangle);
+        }else{
+            return bounceHorizontally(a, intersectionRectangle);
         }
-
-        return new Vector2D(0,0);
     }
 
     @Override

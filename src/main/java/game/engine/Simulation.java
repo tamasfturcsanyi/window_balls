@@ -38,8 +38,8 @@ public class Simulation {
     }
 
     public void run(){    
-        //world = loadWorld("src/main/resources/Preset_2.json");//NOSONAR
-        world.preset2();
+        //world = loadWorld("src/main/resources/Preset_1.json");//NOSONAR
+        world.preset1();
 
         window.setBounds(world.windowBounds);
         initGraphicsPanel();
