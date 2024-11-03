@@ -12,8 +12,8 @@ public class Wall extends Actor{
 
     double thickness;
 
-    double offsetSouth = 50;
-    double offsetEast = 10;
+    final double offsetSouth = 40;
+    final double offsetEast = 15;
 
     double bonus = 50000;
     
@@ -127,5 +127,25 @@ public class Wall extends Actor{
     }
     public double getThickness() {
         return thickness;
+    }
+
+    @Override
+    void calculateForces(SimulationParameters params) {
+        //Wall does not move
+    }
+
+    @Override
+    void calculateNewPosition(double delta) {
+        //Wall does not move        
+    }
+
+    @Override
+    void calculateNewVelocity(double delta, SimulationParameters params) {
+         //Wall does not move        
+    }
+
+    @Override
+    void physicksUpdate(SimulationParameters params) {
+        //Wall does not move
     }
 }

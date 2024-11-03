@@ -1,7 +1,5 @@
 package game.engine;
 
-
-
 public abstract class PhysicksBody {
     long previousTime;
 
@@ -45,63 +43,16 @@ public abstract class PhysicksBody {
         return velocity;
     }
 
-    
-
-    void calculateForces(SimulationParameters params){
-        force = new Vector2D();
-        //apply gravity
-        force = force.add(new Vector2D(0, params.gravity * mass));
-
-        force = force.add(externalForces);
-        externalForces = new Vector2D(0,0);
-    }
-
-    void calculateNewVelocity(double delta, SimulationParameters params){
-        Vector2D acceleration = force.stretch(1/mass);
-
-        //apply acceleration
-        velocity = velocity.add(acceleration.stretch(delta));
-
-        //friction
-        velocity = velocity.stretch(params.energyLeftover);
-
-        //speed limit
-        if(velocity.length() > params.speedLimit){
-            velocity = velocity.stretch(0.9);
-        }
-
-        
-    }
-
-    void calculateNewPosition(double delta){
-        this.setPos(getPos().add(velocity.stretch(delta)));
-    }
-    
-    //calculates new position, applies forces, moves Body
-    void physicksUpdate(SimulationParameters params){
-        long currentTime = System.nanoTime();
-
-        //if theres no previous time: skip
-        if(previousTime == 0){
-            previousTime = currentTime;
-            return;
-        }
-        long nanoDelta = currentTime - previousTime;
-
-        //convert to seconds
-        double delta = nanoDelta * 0.000000001 * params.speed;
-        
-        calculateForces(params);
-        calculateNewVelocity(delta, params);
-        calculateNewPosition(delta);
-        
-
-        previousTime = currentTime;
-    }
-
     public void addForce(Vector2D f){
         externalForces = externalForces.add(f);
     }
 
+    abstract void calculateForces(SimulationParameters params);
+
+    abstract void calculateNewVelocity(double delta, SimulationParameters params);
+
+    abstract void calculateNewPosition(double delta);
     
+    //calculates new position, applies forces, moves Body
+    abstract void physicksUpdate(SimulationParameters params);
 }

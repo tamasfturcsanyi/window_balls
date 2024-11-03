@@ -25,6 +25,62 @@ public class Ball extends Actor{
         this.bounciness = bounciness; 
     }
 
+    @Override
+    void calculateForces(SimulationParameters params){
+        force = new Vector2D();
+        //apply gravity
+        force = force.add(new Vector2D(0, params.gravity * mass));
+
+        force = force.add(externalForces);
+        externalForces = new Vector2D(0,0);
+    }
+
+    @Override
+    void calculateNewVelocity(double delta, SimulationParameters params){
+        Vector2D acceleration = force.stretch(1/mass);
+
+        //apply acceleration
+        velocity = velocity.add(acceleration.stretch(delta));
+
+        //friction
+        velocity = velocity.stretch(params.energyLeftover);
+
+        //speed limit
+        if(velocity.length() > params.speedLimit){
+            velocity = velocity.stretch(0.9);
+        }
+
+        
+    }
+
+    @Override
+    void calculateNewPosition(double delta){
+        this.setPos(getPos().add(velocity.stretch(delta)));
+    }
+    
+    //calculates new position, applies forces, moves Body
+    @Override
+    void physicksUpdate(SimulationParameters params){
+        long currentTime = System.nanoTime();
+
+        //if theres no previous time: skip
+        if(previousTime == 0){
+            previousTime = currentTime;
+            return;
+        }
+        long nanoDelta = currentTime - previousTime;
+
+        //convert to seconds
+        double delta = nanoDelta * 0.000000001 * params.speed;
+        
+        calculateForces(params);
+        calculateNewVelocity(delta, params);
+        calculateNewPosition(delta);
+        
+
+        previousTime = currentTime;
+    }
+
     public Shape getShape(){
         return body.getShape();
     }
@@ -54,7 +110,7 @@ public class Ball extends Actor{
 
     @Override
     public Vector2D getCenter() {
-        return getPos();
+        return getPos().add(new Vector2D(body.radius,body.radius));
     }
 
     @Override
@@ -65,6 +121,6 @@ public class Ball extends Actor{
         if (clip < 0){
             clip = 0;
         }
-        return diff.stretch(clip);
+        return diff.stretch(clip * bounciness);
     }
 }

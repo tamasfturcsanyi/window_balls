@@ -9,10 +9,8 @@ import game.graphics.GraphicsPanel;
 
 import java.awt.Color;
 import java.io.BufferedReader;
-import java.io.CharArrayReader;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.nio.CharBuffer;
 
 public class Simulation {
     GraphicsPanel gp;
@@ -40,12 +38,12 @@ public class Simulation {
     }
 
     public void run(){    
-        //world = loadWorld("src/main/resources/Preset_2.json");
+        //world = loadWorld("src/main/resources/Preset_2.json");//NOSONAR
         world.preset2();
 
         window.setBounds(world.windowBounds);
         initGraphicsPanel();
-        //saveWorld();
+        //saveWorld();//NOSONAR
 
         //main loop, only exits if window is closed
         while(true){

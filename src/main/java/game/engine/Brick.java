@@ -6,7 +6,7 @@ import java.awt.geom.Rectangle2D;
 public class Brick extends Actor{
     Rectangle body;
 
-    double bounciness = 10;
+    double bounciness = 0.1;
 
     public Brick(Vector2D position, Vector2D dimension){
         super(1, true);
@@ -53,5 +53,25 @@ public class Brick extends Actor{
         }
 
         return new Vector2D(0,0);
+    }
+
+    @Override
+    void calculateForces(SimulationParameters params) {
+        //Brick does not move
+    }
+
+    @Override
+    void calculateNewPosition(double delta) {
+        //Brick does not move        
+    }
+
+    @Override
+    void calculateNewVelocity(double delta, SimulationParameters params) {
+         //Brick does not move        
+    }
+
+    @Override
+    void physicksUpdate(SimulationParameters params) {
+        //Brick does not move
     }
 }

@@ -8,6 +8,7 @@ import game.graphics.Visual;
 
 public class Circle implements Visual{
     double radius = 10;
+
     //coordinate of the circle's center
     Vector2D position;
 
@@ -34,7 +35,7 @@ public class Circle implements Visual{
         if(windowBounds == null){
             windowBounds = new Rectangle(0,0,0,0);
         }
-        visual.setFrame(position.getX()- windowBounds.getX(),position.getY()-windowBounds.getY(),2* radius, 2* radius);
+        visual.setFrame(position.getX() - radius - windowBounds.getX(),position.getY() - radius -windowBounds.getY(),2* radius, 2* radius);
     }
 
 

@@ -39,13 +39,25 @@ public class PhysicksWorld{
             }
             for (Actor otherBody : bodies) {
                 if ( otherBody != physicksBody){
-                    if(physicksBody.getShape().intersects(otherBody.getShape().getBounds2D())){
+                    if(physicksBody.getShape().intersects(otherBody.getShape().getBounds2D())){//NOSONAR
                         collide( physicksBody,otherBody);
                     }
                 }
             }
             
         }
+    }
+    void collide(Actor a, Actor b){
+        a.addForce(b.bounce(a));
+        b.addForce(a.bounce(b));
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setWindowBounds(java.awt.Rectangle windowBounds) {
+        this.windowBounds = windowBounds;
     }
 
     void preset1(){
@@ -66,15 +78,15 @@ public class PhysicksWorld{
     void preset2(){
         title = "Preset_2";
 
-        params = new SimulationParameters(10,10,0.5,0.999988,500); 
+        params = new SimulationParameters(10,10,0.99998,500); 
 
         for(int i = 0; i < 10;++i){
-            Ball ball = new Ball((20 + i * 10), 200,10,1,false,1,Color.BLUE);
+            Ball ball = new Ball((20 + i * 30), 200,10,1,false,1,Color.BLUE);
             addBody(ball);
         }
 
         for(int i = 0; i < 10;++i){
-            Ball ball = new Ball((20 + i * 10), 300,10,1,false,1,Color.RED);
+            Ball ball = new Ball((20 + i * 30), 300,15,1,false,1,Color.RED);
             addBody(ball);
         }
 
@@ -83,18 +95,5 @@ public class PhysicksWorld{
         addBody(brick);
 
         wallInit();
-    }
-
-    void collide(Actor a, Actor b){
-        a.addForce(b.bounce(a).stretch(params.bounciness));
-        b.addForce(a.bounce(b).stretch(params.bounciness));
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setWindowBounds(java.awt.Rectangle windowBounds) {
-        this.windowBounds = windowBounds;
     }
 }
