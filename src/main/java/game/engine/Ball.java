@@ -8,9 +8,9 @@ public class Ball extends Actor{
     
     Circle body;
 
-    
     double bounciness = 1; 
 
+    boolean bounced = false;
 
     public Ball(double x, double y,double radius){
         super(1,false);
@@ -43,7 +43,10 @@ public class Ball extends Actor{
         velocity = velocity.add(acceleration.stretch(delta));
 
         //friction
-        velocity = velocity.stretch(params.energyLeftover);
+        if(bounced){
+            velocity = velocity.stretch(params.energyLeftover);
+            bounced = false;
+        }
 
         //speed limit
         if(velocity.length() > params.speedLimit){
@@ -115,6 +118,7 @@ public class Ball extends Actor{
 
     @Override
     public Vector2D bounce(Actor a) {
+        bounced = true;
         double maxDistance = a.getShape().getBounds2D().getWidth()/2+getShape().getBounds2D().getWidth()/2 ;
         Vector2D diff = getPos().diff(a.getPos());
         double clip = maxDistance-diff.length();

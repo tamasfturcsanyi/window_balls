@@ -64,11 +64,13 @@ public class Brick extends Actor{
     @Override
     public Vector2D bounce(Actor a) {
         Rectangle2D intersectionRectangle =  getShape().getBounds2D().createIntersection(a.getShape().getBounds2D());
-        if(intersectionRectangle.getWidth() > intersectionRectangle.getHeight()){
-            return bounceVertically(a, intersectionRectangle);
-        }else{
-            return bounceHorizontally(a, intersectionRectangle);
-        }
+        return bounceVertically(a, intersectionRectangle);
+
+        //if(intersectionRectangle.getWidth() > intersectionRectangle.getHeight()){
+        //    return bounceVertically(a, intersectionRectangle);
+        //}else{
+        //    return bounceHorizontally(a, intersectionRectangle);
+        //}
     }
 
     @Override

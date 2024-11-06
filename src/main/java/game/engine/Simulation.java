@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import game.graphics.FixLabel;
 import game.graphics.GraphicsPanel;
 
 import java.awt.Color;
@@ -20,6 +21,7 @@ public class Simulation {
     PhysicksWorld world;
 
 
+
     public Simulation(){
         world = new PhysicksWorld();
         gp = new GraphicsPanel();
@@ -28,7 +30,10 @@ public class Simulation {
         window.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setVisible(true);
+        gp.add(world.counter.getLabel());
+
         window.add(gp);
+        
     }
 
     void initGraphicsPanel(){
@@ -38,8 +43,8 @@ public class Simulation {
     }
 
     public void run(){    
-        //world = loadWorld("src/main/resources/Preset_1.json");//NOSONAR
-        world.preset1();
+        //world = loadWorld("src/main/resources/Preset_3.json");//NOSONAR
+        world.preset4();
 
         window.setBounds(world.windowBounds);
         initGraphicsPanel();

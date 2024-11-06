@@ -9,7 +9,4 @@ public class WindowBasket {
     void run(){
         sim.run();
     }
-
-    
-
 }
