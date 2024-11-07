@@ -13,6 +13,8 @@ import java.awt.Color;
 import java.awt.Rectangle;
 
 public class Simulation{
+    String title = "Simulation";
+
     SimulationParameters params = new SimulationParameters();
 
     List<PhysicksBody> bodies = new ArrayList<>();
@@ -69,6 +71,9 @@ public class Simulation{
         return bodies;
     }
 
+    public String getTitle() {
+        return title;
+    }
 
     public void preset1(){
         Random rng = new Random();

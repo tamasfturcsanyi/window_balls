@@ -121,13 +121,4 @@ public class Ball extends MobileBody{
     public Visual getVisual(Visualizer visualizer) {
         return visualizer.visualize(this);
     }
-
-    @Override
-    public Color getColor() {
-        if(bounced){
-            return Color.RED;
-        }
-
-        return color;
-    }
 }
