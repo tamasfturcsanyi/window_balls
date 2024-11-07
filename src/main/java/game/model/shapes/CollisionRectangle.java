@@ -3,7 +3,7 @@ package game.model.shapes;
 import game.model.Vector2D;
 import java.awt.geom.Rectangle2D;
 
-public class CollisionRectangle extends Rectangle2D.Double implements CollisonShape{
+public class CollisionRectangle extends Rectangle2D.Double implements CollisionShape{
     //upper left corner
     Vector2D position;
     //width and height
@@ -40,7 +40,7 @@ public class CollisionRectangle extends Rectangle2D.Double implements CollisonSh
     }
 
     @Override
-    public boolean haveCollided(CollisonShape otherShape) {
+    public boolean haveCollided(CollisionShape otherShape) {
         return intersects(otherShape.getBoundingBox());
     }
 

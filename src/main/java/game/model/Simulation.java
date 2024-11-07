@@ -27,7 +27,7 @@ public class Simulation{
         wallInit();
     }
 
-    void wallInit(){
+    public void wallInit(){
         walls[0] = new Wall(Wall.Direction.NORTH,50000,windowBounds);
         walls[1] = new Wall(Wall.Direction.EAST,50000,windowBounds);
         walls[2] = new Wall(Wall.Direction.SOUTH,50000,windowBounds);
@@ -47,7 +47,7 @@ public class Simulation{
             physicksBody.physicksUpdate(params);
             if(!physicksBody.getFix()){
                 for (PhysicksBody otherBody : bodies) {
-                    if(physicksBody != otherBody && physicksBody.getCollisonShape().haveCollided(otherBody.getCollisonShape())){
+                    if(physicksBody != otherBody && physicksBody.getCollisionShape().haveCollided(otherBody.getCollisionShape())){
                         physicksBody.collide(otherBody);
                     }
                 }

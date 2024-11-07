@@ -6,13 +6,13 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
 
-public class CollisonCircle extends Ellipse2D.Double implements CollisonShape{
+public class CollisionCircle extends Ellipse2D.Double implements CollisionShape{
     double radius;
 
     //coordinate of the circle's upperleft corner
     Vector2D position;
 
-    public CollisonCircle(Vector2D position, double radius){
+    public CollisionCircle(Vector2D position, double radius){
         super(position.getX(),position.getY(),2*radius,2*radius);
         this.position = position;
         this.radius = radius;
@@ -31,7 +31,7 @@ public class CollisonCircle extends Ellipse2D.Double implements CollisonShape{
     }
 
     @Override
-    public boolean haveCollided(CollisonShape otherShape) {
+    public boolean haveCollided(CollisionShape otherShape) {
         //return getCenter().diff(otherShape.getCenter()).length() < 70; 
 
         return (intersects(otherShape.getBoundingBox()));

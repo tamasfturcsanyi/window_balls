@@ -5,7 +5,7 @@ import java.awt.geom.Rectangle2D;
 import game.model.Vector2D;
 
 import game.model.shapes.CollisionRectangle;
-import game.model.shapes.CollisonShape;
+import game.model.shapes.CollisionShape;
 import game.view.Visual;
 import game.view.Visualizer;
 public class Brick extends FixBody{
@@ -17,20 +17,20 @@ public class Brick extends FixBody{
 
     @Override
     public void setPosition(Vector2D position) {
-        collisonShape.setPosition(position);
+        collisionShape.setPosition(position);
     }
 
     @Override
     public Vector2D getPosition() {
-        return collisonShape.getPosition();
+        return collisionShape.getPosition();
     }
 
     @Override
     public game.model.Vector2D getDimension() {
-        return new Vector2D(collisonShape.getBoundingBox().getWidth(),collisonShape.getBoundingBox().getHeight());
+        return new Vector2D(collisionShape.getBoundingBox().getWidth(),collisionShape.getBoundingBox().getHeight());
     }
 
-    Vector2D bounceVertically(CollisonShape a, Rectangle2D intersectionRectangle){
+    Vector2D bounceVertically(CollisionShape a, Rectangle2D intersectionRectangle){
         if(getPosition().getY() - a.getPosition().getY() < 0){
             return new Vector2D(0,intersectionRectangle.getHeight()).stretch(intersectionRectangle.getHeight()*bounciness);
         }else if(getPosition().getY() - a.getPosition().getY() > 0){
@@ -39,7 +39,7 @@ public class Brick extends FixBody{
         return new Vector2D(0,0);
     }
 
-    Vector2D bounceHorizontally(CollisonShape a, Rectangle2D intersectionRectangle){
+    Vector2D bounceHorizontally(CollisionShape a, Rectangle2D intersectionRectangle){
         if(getPosition().getX() - a.getPosition().getX() < 0){
             return new Vector2D(intersectionRectangle.getWidth(),0).stretch(intersectionRectangle.getWidth()*bounciness);
         }else if(getPosition().getX() - a.getPosition().getX() > 0){
@@ -49,8 +49,8 @@ public class Brick extends FixBody{
     }
 
     @Override
-    public Vector2D bounce(CollisonShape a) {
-        Rectangle2D intersectionRectangle =  collisonShape.getBoundingBox().createIntersection(a.getBoundingBox());
+    public Vector2D bounce(CollisionShape a) {
+        Rectangle2D intersectionRectangle =  collisionShape.getBoundingBox().createIntersection(a.getBoundingBox());
         return bounceVertically(a, intersectionRectangle);
 
         //if(intersectionRectangle.getWidth() > intersectionRectangle.getHeight()){

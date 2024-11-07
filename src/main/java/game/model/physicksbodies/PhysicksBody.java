@@ -5,15 +5,15 @@ import game.view.Visual;
 import game.view.Visualizer;
 import game.model.SimulationParameters;
 import game.model.Vector2D;
-import game.model.shapes.CollisonShape;
+import game.model.shapes.CollisionShape;
 
 public abstract class PhysicksBody {
-    CollisonShape collisonShape;
+    CollisionShape collisionShape;
 
     Color color = Color.BLUE;
 
-    PhysicksBody(CollisonShape collisonShape, Color color){
-        this.collisonShape = collisonShape;
+    PhysicksBody(CollisionShape collisionShape, Color color){
+        this.collisionShape = collisionShape;
         this.color = color;
     }
 
@@ -24,13 +24,13 @@ public abstract class PhysicksBody {
 
     public abstract void collide(PhysicksBody otherBody);
 
-    public abstract Vector2D bounce(CollisonShape otherCollisonShape);
+    public abstract Vector2D bounce(CollisionShape otherCollisionShape);
 
     //calculates new position, applies forces, moves Body
     public abstract void physicksUpdate(SimulationParameters params);
 
-    public CollisonShape getCollisonShape() {
-        return collisonShape;
+    public CollisionShape getCollisionShape() {
+        return collisionShape;
     }
 
     public abstract boolean getFix();

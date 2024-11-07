@@ -3,12 +3,12 @@ import game.model.Vector2D;
 
 import java.awt.geom.Rectangle2D;
 
-public interface CollisonShape{
+public interface CollisionShape{
     Vector2D getPosition();
 
     void setPosition(Vector2D position);
 
-    public boolean haveCollided(CollisonShape otherShape);
+    public boolean haveCollided(CollisionShape otherShape);
 
     public Rectangle2D getBoundingBox();
 

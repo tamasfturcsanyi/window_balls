@@ -2,8 +2,8 @@ package game.model.physicksbodies;
 
 import java.awt.Color;
 
-import game.model.shapes.CollisonCircle;
-import game.model.shapes.CollisonShape;
+import game.model.shapes.CollisionCircle;
+import game.model.shapes.CollisionShape;
 import game.view.Visual;
 import game.view.Visualizer;
 import game.model.SimulationParameters;
@@ -15,23 +15,23 @@ public class Ball extends MobileBody{
     boolean bounced = false;
 
     public Ball(Vector2D center,double radius,Color color,double bounciness, double mass){
-        super(new CollisonCircle(center.add(new Vector2D(-radius,-radius)), radius),mass,color);
+        super(new CollisionCircle(center.add(new Vector2D(-radius,-radius)), radius),mass,color);
         this.bounciness = bounciness;
     }
 
     @Override
     public Vector2D getPosition() {
-        return collisonShape.getPosition();
+        return collisionShape.getPosition();
     }
 
     @Override
     public void setPosition(Vector2D position) {
-        collisonShape.setPosition(position);
+        collisionShape.setPosition(position);
     }
 
     @Override
     public Vector2D getDimension() {
-        return new Vector2D(collisonShape.getBoundingBox().getWidth(),collisonShape.getBoundingBox().getHeight());
+        return new Vector2D(collisionShape.getBoundingBox().getWidth(),collisionShape.getBoundingBox().getHeight());
     }
     @Override
     void calculateForces(SimulationParameters params){
@@ -73,7 +73,7 @@ public class Ball extends MobileBody{
 
     @Override
     public void collide(PhysicksBody otherBody) {
-        addForce(otherBody.bounce(collisonShape).stretch(1  + bounciness));
+        addForce(otherBody.bounce(collisionShape).stretch(1  + bounciness));
     }
 
     @Override
@@ -107,9 +107,9 @@ public class Ball extends MobileBody{
     }
 
     @Override
-    public Vector2D bounce(CollisonShape otherCollisonShape) {
-        double maxDistance = otherCollisonShape.getMaxDistanceFromCenter()+collisonShape.getMaxDistanceFromCenter();
-        Vector2D diff = collisonShape.getCenter().diff(otherCollisonShape.getCenter());
+    public Vector2D bounce(CollisionShape otherCollisionShape) {
+        double maxDistance = otherCollisionShape.getMaxDistanceFromCenter()+collisionShape.getMaxDistanceFromCenter();
+        Vector2D diff = collisionShape.getCenter().diff(otherCollisionShape.getCenter());
         double clip = maxDistance-diff.length();
         if (clip < 0){
             clip = 0;

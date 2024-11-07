@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 
 import game.model.shapes.CollisionRectangle;
-import game.model.shapes.CollisonShape;
+import game.model.shapes.CollisionShape;
 import game.view.Visual;
 import game.view.Visualizer;
 import game.model.Vector2D;
@@ -35,22 +35,22 @@ public class Wall extends FixBody{
     public void update(java.awt.Rectangle windowBounds) {
         switch (direction){
             case NORTH:
-                collisonShape = new CollisionRectangle(
+                collisionShape = new CollisionRectangle(
                     new Vector2D(windowBounds.getX() - thickness,windowBounds.getY() - thickness ),
                     new Vector2D(windowBounds.getWidth() + thickness, thickness));
                 break;
             case EAST:
-                collisonShape = new CollisionRectangle(
+                collisionShape = new CollisionRectangle(
                     new Vector2D(windowBounds.getX()+ windowBounds.getWidth() - OFFSET_EAST,windowBounds.getY() -thickness),
                     new Vector2D(thickness, windowBounds.getHeight() + thickness));
                 break;
             case SOUTH:
-                collisonShape = new CollisionRectangle(
+                collisionShape = new CollisionRectangle(
                     new Vector2D(windowBounds.getX() - thickness, windowBounds.getY() + windowBounds.getHeight() - OFFSET_SOUTH),
                     new Vector2D(windowBounds.getWidth() + thickness,thickness));
                 break;
             case WEST:
-                collisonShape = new CollisionRectangle(
+                collisionShape = new CollisionRectangle(
                     new Vector2D(windowBounds.getX() - thickness,windowBounds.getY() - thickness),
                     new Vector2D(thickness,windowBounds.getHeight() + thickness));
                 break;
@@ -61,8 +61,8 @@ public class Wall extends FixBody{
 
 
     @Override
-    public Vector2D bounce(CollisonShape a) {
-        Rectangle2D rect =  collisonShape.getBoundingBox().createIntersection(a.getBoundingBox());
+    public Vector2D bounce(CollisionShape a) {
+        Rectangle2D rect =  collisionShape.getBoundingBox().createIntersection(a.getBoundingBox());
         switch (direction) {
             case NORTH:
                 return new Vector2D(0,rect.getHeight()).stretch(rect.getHeight());
@@ -79,17 +79,17 @@ public class Wall extends FixBody{
 
     @Override
     public void setPosition(Vector2D position) {
-        collisonShape.setPosition(position);
+        collisionShape.setPosition(position);
     }
 
     @Override
     public Vector2D getPosition() {
-        return collisonShape.getPosition();
+        return collisionShape.getPosition();
     }
 
     @Override
     public Vector2D getDimension() {
-        return new Vector2D(collisonShape.getBoundingBox().getWidth(),collisonShape.getBoundingBox().getHeight());
+        return new Vector2D(collisionShape.getBoundingBox().getWidth(),collisionShape.getBoundingBox().getHeight());
     }
 
     @Override

@@ -1,13 +1,13 @@
 package game.model.physicksbodies;
 
 import java.awt.Color;
-import game.model.shapes.CollisonShape;
+import game.model.shapes.CollisionShape;
 import game.model.Vector2D;
 import game.model.SimulationParameters;
 
 public abstract class MobileBody extends PhysicksBody {
-    protected MobileBody(CollisonShape collisonShape,double mass, Color color){
-        super(collisonShape,color);
+    protected MobileBody(CollisionShape collisionShape,double mass, Color color){
+        super(collisionShape,color);
         this.mass = mass;
 
         Vector2D nulla = new Vector2D(0,0);
