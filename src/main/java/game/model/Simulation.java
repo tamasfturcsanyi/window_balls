@@ -2,10 +2,14 @@ package game.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import game.model.physicksbodies.Ball;
 import game.model.physicksbodies.PhysicksBody;
+import game.model.physicksbodies.Pole;
 import game.model.physicksbodies.Wall;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 
 public class Simulation{
@@ -64,95 +68,16 @@ public class Simulation{
     public List<PhysicksBody> getPhysicksBodies(){
         return bodies;
     }
-/*
 
-    void preset1(){
-        title = "Preset_1";
 
-        for(int i = 0; i < 10;++i){
-            Ball ball = new Ball((20 + i * 10), 200,10,1,false,1,Color.BLUE);
-            addBody(ball);
+    public void preset1(){
+        Random rng = new Random();
+
+        params = new SimulationParameters(10, 10, 0.9, 200,0.0001);
+
+        addBody(new Pole(new Vector2D(200, 200), 20, Color.black));
+        for(int i = 0; i < 5;++i){
+            addBody(new Ball(new Vector2D(10 + 10*i,10), 20 + 5*i, new Color(rng.nextInt(0,256*256*256)), 0.5, 1 + i));
         }
-
-        //Brick brick = new Brick(new Vector2D(300,500),new Vector2D(500,15));
-        Brick brick2 = new Brick(new Vector2D(300,500),new Vector2D(15,500));
-
-        //addBody(brick);
-        addBody(brick2);
-
-        wallInit();
     }
-
-    void preset2(){
-        title = "Preset_2";
-
-        params = new SimulationParameters(10,10,0.9999,500); 
-
-        for(int i = 0; i < 10;++i){
-            Ball ball = new Ball((20 + i * 30), 200,10,1,false,1,Color.BLUE);
-            addBody(ball);
-        }
-
-        for(int i = 0; i < 10;++i){
-            Ball ball = new Ball((20 + i * 30), 300,15,1,false,1,Color.RED);
-            addBody(ball);
-        }
-
-        Brick brick = new Brick(new Vector2D(300,500),new Vector2D(500,30));
-
-        addBody(brick);
-
-        wallInit();
-    }
-
-    void preset4(){
-        params = new SimulationParameters(10,10,0.999,500); 
-        windowBounds = new Rectangle(500, 300);
-
-        counter.start();
-
-        for(int i = 0; i < 1000; ++i){
-            addBody(new Ball(100 + i * 10,100,10,1,false,0.01,new Color(0, 255, 0)));
-        }
-
-        wallInit();
-    }
-
-    void preset3(){
-
-        params = new SimulationParameters(10,10,0.9999,500); 
-
-
-        title = "Preset_3";
-        int off = 0;
-
-        counter.start();
-
-        for(int i = 0; i < 3;++i){
-            Ball ball = new Ball(200,100,10,1,false,0.01,new Color(0, i*90, 0));
-            addBody(ball);
-        }
-        
-
-        windowBounds = new Rectangle(500, 300);
-        for(int j = 0; j < 10; ++j){
-            for(int i = 0; i < 10;++i){
-                if(j % 2 == 0){
-                    off = 0;
-
-                }else{
-                    off = 25;
-                }
-                Ball ball = new Ball((120 + i * 50 + off), 100 + j * 50,10,1,true,1,Color.BLUE);
-                addBody(ball);
-            }
-        }
-    
-
-        Brick brick = new Brick(new Vector2D(300,500),new Vector2D(500,15));
-
-        addBody(brick);
-
-        wallInit();
-    }*/
 }

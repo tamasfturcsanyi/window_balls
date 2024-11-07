@@ -34,12 +34,7 @@ public class SimulationPlayer implements Runnable{
         window.setResizable(false);
         window.setVisible(true);
 
-        Ball ball = new Ball(new Vector2D(100,10), 50, Color.RED, 0.05, 1);
-        Ball ball2 = new Ball(new Vector2D(100,10), 30, Color.BLUE, 0.05, 1);
-        Pole pole = new Pole(new Vector2D(100,200), 20, Color.BLUE);
-        modelWorld.addBody(ball);
-        modelWorld.addBody(ball2);
-        //modelWorld.addBody(pole);
+        modelWorld.preset1();
 
 
         window.add(view);

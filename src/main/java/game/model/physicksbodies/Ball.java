@@ -39,8 +39,9 @@ public class Ball extends MobileBody{
         //apply gravity
         force = force.add(new Vector2D(0, params.getGravity() * mass));
 
-
         force = force.add(externalForces);
+        bounced = (externalForces.length() > 0.01) && force.getY() > params.getGravity();
+
         externalForces = new Vector2D(0,0);
     }
 
@@ -52,11 +53,13 @@ public class Ball extends MobileBody{
         //apply acceleration
         velocity = velocity.add(acceleration.stretch(delta));
 
-        //friction
-        //if(bounced){
-            velocity = velocity.stretch(params.getEnergyLeftover());
-            //bounced = false;
-        //}
+        //bounceLoss
+        if(bounced){
+            velocity = velocity.stretch(params.getBounceEnergyRemaining());
+        }
+
+        //generalEnergyLoss
+        velocity = velocity.stretch(1 - params.getGeneralEnergyLoss());
         
 
         //speed limit
@@ -67,8 +70,7 @@ public class Ball extends MobileBody{
 
     @Override
     public void collide(PhysicksBody otherBody) {
-        bounced = true;
-        addForce(otherBody.bounce(collisonShape).stretch(bounciness));
+        addForce(otherBody.bounce(collisonShape).stretch(1  + bounciness));
     }
 
     @Override
