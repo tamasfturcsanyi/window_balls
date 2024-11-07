@@ -32,10 +32,6 @@ public class Simulation{
         walls[1] = new Wall(Wall.Direction.EAST,50000,windowBounds);
         walls[2] = new Wall(Wall.Direction.SOUTH,50000,windowBounds);
         walls[3] = new Wall(Wall.Direction.WEST,50000,windowBounds);
-
-        for (Wall wall : walls) {
-            addBody(wall);
-        }
     }
 
     public void addBody(PhysicksBody body){
@@ -49,6 +45,11 @@ public class Simulation{
                 for (PhysicksBody otherBody : bodies) {
                     if(physicksBody != otherBody && physicksBody.getCollisionShape().haveCollided(otherBody.getCollisionShape())){
                         physicksBody.collide(otherBody);
+                    }
+                }
+                for( Wall wall : walls){
+                    if(physicksBody.getCollisionShape().haveCollided(wall.getCollisionShape())){
+                        physicksBody.collide(wall);
                     }
                 }
             }
