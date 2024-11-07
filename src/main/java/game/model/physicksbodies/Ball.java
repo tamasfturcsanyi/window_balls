@@ -35,12 +35,15 @@ public class Ball extends MobileBody{
     }
     @Override
     void calculateForces(SimulationParameters params){
+        Vector2D oldForce = force;
+
         force = new Vector2D(0,0);
         //apply gravity
         force = force.add(new Vector2D(0, params.getGravity() * mass));
 
         force = force.add(externalForces);
-        bounced = (externalForces.length() > 0.01) && force.getY() > params.getGravity();
+
+        bounced = (oldForce.diff(force).length() > 10);
 
         externalForces = new Vector2D(0,0);
     }
@@ -117,5 +120,14 @@ public class Ball extends MobileBody{
     @Override
     public Visual getVisual(Visualizer visualizer) {
         return visualizer.visualize(this);
+    }
+
+    @Override
+    public Color getColor() {
+        if(bounced){
+            return Color.RED;
+        }
+
+        return color;
     }
 }
