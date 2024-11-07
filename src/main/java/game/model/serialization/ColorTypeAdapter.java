@@ -1,4 +1,4 @@
-package game.model;
+package game.model.serialization;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;

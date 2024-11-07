@@ -1,4 +1,4 @@
-package game.model;
+package game.model.serialization;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -8,8 +8,10 @@ import java.awt.Color;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import game.model.Simulation;
+
 public class SimulationSerializer {
-     void saveWorld(Simulation world){
+    public void saveWorld(Simulation world){
         Gson gson = new GsonBuilder()
             .setPrettyPrinting()
             .registerTypeAdapter(Color.class, new ColorTypeAdapter())
@@ -17,7 +19,7 @@ public class SimulationSerializer {
 
         String worldJSON = gson.toJson(world);
         try {
-            FileWriter writer = new FileWriter("src/main/resources/" + "sim" + ".json");
+            FileWriter writer = new FileWriter("src/main/resources/" + world.getTitle() + ".json");
             writer.write(worldJSON);
             writer.flush();
             writer.close();
@@ -26,7 +28,7 @@ public class SimulationSerializer {
         }
     }
 
-    Simulation loadWorld(String path){
+    public Simulation loadWorld(String path){
         Gson gson = new GsonBuilder()
             .setPrettyPrinting()
             .registerTypeAdapter(Color.class, new ColorTypeAdapter())

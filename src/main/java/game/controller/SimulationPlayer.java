@@ -1,14 +1,11 @@
 package game.controller;
 
 import game.model.Simulation;
-import game.model.Vector2D;
-import game.model.physicksbodies.Ball;
 import game.model.physicksbodies.PhysicksBody;
-import game.model.physicksbodies.Pole;
+import game.model.serialization.SimulationSerializer;
 import game.view.Visualizer;
 import game.view.GraphicsPanel;
 
-import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -28,14 +25,11 @@ public class SimulationPlayer implements Runnable{
     public SimulationPlayer(){
         modelWorld = new Simulation();
         view = new GraphicsPanel();
-        window = new JFrame("Simulation");
+        window = new JFrame(modelWorld.getTitle());
         window.setBounds(modelWorld.getWindowBounds());
         window.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setVisible(true);
-
-        modelWorld.preset1();
-
 
         window.add(view);
     }
@@ -56,6 +50,12 @@ public class SimulationPlayer implements Runnable{
 
     @Override
     public synchronized void run(){    
+        modelWorld = new SimulationSerializer().loadWorld("src/main/resources/Simulation.json");
+
+        //modelWorld.preset1();
+
+        //new SimulationSerializer().saveWorld(modelWorld);
+
         //main loop, only exits if window is closed
         while(true){
             long startTime = System.currentTimeMillis();
