@@ -4,7 +4,7 @@ import game.model.Simulation;
 import game.model.Vector2D;
 import game.model.physicksbodies.Ball;
 import game.model.physicksbodies.PhysicksBody;
-
+import game.model.physicksbodies.Pole;
 import game.view.Visualizer;
 import game.view.GraphicsPanel;
 
@@ -34,8 +34,10 @@ public class SimulationPlayer implements Runnable{
         window.setResizable(false);
         window.setVisible(true);
 
-        Ball ball = new Ball(new Vector2D(100,100), 50, Color.RED, 1, 1);
+        Ball ball = new Ball(new Vector2D(100,10), 50, Color.RED, 1, 1);
+        Pole pole = new Pole(new Vector2D(100,200), 50, Color.BLUE);
         modelWorld.addBody(ball);
+        modelWorld.addBody(pole);
 
 
         window.add(view);

@@ -41,6 +41,11 @@ public abstract class MobileBody extends PhysicksBody {
         externalForces = externalForces.add(f);
     }
 
+    @Override
+    public boolean getFix() {
+        return false;
+    }
+
     abstract void calculateForces(SimulationParameters params);
 
     abstract void calculateNewVelocity(double delta, SimulationParameters params);

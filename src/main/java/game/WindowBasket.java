@@ -1,12 +1,14 @@
 package game;
 
-import game.engine.Simulation;
+import game.controller.SimulationPlayer;
 
 public class WindowBasket {
 
-    Simulation sim = new Simulation();
+    SimulationPlayer simPlayer = new SimulationPlayer();
+
+    Thread simulationThread = new Thread(simPlayer);
 
     void run(){
-        sim.run();
+        simulationThread.start();
     }
 }

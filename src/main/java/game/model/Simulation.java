@@ -15,6 +15,10 @@ public class Simulation{
 
     java.awt.Rectangle windowBounds = new Rectangle(0, 0, 500, 400);
 
+    public Simulation(){
+        wallInit();
+    }
+
     void wallInit(){
         Wall[] walls = new Wall[4];
 
@@ -35,11 +39,14 @@ public class Simulation{
     public void update(){
         for (PhysicksBody physicksBody : bodies) {
             physicksBody.physicksUpdate(params);
-            for (PhysicksBody otherBody : bodies) {
-                if(physicksBody != otherBody && physicksBody.getCollisonShape().haveCollided(otherBody.getCollisonShape())){
-                    physicksBody.collide(otherBody);
+            if(!physicksBody.getFix()){
+                for (PhysicksBody otherBody : bodies) {
+                    if(physicksBody != otherBody && physicksBody.getCollisonShape().haveCollided(otherBody.getCollisonShape())){
+                        physicksBody.collide(otherBody);
+                    }
                 }
             }
+            
         }
     }
 

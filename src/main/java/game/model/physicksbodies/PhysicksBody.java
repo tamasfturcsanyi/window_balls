@@ -33,6 +33,8 @@ public abstract class PhysicksBody {
         return collisonShape;
     }
 
+    public abstract boolean getFix();
+
     public abstract Visual getVisual(Visualizer visualizer);
 
     public Color getColor() {

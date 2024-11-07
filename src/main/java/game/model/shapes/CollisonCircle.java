@@ -30,7 +30,10 @@ public class CollisonCircle extends Ellipse2D.Double implements CollisonShape{
 
     @Override
     public boolean haveCollided(CollisonShape otherShape) {
-        return intersects(otherShape.getBoundingBox());
+        if(intersects(otherShape.getBoundingBox())){
+            return true;
+        }
+        return false;
     }
 
     @Override

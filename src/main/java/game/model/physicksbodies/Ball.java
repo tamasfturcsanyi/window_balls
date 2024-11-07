@@ -40,10 +40,10 @@ public class Ball extends MobileBody{
         force = force.add(new Vector2D(0, params.getGravity() * mass));
 
         //friction
-        if(bounced){
-            externalForces = externalForces.stretch(params.getEnergyLeftover());
-            bounced = false;
-        }
+        //if(bounced){
+        //    externalForces = externalForces.stretch(params.getEnergyLeftover());
+        //    bounced = false;
+        //}
 
         force = force.add(externalForces);
         externalForces = new Vector2D(0,0);
@@ -66,7 +66,6 @@ public class Ball extends MobileBody{
 
     @Override
     public void collide(PhysicksBody otherBody) {
-        otherBody.collide(this);
         addForce(otherBody.bounce(collisonShape).stretch(bounciness));
     }
 

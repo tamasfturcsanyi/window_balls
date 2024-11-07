@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Test;
 
-import game.engine.Vector2D;
+import game.model.Vector2D;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -90,4 +90,13 @@ public class Visualizer{
             brick.getPosition().getY() - windowBounds.getY(),
             brick.getDimension(),brick.getColor());
     }
+
+    public Visual visualize(Pole pole){
+        return new BallVisual(
+            pole.getPosition().getX() - windowBounds.x,
+            pole.getPosition().getY() - windowBounds.y,
+            pole.getDimension().getX(),
+            pole.getDimension().getY(),
+            pole.getColor());
+    }
 }

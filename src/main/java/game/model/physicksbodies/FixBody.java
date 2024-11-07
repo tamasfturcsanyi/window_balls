@@ -17,6 +17,10 @@ public abstract class FixBody extends PhysicksBody{
 
     @Override
     public void collide(PhysicksBody otherBody) {
-        otherBody.collide(this);
+    }
+
+    @Override
+    public boolean getFix() {
+        return true;
     }
 }
