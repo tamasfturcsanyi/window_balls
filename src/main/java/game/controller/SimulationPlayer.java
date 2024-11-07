@@ -4,6 +4,7 @@ import game.model.Simulation;
 import game.model.physicksbodies.PhysicksBody;
 import game.model.serialization.SimulationSerializer;
 import game.view.Visualizer;
+import game.view.FPSCounter;
 import game.view.GraphicsPanel;
 
 
@@ -15,10 +16,13 @@ public class SimulationPlayer implements Runnable{
 
     Simulation modelWorld;
 
+    FPSCounter counter = new FPSCounter();
+    Thread counterThread = new Thread(counter);
+
 
     JFrame window;
 
-    int maxFPS = 120;
+    int maxFPS = 240;
     long frameTime = 1000/maxFPS;
 
 
@@ -28,13 +32,16 @@ public class SimulationPlayer implements Runnable{
         window = new JFrame(modelWorld.getTitle());
         window.setBounds(modelWorld.getWindowBounds());
         window.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        window.setResizable(false);
+        window.setResizable(true);
         window.setVisible(true);
 
+        view.add(counter.getLabel());
+        counterThread.start();
         window.add(view);
     }
 
     void updateView(){
+        counter.increment();
         view.reset();
         for (PhysicksBody physicksBody : modelWorld.getPhysicksBodies()) {
             view.addVisual(physicksBody.getVisual(new Visualizer(modelWorld.getWindowBounds())));
@@ -50,9 +57,9 @@ public class SimulationPlayer implements Runnable{
 
     @Override
     public synchronized void run(){    
-        modelWorld = new SimulationSerializer().loadWorld("src/main/resources/Simulation.json");
+        //modelWorld = new SimulationSerializer().loadWorld("src/main/resources/Preset_1.json");
 
-        //modelWorld.preset1();
+        modelWorld.preset1();
 
         //new SimulationSerializer().saveWorld(modelWorld);
 

@@ -24,7 +24,7 @@ public class GraphicsPanel extends JPanel{
 
     @Override
     protected void paintComponent(Graphics g) {
-        image = new BufferedImage(500, 500, BufferedImage.TYPE_INT_ARGB);
+        image = new BufferedImage(2000, 2000, BufferedImage.TYPE_INT_ARGB);
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D )g;
@@ -33,7 +33,6 @@ public class GraphicsPanel extends JPanel{
         for (Visual v : visualElements) {
             imageGraphics2d.setColor(v.getColor());
             imageGraphics2d.fill(v.getShape());
-            //imageGraphics2d.draw(v.getShape().getBounds2D());
         }
 
         g2.drawImage(image,0,0,this);

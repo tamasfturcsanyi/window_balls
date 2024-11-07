@@ -80,10 +80,6 @@ public class Visualizer{
             ball.getColor());
     }
 
-    public Visual visualize(Wall wall){//NOSONAR
-        return new WallVisual();
-    }
-
     public Visual visualize(Brick brick){
         return new BrickVisual(
             brick.getPosition().getX() - windowBounds.getX(),

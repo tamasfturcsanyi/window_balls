@@ -2,7 +2,7 @@ package game.view;
 
 import javax.swing.JLabel;
 
-public class FPSCounter extends Thread{
+public class FPSCounter implements Runnable{
     int fps = 0;
 
     JLabel label = new JLabel();

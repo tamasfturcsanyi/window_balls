@@ -93,7 +93,8 @@ public class Wall extends FixBody{
     }
 
     @Override
+    //no Visual representation of wall
     public Visual getVisual(Visualizer visualizer) {
-        return visualizer.visualize(this);
+        return null;
     }
 }

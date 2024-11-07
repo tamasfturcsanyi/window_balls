@@ -9,7 +9,7 @@ import game.model.shapes.CollisionShape;
 import game.view.Visual;
 import game.view.Visualizer;
 public class Brick extends FixBody{
-    double bounciness = 0.1;
+    double bounciness = 10;
 
     public Brick(Vector2D position, Vector2D dimension){
         super(new CollisionRectangle(position, dimension),Color.ORANGE);
@@ -51,13 +51,12 @@ public class Brick extends FixBody{
     @Override
     public Vector2D bounce(CollisionShape a) {
         Rectangle2D intersectionRectangle =  collisionShape.getBoundingBox().createIntersection(a.getBoundingBox());
-        return bounceVertically(a, intersectionRectangle);
 
-        //if(intersectionRectangle.getWidth() > intersectionRectangle.getHeight()){
-        //    return bounceVertically(a, intersectionRectangle);
-        //}else{
-        //    return bounceHorizontally(a, intersectionRectangle);
-        //}
+        if(intersectionRectangle.getWidth() > intersectionRectangle.getHeight()){
+            return bounceVertically(a, intersectionRectangle);
+        }else{
+            return bounceHorizontally(a, intersectionRectangle);
+        }
     }
 
     @Override

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import game.model.physicksbodies.Ball;
+import game.model.physicksbodies.Brick;
 import game.model.physicksbodies.PhysicksBody;
 import game.model.physicksbodies.Pole;
 import game.model.physicksbodies.Wall;
@@ -38,20 +39,29 @@ public class Simulation{
         bodies.add(body);
     }
 
+    void bounceOfWalls(PhysicksBody physicksBody){
+        for( Wall wall : walls){
+            if(physicksBody.getCollisionShape().haveCollided(wall.getCollisionShape())){
+                physicksBody.collide(wall);
+            }
+        }
+    }
+
+    void bounceOfOtherBodies(PhysicksBody physicksBody){
+        for (PhysicksBody otherBody : bodies) {
+            if(physicksBody != otherBody && physicksBody.getCollisionShape().haveCollided(otherBody.getCollisionShape())){
+                physicksBody.collide(otherBody);
+            }
+        }
+    }
+
+    //model update cycle
     public void update(){
         for (PhysicksBody physicksBody : bodies) {
             physicksBody.physicksUpdate(params);
             if(!physicksBody.getFix()){
-                for (PhysicksBody otherBody : bodies) {
-                    if(physicksBody != otherBody && physicksBody.getCollisionShape().haveCollided(otherBody.getCollisionShape())){
-                        physicksBody.collide(otherBody);
-                    }
-                }
-                for( Wall wall : walls){
-                    if(physicksBody.getCollisionShape().haveCollided(wall.getCollisionShape())){
-                        physicksBody.collide(wall);
-                    }
-                }
+                bounceOfOtherBodies(physicksBody);
+                bounceOfWalls(physicksBody);
             }
             
         }
@@ -76,10 +86,14 @@ public class Simulation{
         return title;
     }
 
-    public void preset1(){
+    public void preset1(){//NOSONAR
         Random rng = new Random();
 
+        title = "Preset_1";
+
         params = new SimulationParameters(10, 10, 0.9, 200,0.0001);
+
+        addBody(new Brick(new Vector2D(300, 400), new Vector2D(10, 500)));
 
         addBody(new Pole(new Vector2D(200, 200), 20, Color.black));
         for(int i = 0; i < 5;++i){
