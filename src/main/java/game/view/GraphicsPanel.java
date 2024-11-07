@@ -33,7 +33,7 @@ public class GraphicsPanel extends JPanel{
         for (Visual v : visualElements) {
             imageGraphics2d.setColor(v.getColor());
             imageGraphics2d.fill(v.getShape());
-            //g2.draw(v.getShape().getBounds2D());
+            //imageGraphics2d.draw(v.getShape().getBounds2D());
         }
 
         g2.drawImage(image,0,0,this);

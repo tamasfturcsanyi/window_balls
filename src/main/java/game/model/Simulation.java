@@ -13,6 +13,8 @@ public class Simulation{
 
     List<PhysicksBody> bodies = new ArrayList<>();
 
+    Wall[] walls = new Wall[4];
+
     java.awt.Rectangle windowBounds = new Rectangle(0, 0, 500, 400);
 
     public Simulation(){
@@ -20,8 +22,6 @@ public class Simulation{
     }
 
     void wallInit(){
-        Wall[] walls = new Wall[4];
-
         walls[0] = new Wall(Wall.Direction.NORTH,50000,windowBounds);
         walls[1] = new Wall(Wall.Direction.EAST,50000,windowBounds);
         walls[2] = new Wall(Wall.Direction.SOUTH,50000,windowBounds);
@@ -56,6 +56,9 @@ public class Simulation{
 
     public void setWindowBounds(java.awt.Rectangle windowBounds) {
         this.windowBounds = windowBounds;
+        for (Wall wall : walls) {
+            wall.update(windowBounds);
+        }
     }
 
     public List<PhysicksBody> getPhysicksBodies(){

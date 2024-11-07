@@ -21,7 +21,7 @@ public class SimulationPlayer implements Runnable{
 
     JFrame window;
 
-    int maxFPS = 60;
+    int maxFPS = 120;
     long frameTime = 1000/maxFPS;
 
 
@@ -34,10 +34,12 @@ public class SimulationPlayer implements Runnable{
         window.setResizable(false);
         window.setVisible(true);
 
-        Ball ball = new Ball(new Vector2D(100,10), 50, Color.RED, 1, 1);
-        Pole pole = new Pole(new Vector2D(100,200), 50, Color.BLUE);
+        Ball ball = new Ball(new Vector2D(100,10), 50, Color.RED, 0.05, 1);
+        Ball ball2 = new Ball(new Vector2D(100,10), 30, Color.BLUE, 0.05, 1);
+        Pole pole = new Pole(new Vector2D(100,200), 20, Color.BLUE);
         modelWorld.addBody(ball);
-        modelWorld.addBody(pole);
+        modelWorld.addBody(ball2);
+        //modelWorld.addBody(pole);
 
 
         window.add(view);

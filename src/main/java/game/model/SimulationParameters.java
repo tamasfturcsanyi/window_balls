@@ -3,8 +3,8 @@ package game.model;
 public class SimulationParameters{
     double gravity = 10;
     double simulationSpeed = 10;
-    double energyLeftover = 0.9998;
-    double speedLimit = 500;
+    double energyLeftover = 0.99;
+    double speedLimit = 300;
 
     public SimulationParameters(){
     }

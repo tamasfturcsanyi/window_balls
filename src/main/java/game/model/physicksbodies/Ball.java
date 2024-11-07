@@ -14,8 +14,8 @@ public class Ball extends MobileBody{
 
     boolean bounced = false;
 
-    public Ball(Vector2D position,double radius,Color color,double bounciness, double mass){
-        super(new CollisonCircle(position, radius),mass,color);
+    public Ball(Vector2D center,double radius,Color color,double bounciness, double mass){
+        super(new CollisonCircle(center.add(new Vector2D(-radius,-radius)), radius),mass,color);
         this.bounciness = bounciness;
     }
 
@@ -39,11 +39,6 @@ public class Ball extends MobileBody{
         //apply gravity
         force = force.add(new Vector2D(0, params.getGravity() * mass));
 
-        //friction
-        //if(bounced){
-        //    externalForces = externalForces.stretch(params.getEnergyLeftover());
-        //    bounced = false;
-        //}
 
         force = force.add(externalForces);
         externalForces = new Vector2D(0,0);
@@ -56,6 +51,12 @@ public class Ball extends MobileBody{
 
         //apply acceleration
         velocity = velocity.add(acceleration.stretch(delta));
+
+        //friction
+        //if(bounced){
+            velocity = velocity.stretch(params.getEnergyLeftover());
+            //bounced = false;
+        //}
         
 
         //speed limit
@@ -66,6 +67,7 @@ public class Ball extends MobileBody{
 
     @Override
     public void collide(PhysicksBody otherBody) {
+        bounced = true;
         addForce(otherBody.bounce(collisonShape).stretch(bounciness));
     }
 
@@ -101,7 +103,6 @@ public class Ball extends MobileBody{
 
     @Override
     public Vector2D bounce(CollisonShape otherCollisonShape) {
-        bounced = true;
         double maxDistance = otherCollisonShape.getMaxDistanceFromCenter()+collisonShape.getMaxDistanceFromCenter();
         Vector2D diff = collisonShape.getCenter().diff(otherCollisonShape.getCenter());
         double clip = maxDistance-diff.length();

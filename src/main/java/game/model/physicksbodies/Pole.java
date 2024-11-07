@@ -9,8 +9,8 @@ import game.view.Visual;
 import game.view.Visualizer;
 
 public class Pole extends FixBody{
-    public Pole(Vector2D position, double radius, Color color){
-        super(new CollisonCircle(position, radius),color);
+    public Pole(Vector2D center, double radius, Color color){
+        super(new CollisonCircle(center.add(new Vector2D(-radius,-radius)), radius),color);
     }
 
     @Override
