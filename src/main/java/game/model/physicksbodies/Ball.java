@@ -12,7 +12,7 @@ import game.model.Vector2D;
 public class Ball extends MobileBody{
     double bounciness = 1; 
 
-    boolean bounced = false;
+    boolean previousIntersecting = false;
 
     public Ball(Vector2D center,double radius,Color color,double bounciness, double mass){
         super(new CollisionCircle(center.add(new Vector2D(-radius,-radius)), radius),mass,color);
@@ -35,15 +35,12 @@ public class Ball extends MobileBody{
     }
     @Override
     void calculateForces(SimulationParameters params){
-        Vector2D oldForce = force;
 
         force = new Vector2D(0,0);
         //apply gravity
         force = force.add(new Vector2D(0, params.getGravity() * mass));
 
         force = force.add(externalForces);
-
-        bounced = (oldForce.diff(force).length() > 10);
 
         externalForces = new Vector2D(0,0);
     }
@@ -57,7 +54,7 @@ public class Ball extends MobileBody{
         velocity = velocity.add(acceleration.stretch(delta));
 
         //bounceLoss
-        if(bounced){
+        if(previousIntersecting && !intersecting){
             velocity = velocity.stretch(params.getBounceEnergyRemaining());
         }
 
@@ -85,7 +82,6 @@ public class Ball extends MobileBody{
     @Override
     public void physicksUpdate(SimulationParameters params){
         long currentTime = System.nanoTime();
-
         //if theres no previous time: skip
         if(previousTime == 0){
             previousTime = currentTime;
@@ -98,11 +94,14 @@ public class Ball extends MobileBody{
 
         //apply simulationSpeed
         delta = delta * params.getSimulationSpeed();
+
+        
         
         calculateForces(params);
         calculateNewVelocity(delta, params);
         calculateNewPosition(delta);
         
+        previousIntersecting = intersecting;
         previousTime = currentTime;
     }
 
@@ -120,5 +119,13 @@ public class Ball extends MobileBody{
     @Override
     public Visual getVisual(Visualizer visualizer) {
         return visualizer.visualize(this);
+    }
+
+    @Override
+    public Color getColor() {
+        //if(intersecting){
+        //    return Color.RED;
+        //}
+        return color;
     }
 }

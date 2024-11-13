@@ -12,6 +12,8 @@ public abstract class PhysicksBody {
 
     Color color = Color.BLUE;
 
+    boolean intersecting = false;
+
     PhysicksBody(CollisionShape collisionShape, Color color){
         this.collisionShape = collisionShape;
         this.color = color;
@@ -39,5 +41,9 @@ public abstract class PhysicksBody {
 
     public Color getColor() {
         return color;
+    }
+
+    public void setIntersecting(boolean intersecting) {
+        this.intersecting = intersecting;
     }
 }

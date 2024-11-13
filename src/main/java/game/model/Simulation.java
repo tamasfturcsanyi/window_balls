@@ -43,6 +43,7 @@ public class Simulation{
         for( Wall wall : walls){
             if(physicksBody.getCollisionShape().haveCollided(wall.getCollisionShape())){
                 physicksBody.collide(wall);
+                physicksBody.setIntersecting(true);
             }
         }
     }
@@ -51,6 +52,7 @@ public class Simulation{
         for (PhysicksBody otherBody : bodies) {
             if(physicksBody != otherBody && physicksBody.getCollisionShape().haveCollided(otherBody.getCollisionShape())){
                 physicksBody.collide(otherBody);
+                physicksBody.setIntersecting(true);
             }
         }
     }
@@ -58,12 +60,12 @@ public class Simulation{
     //model update cycle
     public void update(){
         for (PhysicksBody physicksBody : bodies) {
-            physicksBody.physicksUpdate(params);
+            physicksBody.setIntersecting(false);
             if(!physicksBody.getFix()){
                 bounceOfOtherBodies(physicksBody);
                 bounceOfWalls(physicksBody);
             }
-            
+            physicksBody.physicksUpdate(params);
         }
     }
 
@@ -91,7 +93,7 @@ public class Simulation{
 
         title = "Preset_1";
 
-        params = new SimulationParameters(10, 10, 0.9, 200,0.0001);
+        params = new SimulationParameters(10, 10, 0.6, 200,0.001);
 
         addBody(new Brick(new Vector2D(300, 400), new Vector2D(10, 500)));
 
