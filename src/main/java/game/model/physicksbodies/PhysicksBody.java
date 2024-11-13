@@ -11,6 +11,7 @@ public abstract class PhysicksBody {
     CollisionShape collisionShape;
 
     Color color = Color.BLUE;
+    boolean visible = true;
 
     boolean intersecting = false;
 
@@ -43,6 +44,13 @@ public abstract class PhysicksBody {
         return color;
     }
 
+    public boolean isVisible(){
+        return visible;
+    }
+
+    public void setVisible(boolean visible){
+        this.visible = visible;
+    }
     public void setIntersecting(boolean intersecting) {
         this.intersecting = intersecting;
     }

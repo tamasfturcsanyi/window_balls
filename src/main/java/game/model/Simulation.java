@@ -22,9 +22,16 @@ public class Simulation{
 
     Wall[] walls = new Wall[4];
 
-    java.awt.Rectangle windowBounds = new Rectangle(0, 0, 500, 400);
+    java.awt.Rectangle windowBounds;
 
     public Simulation(){
+        windowBounds = new Rectangle(500, 200, 500, 400);
+        wallInit();
+    }
+
+    public Simulation(String title,Rectangle windowBounds){
+        this.title = title;
+        this.windowBounds = windowBounds;
         wallInit();
     }
 

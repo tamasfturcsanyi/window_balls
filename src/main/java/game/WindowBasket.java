@@ -1,10 +1,10 @@
 package game;
 
-import game.controller.SimulationPlayer;
+import game.controller.MainMenu;
 
 public class WindowBasket {
 
-    SimulationPlayer simPlayer = new SimulationPlayer();
+    MainMenu simPlayer = new MainMenu();
 
     Thread simulationThread = new Thread(simPlayer);
 
