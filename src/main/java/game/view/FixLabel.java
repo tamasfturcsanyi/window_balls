@@ -2,7 +2,6 @@ package game.view;
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 import java.awt.Font;
-import javax.swing.SwingConstants;
 
 import javax.swing.JLabel;
 

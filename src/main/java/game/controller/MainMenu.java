@@ -27,6 +27,7 @@ public class MainMenu extends SimulationWindow{
    
     public MainMenu(){
         super("WINDOW BALLS",new Rectangle(WINDOW_X, WINDOW_Y, WINDOW_WIDTH,WINDOW_HEIGHT));
+        modelWorld.preset1();
 
         initTitle();
 
@@ -90,9 +91,18 @@ public class MainMenu extends SimulationWindow{
         volleyButton.setBorder(BorderFactory.createLineBorder(Color.BLACK,5));
         volleyButton.setFocusPainted(false);
 
+        volleyButton.addActionListener(e -> startVolley());
 
         modelWorld.addBody(volleyButton.getBody());
         view.add(volleyButton);
+    }
+
+    //starts a volley window, disposes the MainMenu Window
+    void startVolley(){
+        Thread volleyThread = new Thread(new Volley());
+        volleyThread.start();
+
+        disposeWindow();
     }
 
     void updateButtons(){

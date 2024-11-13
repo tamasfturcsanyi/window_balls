@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 public class SimulationWindow implements Runnable{
+    private volatile boolean running = true;
+
     GraphicsPanel view;
 
     Simulation modelWorld;
@@ -70,13 +72,15 @@ public class SimulationWindow implements Runnable{
         modelWorld.update();
     }
 
+    void disposeWindow(){
+        window.dispose();
+        running = false;
+    }
 
     @Override
-    public synchronized void run(){    
-        modelWorld.preset1();
-        
+    public synchronized void run(){            
         //main loop, only exits if window is closed
-        while(true){
+        while(running){
             long startTime = System.currentTimeMillis();
 
             updateModel();
@@ -96,5 +100,5 @@ public class SimulationWindow implements Runnable{
             }
 
         }
-    }
+    }        
 }
