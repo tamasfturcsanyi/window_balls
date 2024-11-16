@@ -28,7 +28,8 @@ public class SimulationWindow implements Runnable{
     long frameTime = 1000/maxFPS;
 
     void initWindow(){
-        window = new JFrame(modelWorld.getTitle());
+        window = new JFrame();
+        window.setTitle(modelWorld.getTitle());
         window.setBounds(modelWorld.getWindowBounds());
         window.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         window.setResizable(true);
@@ -68,7 +69,9 @@ public class SimulationWindow implements Runnable{
     }
 
     void updateModel(){
-        modelWorld.setWindowBounds(window.getBounds());
+        if(modelWorld.getParams().getShakeable()){
+            modelWorld.setWindowBounds(window.getBounds());
+        }
         modelWorld.update();
     }
 
@@ -77,16 +80,20 @@ public class SimulationWindow implements Runnable{
         running = false;
     }
 
+    void cycle() {
+        updateModel();
+
+        // update window in its own Thread
+        SwingUtilities.invokeLater(this::updateView);
+    }
+
     @Override
     public synchronized void run(){            
         //main loop, only exits if window is closed
         while(running){
             long startTime = System.currentTimeMillis();
-
-            updateModel();
-
-            //update window in its own Thread
-            SwingUtilities.invokeLater(this::updateView);
+            
+            cycle();
 
             long endTime = System.currentTimeMillis();
             long duration = endTime - startTime;

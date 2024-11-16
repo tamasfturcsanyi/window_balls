@@ -6,7 +6,7 @@ import java.awt.Color;
 import game.model.physicksbodies.Ball;
 
 public class Player{
-    static final double JUMP_FORCE = 300;
+    static final double JUMP_FORCE = 3000;
     static final double WALK_FORCE = 100;
 
     int num;
@@ -39,17 +39,14 @@ public class Player{
     }
 
     public void jump(){
-        System.out.println("JUMP");
-        body.addForce(new Vector2D(0,JUMP_FORCE));
+        body.addForce(new Vector2D(0,-JUMP_FORCE));
     }
 
     public void moveLeft(){
-        System.out.println("LEFT");
         body.addForce(new Vector2D(-WALK_FORCE,0));
     }
 
     public void moveRight(){
-        System.out.println("RIGHT");
         body.addForce(new Vector2D(WALK_FORCE,0));
     }
 }

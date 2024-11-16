@@ -95,12 +95,26 @@ public class Simulation{
         return title;
     }
 
+    public SimulationParameters getParams() {
+        return params;
+    }
+
+    public void volleyPreset(){
+        title = "Volley";
+
+        params = new SimulationParameters(10,10,0.6,50,0.001,false);
+
+        windowBounds = new Rectangle(500, 200, 1024, 768);
+
+        addBody(new Brick(new Vector2D(500, 200), new Vector2D(30,500)));
+    }
+
     public void preset1(){//NOSONAR
         Random rng = new Random();
 
         title = "Preset_1";
 
-        params = new SimulationParameters(10, 10, 0.6, 200,0.001);
+        params = new SimulationParameters(10, 10, 0.6, 200,0.001,true);
 
         addBody(new Brick(new Vector2D(300, 400), new Vector2D(10, 500)));
 

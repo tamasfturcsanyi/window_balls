@@ -1,6 +1,8 @@
 package game.controller;
 
 
+import java.awt.Rectangle;
+
 import game.model.Player;
 
 public class Volley extends SimulationWindow{
@@ -8,10 +10,10 @@ public class Volley extends SimulationWindow{
     Player player2;
 
     public Volley(){
-        super();
+        super("Volley",new Rectangle(0, 0, 1024, 768));
         setupPlayer1();
         setupPlayer2();
-        window.setTitle("Volley");
+        modelWorld.volleyPreset();
     }
 
     void setupPlayer1(){

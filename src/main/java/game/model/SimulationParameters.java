@@ -7,15 +7,18 @@ public class SimulationParameters{
     double speedLimit = 200;
     double generalEnergyLoss = 0.0001;
 
+    boolean shakeable = true;
+
     public SimulationParameters(){
     }
 
-    public SimulationParameters(double gravity , double speed, double bounceEnergyRemaining, double speedLimit, double generalEnergyLoss){
+    public SimulationParameters(double gravity , double speed, double bounceEnergyRemaining, double speedLimit, double generalEnergyLoss, boolean shakeable){
         this.gravity = gravity;
         this.simulationSpeed = speed;
         this.bounceEnergyRemaining = bounceEnergyRemaining;
         this.speedLimit = speedLimit;
         this.generalEnergyLoss = generalEnergyLoss;
+        this.shakeable = shakeable;
     }
 
     public double getGravity() {
@@ -36,5 +39,9 @@ public class SimulationParameters{
     
     public double getGeneralEnergyLoss() {
         return generalEnergyLoss;
+    }
+
+    public boolean getShakeable(){
+        return shakeable;
     }
 }
