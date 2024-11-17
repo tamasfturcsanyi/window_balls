@@ -54,4 +54,8 @@ public abstract class PhysicksBody {
     public void setIntersecting(boolean intersecting) {
         this.intersecting = intersecting;
     }
+
+    public boolean isIntersecting(){
+        return intersecting;
+    }
 }

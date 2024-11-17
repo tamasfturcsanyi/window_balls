@@ -9,6 +9,7 @@ import game.model.physicksbodies.Brick;
 import game.model.physicksbodies.PhysicksBody;
 import game.model.physicksbodies.Pole;
 import game.model.physicksbodies.Wall;
+import game.model.physicksbodies.volley.VolleyBall;
 
 import java.awt.Color;
 import java.awt.Rectangle;
@@ -102,11 +103,13 @@ public class Simulation{
     public void volleyPreset(){
         title = "Volley";
 
-        params = new SimulationParameters(10,10,0.6,50,0.001,false);
+        params = new SimulationParameters(10,10,0.5,500,0.001,false);
 
-        windowBounds = new Rectangle(500, 200, 1024, 768);
+        windowBounds = new Rectangle(0, 0, 1024, 768);
 
-        addBody(new Brick(new Vector2D(500, 200), new Vector2D(30,500)));
+        addBody(new Brick(new Vector2D(512 - 15, 300), new Vector2D(30,500)));
+        addBody(new Pole(new Vector2D(512,300),15,Color.orange));
+        addBody(new VolleyBall());
     }
 
     public void preset1(){//NOSONAR

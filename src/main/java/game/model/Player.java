@@ -1,33 +1,40 @@
 package game.model;
 
-import java.awt.Color;
-
-
 import game.model.physicksbodies.Ball;
+import game.model.physicksbodies.volley.PlayerBody;
 
 public class Player{
-    static final double JUMP_FORCE = 3000;
-    static final double WALK_FORCE = 100;
+    static final double JUMP_FORCE = 500;
+    static final double WALK_FORCE = 10;
+    static final double DOWN_FORCE = 100;
+
+    boolean up = false;
+    boolean down = false;
+    boolean left = false;
+    boolean right = false;
 
     int num;
 
-    Ball body = new Ball(new Vector2D(600,200),20,Color.cyan, 1, 1);
+    PlayerBody body;
 
     public Player(int num){
         this.num = num;
-        if(num == 1){
-            initPlayer1();
-        }else{
-            initPlayer2();
+        body = new PlayerBody(num);
+    }
+
+    public void update(){
+        if(up && body.isIntersecting()){
+            jump();
         }
-    }
-
-    void initPlayer1(){
-        body = new Ball(new Vector2D(600,400),20,Color.CYAN, 0.5, 1);
-    }
-
-    void initPlayer2(){
-        body = new Ball(new Vector2D(800,400),20,Color.RED, 0.5, 1);
+        if(right){
+            moveRight();
+        }
+        if(left){
+            moveLeft();
+        }
+        if(down && !body.isIntersecting()){
+            moveDown();
+        }
     }
 
     public Ball getBody() {
@@ -42,11 +49,31 @@ public class Player{
         body.addForce(new Vector2D(0,-JUMP_FORCE));
     }
 
-    public void moveLeft(){
+    void moveLeft(){
         body.addForce(new Vector2D(-WALK_FORCE,0));
     }
 
-    public void moveRight(){
+    void moveRight(){
         body.addForce(new Vector2D(WALK_FORCE,0));
+    }
+
+    void moveDown(){
+        body.addForce(new Vector2D(0,WALK_FORCE));
+    }
+
+    public void setDown(boolean down) {
+        this.down = down;
+    }
+
+    public void setLeft(boolean left) {
+        this.left = left;
+    }
+
+    public void setRight(boolean right) {
+        this.right = right;
+    }
+
+    public void setUp(boolean up) {
+        this.up = up;
     }
 }

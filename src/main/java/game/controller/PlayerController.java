@@ -1,60 +1,39 @@
 package game.controller;
 
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
+
 import game.model.Player;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+public class PlayerController implements KeyListener {
+    Player player;
 
-import javax.swing.KeyStroke;
+    ControlScheme scheme;
 
-public class PlayerController implements KeyListener{
-    private Player player;
-
-    int UP;
-    int DOWN;
-    int LEFT;
-    int RIGHT;
-
-    PlayerController(Player player){
+    PlayerController(Player player, ControlScheme scheme){
         this.player = player;
-        if(player.getNum() == 1){
-            initPlayer1();
-        }else{
-            initPlayer2();
-        }
+        this.scheme = scheme;
     }
-
-    void initPlayer2(){
-        UP = KeyEvent.VK_UP;
-        DOWN = KeyEvent.VK_DOWN;
-        LEFT = KeyEvent.VK_LEFT;
-        RIGHT = KeyEvent.VK_RIGHT;
-    }
-
-    void initPlayer1(){
-        UP = KeyEvent.VK_W;
-        DOWN = KeyEvent.VK_S;
-        LEFT = KeyEvent.VK_A;
-        RIGHT = KeyEvent.VK_D;
-    }
-
 
     public Player getPlayer() {
         return player;
     }
-    
+
     @Override
     public void keyPressed(KeyEvent e) {
-
-        switch ( e.getKeyCode() ) {
-            case KeyEvent.VK_UP:
-                player.jump();
+        String action = scheme.mapKeyToAction(e.getKeyCode());
+        switch ( action) {
+            case "MOVE UP":
+                player.setUp(true);
                 break;
-            case KeyEvent.VK_LEFT:
-                player.moveLeft();
+            case "MOVE DOWN":
+                player.setDown(true);
                 break;
-            case KeyEvent.VK_RIGHT:
-                player.moveRight();
+            case "MOVE LEFT":
+                player.setLeft(true);
+                break;
+            case "MOVE RIGHT":
+                player.setRight(true);
                 break;
             default:
                 break;
@@ -63,12 +42,27 @@ public class PlayerController implements KeyListener{
 
     @Override
     public void keyReleased(KeyEvent e) {
-        //nothing
+        String action = scheme.mapKeyToAction(e.getKeyCode());
+        switch ( action) {
+            case "MOVE UP":
+                player.setUp(false);
+                break;
+            case "MOVE DOWN":
+                player.setDown(false);
+                break;
+            case "MOVE LEFT":
+                player.setLeft(false);
+                break;
+            case "MOVE RIGHT":
+                player.setRight(false);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        //nothing
+        // no action
     }
-
 }
