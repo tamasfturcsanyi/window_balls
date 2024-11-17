@@ -100,7 +100,7 @@ public class Simulation{
         return params;
     }
 
-    public void volleyPreset(){
+    public void volleyPreset(VolleyBall ball){
         title = "Volley";
 
         params = new SimulationParameters(10,10,0.5,500,0.001,false);
@@ -109,7 +109,7 @@ public class Simulation{
 
         addBody(new Brick(new Vector2D(512 - 15, 300), new Vector2D(30,500)));
         addBody(new Pole(new Vector2D(512,300),15,Color.orange));
-        addBody(new VolleyBall());
+        addBody(ball);
     }
 
     public void preset1(){//NOSONAR
@@ -125,5 +125,9 @@ public class Simulation{
         for(int i = 0; i < 5;++i){
             addBody(new Ball(new Vector2D(10 + 10*i,10), 20 + 5*i, new Color(rng.nextInt(0,256*256*256)), 0.5, 1 + i));
         }
+    }
+
+    public boolean isOnTheGround(PhysicksBody body){
+        return walls[2].isIntersectingWith(body);
     }
 }

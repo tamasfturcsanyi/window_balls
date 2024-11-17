@@ -58,4 +58,8 @@ public abstract class PhysicksBody {
     public boolean isIntersecting(){
         return intersecting;
     }
+
+    public boolean isIntersectingWith(PhysicksBody otherBody){
+        return (this != otherBody && this.getCollisionShape().haveCollided(otherBody.getCollisionShape()));
+    }
 }

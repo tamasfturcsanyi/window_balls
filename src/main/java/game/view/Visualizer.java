@@ -4,6 +4,8 @@ import java.awt.geom.Ellipse2D;
 
 import game.model.Vector2D;
 import game.model.physicksbodies.*;
+import game.model.physicksbodies.volley.PlayerBody;
+import game.model.Player;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -58,6 +60,31 @@ public class Visualizer{
        }
     }
 
+    class PlayerVisual implements Visual{
+        BallVisual body;
+        String face;
+        int x;
+        int y;
+
+        PlayerVisual(Ball ball, String face,int x, int y){
+            this.body = new BallVisual(
+                ball.getPosition().getX() - windowBounds.x,
+                ball.getPosition().getY() - windowBounds.y,
+                ball.getDimension().getX(),
+                ball.getDimension().getY(),
+                ball.getColor());
+            this.face = face;
+            this.x = x;
+            this.y = y;
+        }
+
+        @Override
+        public void draw(Graphics2D g2) {
+            body.draw(g2);
+            g2.drawString(face, x,y);
+        }
+    }
+
     public Visual visualize(Ball ball){
         return new BallVisual(
             ball.getPosition().getX() - windowBounds.x,
@@ -81,5 +108,10 @@ public class Visualizer{
             pole.getDimension().getX(),
             pole.getDimension().getY(),
             pole.getColor());
+    }
+
+    public Visual visualize(Player player){
+        PlayerBody body = player.getBody();
+        return new PlayerVisual(body, body.getFace(), (int)body.getPosition().getX(), (int)body.getPosition().getY());
     }
 }

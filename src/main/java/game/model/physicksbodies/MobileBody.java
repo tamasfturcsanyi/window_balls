@@ -33,6 +33,10 @@ public abstract class MobileBody extends PhysicksBody {
         return externalForces;
     }
 
+    public void setVelocity(Vector2D velocity) {
+        this.velocity = velocity;
+    }
+
     public Vector2D getVelocity() {
         return velocity;
     }

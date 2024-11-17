@@ -18,9 +18,6 @@ public class SimulationWindow implements Runnable{
 
     Simulation modelWorld;
 
-    FPSCounter counter = new FPSCounter();
-    Thread counterThread = new Thread(counter);
-
 
     JFrame window;
 
@@ -40,10 +37,6 @@ public class SimulationWindow implements Runnable{
     public SimulationWindow(){
         modelWorld = new Simulation();
         view = new GraphicsPanel();
-
-        view.add(counter.getLabel());
-        counterThread.start();
-
         initWindow();
     }
 
@@ -51,14 +44,10 @@ public class SimulationWindow implements Runnable{
         modelWorld = new Simulation(title,windowBounds);
         view = new GraphicsPanel();
 
-        view.add(counter.getLabel());
-        counterThread.start();
-
         initWindow();
     }
 
     void updateView(){
-        counter.increment();
         view.reset();
         for (PhysicksBody physicksBody : modelWorld.getPhysicksBodies()) {
             if(physicksBody.isVisible()){

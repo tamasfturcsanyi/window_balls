@@ -1,19 +1,24 @@
 package game.model;
 
-import game.model.physicksbodies.Ball;
 import game.model.physicksbodies.volley.PlayerBody;
 
 public class Player{
-    static final double JUMP_FORCE = 500;
+    static final double JUMP_FORCE = 1000;
     static final double WALK_FORCE = 10;
     static final double DOWN_FORCE = 500;
+
+    static final double FRICTION = 0.2;
 
     boolean up = false;
     boolean down = false;
     boolean left = false;
     boolean right = false;
 
+    boolean onGround = false;
+
     int num;
+
+    int score = 0;
 
     PlayerBody body;
 
@@ -23,7 +28,11 @@ public class Player{
     }
 
     public void update(){
-        if(up && body.isIntersecting()){
+        move();
+    }
+
+    void move(){
+        if(up && onGround){
             jump();
         }
         if(right){
@@ -35,9 +44,13 @@ public class Player{
         if(down && !up){
             moveDown();
         }
+        double horizontalVelocity = body.getVelocity().getX();
+        if(!right && !left){
+            body.addForce(new Vector2D(-horizontalVelocity*FRICTION,0));
+        }
     }
 
-    public Ball getBody() {
+    public PlayerBody getBody() {
         return body;
     }
 
@@ -75,5 +88,17 @@ public class Player{
 
     public void setUp(boolean up) {
         this.up = up;
+    }
+
+    public void setOnGround(boolean onGround) {
+        this.onGround = onGround;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }
