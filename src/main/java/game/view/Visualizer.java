@@ -6,8 +6,8 @@ import game.model.Vector2D;
 import game.model.physicksbodies.*;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.Shape;
 
 public class Visualizer{
     Rectangle windowBounds;
@@ -30,25 +30,16 @@ public class Visualizer{
         }
 
         @Override
-        public Color getColor() {
-            return color;
-        }
-
-        @Override
-        public Shape getShape() {
-            return shape;
+        public void draw(Graphics2D g2) {
+            g2.setColor(color);
+            g2.fill(shape);
         }
     }
 
     class WallVisual implements Visual{
         @Override
-        public Color getColor() {
-            return Color.BLACK;
-        }
-
-        @Override
-        public Shape getShape() {
-            return new Rectangle(0,0,0,0);
+        public void draw(Graphics2D g2) {
+            //invisible
         }            
     }
     class BallVisual implements Visual{
@@ -60,15 +51,11 @@ public class Visualizer{
             shape = new Ellipse2D.Double(x,y,width,height);
         }
 
-        @Override
-        public Shape getShape() {
-            return shape;
-        }
-
-        @Override
-        public Color getColor() {
-            return color;
-        }
+       @Override
+       public void draw(Graphics2D g2) {
+           g2.setColor(color);
+           g2.fill(shape);
+       }
     }
 
     public Visual visualize(Ball ball){

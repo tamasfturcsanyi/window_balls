@@ -1,9 +1,7 @@
 package game.view;
 
-import java.awt.Color;
-import java.awt.Shape;
+import java.awt.Graphics2D;
 
 public interface Visual{
-    Shape getShape();
-    Color getColor();
+    void draw(Graphics2D g2);
 }

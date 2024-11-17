@@ -6,7 +6,7 @@ import game.model.physicksbodies.volley.PlayerBody;
 public class Player{
     static final double JUMP_FORCE = 500;
     static final double WALK_FORCE = 10;
-    static final double DOWN_FORCE = 100;
+    static final double DOWN_FORCE = 500;
 
     boolean up = false;
     boolean down = false;
@@ -32,7 +32,7 @@ public class Player{
         if(left){
             moveLeft();
         }
-        if(down && !body.isIntersecting()){
+        if(down && !up){
             moveDown();
         }
     }
@@ -58,7 +58,7 @@ public class Player{
     }
 
     void moveDown(){
-        body.addForce(new Vector2D(0,WALK_FORCE));
+        body.addForce(new Vector2D(0,DOWN_FORCE));
     }
 
     public void setDown(boolean down) {
