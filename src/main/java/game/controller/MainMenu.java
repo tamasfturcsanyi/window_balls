@@ -15,12 +15,15 @@ public class MainMenu extends SimulationWindow{
     static final int WINDOW_Y = 200;
     static final int WINDOW_WIDTH = 700;
     static final int WINDOW_HEIGHT = 600;
+
+    static final String FONT_NAME = "Impact";
     
     SolidButton simButton;
 
     SolidButton basketButton;
 
     SolidButton volleyButton;
+
 
 
     FixLabel titleLabel;
@@ -55,7 +58,7 @@ public class MainMenu extends SimulationWindow{
                                  new Vector2D(200,100));
 
         simButton.setNormalColor(Color.PINK);
-        simButton.setFont(new Font("Impact",Font.BOLD,32));
+        simButton.setFont(new Font(FONT_NAME,Font.BOLD,32));
         simButton.setBorderPainted(true);
         simButton.setBorder(BorderFactory.createLineBorder(Color.BLACK,5));
         simButton.setFocusPainted(false);
@@ -71,7 +74,7 @@ public class MainMenu extends SimulationWindow{
                                  new Vector2D(200,100));
 
         basketButton.setNormalColor(Color.ORANGE);
-        basketButton.setFont(new Font("Impact",Font.BOLD,32));
+        basketButton.setFont(new Font(FONT_NAME,Font.BOLD,32));
         basketButton.setBorderPainted(true);
         basketButton.setBorder(BorderFactory.createLineBorder(Color.BLACK,5));
         basketButton.setFocusPainted(false);
@@ -87,7 +90,7 @@ public class MainMenu extends SimulationWindow{
                                  new Vector2D(200,100));
 
         volleyButton.setNormalColor(Color.YELLOW);
-        volleyButton.setFont(new Font("Impact",Font.BOLD,32));
+        volleyButton.setFont(new Font(FONT_NAME,Font.BOLD,32));
         volleyButton.setBorderPainted(true);
         volleyButton.setBorder(BorderFactory.createLineBorder(Color.BLACK,5));
         volleyButton.setFocusPainted(false);
