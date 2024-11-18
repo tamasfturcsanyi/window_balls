@@ -4,7 +4,6 @@ import game.model.Simulation;
 import game.model.physicksbodies.PhysicksBody;
 import game.view.Visualizer;
 import game.view.Visualizer.Visualizable;
-import game.view.FPSCounter;
 import game.view.GraphicsPanel;
 
 import java.awt.Rectangle;

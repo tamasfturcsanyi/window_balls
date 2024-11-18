@@ -5,11 +5,8 @@ import java.awt.Font;
 import java.awt.Rectangle;
 
 import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
-
 import game.model.Player;
 import game.model.physicksbodies.volley.VolleyBall;
-import game.view.Visualizer;
 
 public class Volley extends SimulationWindow{
     Player player1;

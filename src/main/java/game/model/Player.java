@@ -6,8 +6,6 @@ import game.view.Visualizer;
 import game.view.Visualizer.Visualizable;
 import java.awt.Font;
 
-import com.google.gson.FieldAttributes;
-
 import java.awt.Color;
 
 public class Player implements Visualizable{
