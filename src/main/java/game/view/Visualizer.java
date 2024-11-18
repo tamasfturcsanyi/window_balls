@@ -4,14 +4,23 @@ import java.awt.geom.Ellipse2D;
 
 import game.model.Vector2D;
 import game.model.physicksbodies.*;
-import game.model.physicksbodies.volley.PlayerBody;
 import game.model.Player;
+import game.model.Player.Face;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 public class Visualizer{
+    public interface Visual{
+        void draw(Graphics2D g2);
+    }
+
+    public interface Visualizable{
+        public abstract Visual getVisual(Visualizer visualizer);
+    }
+
     Rectangle windowBounds;
 
     public Visualizer(Rectangle windowBounds){
@@ -62,11 +71,11 @@ public class Visualizer{
 
     class PlayerVisual implements Visual{
         BallVisual body;
-        String face;
+        Face face;
         int x;
         int y;
 
-        PlayerVisual(Ball ball, String face,int x, int y){
+        PlayerVisual(Ball ball, Face face,int x, int y){
             this.body = new BallVisual(
                 ball.getPosition().getX() - windowBounds.x,
                 ball.getPosition().getY() - windowBounds.y,
@@ -81,7 +90,9 @@ public class Visualizer{
         @Override
         public void draw(Graphics2D g2) {
             body.draw(g2);
-            g2.drawString(face, x,y);
+            g2.setColor(Color.BLACK);
+            g2.setFont(face.getFont());
+            g2.drawString(face.getString(), x + 12 ,y + 40);
         }
     }
 
@@ -111,7 +122,7 @@ public class Visualizer{
     }
 
     public Visual visualize(Player player){
-        PlayerBody body = player.getBody();
-        return new PlayerVisual(body, body.getFace(), (int)body.getPosition().getX(), (int)body.getPosition().getY());
+        Ball body = player.getBody();
+        return new PlayerVisual(body, player.getFace(), (int)body.getPosition().getX(), (int)body.getPosition().getY());
     }
 }

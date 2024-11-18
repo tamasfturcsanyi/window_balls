@@ -3,6 +3,7 @@ package game.controller;
 import game.model.Simulation;
 import game.model.physicksbodies.PhysicksBody;
 import game.view.Visualizer;
+import game.view.Visualizer.Visualizable;
 import game.view.FPSCounter;
 import game.view.GraphicsPanel;
 
@@ -11,6 +12,8 @@ import java.awt.Rectangle;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import java.util.ArrayList;
+
 public class SimulationWindow implements Runnable{
     private volatile boolean running = true;
 
@@ -18,11 +21,19 @@ public class SimulationWindow implements Runnable{
 
     Simulation modelWorld;
 
+    ArrayList<Visualizable> visualizables = new ArrayList<>();
 
     JFrame window;
 
     int maxFPS = 240;
     long frameTime = 1000/maxFPS;
+
+    public SimulationWindow(String title, Rectangle windowBounds){
+        modelWorld = new Simulation(title,windowBounds);
+        view = new GraphicsPanel();
+        initVisualizables();
+        initWindow();
+    }
 
     void initWindow(){
         window = new JFrame();
@@ -34,25 +45,17 @@ public class SimulationWindow implements Runnable{
         window.add(view);
     }
 
-    public SimulationWindow(){
-        modelWorld = new Simulation();
-        view = new GraphicsPanel();
-        initWindow();
-    }
-
-    public SimulationWindow(String title, Rectangle windowBounds){
-        modelWorld = new Simulation(title,windowBounds);
-        view = new GraphicsPanel();
-
-        initWindow();
+    void initVisualizables(){
+        for (PhysicksBody body : modelWorld.getPhysicksBodies()) {
+            if(body.isVisible()){
+                visualizables.add(body);
+            }
+        }
     }
 
     void updateView(){
-        view.reset();
-        for (PhysicksBody physicksBody : modelWorld.getPhysicksBodies()) {
-            if(physicksBody.isVisible()){
-                view.addVisual(physicksBody.getVisual(new Visualizer(modelWorld.getWindowBounds())));
-            }
+        for (Visualizable v : visualizables) {
+            view.addVisual(v.getVisual(new Visualizer(modelWorld.getWindowBounds())));
         }
         window.repaint();
     }

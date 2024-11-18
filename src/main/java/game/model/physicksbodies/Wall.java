@@ -5,7 +5,7 @@ import java.awt.geom.Rectangle2D;
 
 import game.model.shapes.CollisionRectangle;
 import game.model.shapes.CollisionShape;
-import game.view.Visual;
+import game.view.Visualizer.Visual;
 import game.view.Visualizer;
 import game.model.Vector2D;
 

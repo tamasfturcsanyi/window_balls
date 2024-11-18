@@ -6,7 +6,7 @@ import game.model.Vector2D;
 
 import game.model.shapes.CollisionRectangle;
 import game.model.shapes.CollisionShape;
-import game.view.Visual;
+import game.view.Visualizer.Visual;
 import game.view.Visualizer;
 public class Brick extends FixBody{
     double bounciness = 10;

@@ -3,6 +3,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
+import game.view.Visualizer.Visual;
 
 import java.awt.image.BufferedImage;
 
@@ -35,6 +36,7 @@ public class GraphicsPanel extends JPanel{
         }
 
         g2.drawImage(image,0,0,this);
+        reset();
     }
 
     public void addVisual(Visual v){

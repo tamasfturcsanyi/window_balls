@@ -5,7 +5,7 @@ import java.awt.Color;
 import game.model.Vector2D;
 import game.model.shapes.CollisionCircle;
 import game.model.shapes.CollisionShape;
-import game.view.Visual;
+import game.view.Visualizer.Visual;
 import game.view.Visualizer;
 
 public class Pole extends FixBody{

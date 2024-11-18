@@ -103,7 +103,7 @@ public class Simulation{
     public void volleyPreset(VolleyBall ball){
         title = "Volley";
 
-        params = new SimulationParameters(10,10,0.5,500,0.001,false);
+        params = new SimulationParameters(10,10,0.5,200,0.001,false);
 
         windowBounds = new Rectangle(0, 0, 1024, 768);
 

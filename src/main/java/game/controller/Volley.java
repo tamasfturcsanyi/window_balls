@@ -5,9 +5,11 @@ import java.awt.Font;
 import java.awt.Rectangle;
 
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 
 import game.model.Player;
 import game.model.physicksbodies.volley.VolleyBall;
+import game.view.Visualizer;
 
 public class Volley extends SimulationWindow{
     Player player1;
@@ -27,11 +29,13 @@ public class Volley extends SimulationWindow{
         score.setFont(new Font("Impact", Font.BOLD, 52));
         view.add(score);
         modelWorld.volleyPreset(ball);
+        initVisualizables();
     }
 
     void setupPlayer1(){
         player1 = new Player(1);
         modelWorld.addBody(player1.getBody());
+        visualizables.add(player1);
         PlayerController pc1 = new PlayerController(player1,ControlScheme.WASD);
         window.addKeyListener(pc1);
     }
@@ -39,6 +43,7 @@ public class Volley extends SimulationWindow{
     void setupPlayer2(){
         player2 = new Player(2);
         modelWorld.addBody(player2.getBody());
+        visualizables.add(player2);
         PlayerController pc2 = new PlayerController(player2,ControlScheme.ARROWS);
         window.addKeyListener(pc2);
     }

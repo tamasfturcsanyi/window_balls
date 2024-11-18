@@ -1,12 +1,43 @@
 package game.model;
 
-import game.model.physicksbodies.volley.PlayerBody;
+import game.model.physicksbodies.Ball;
+import game.view.Visualizer.Visual;
+import game.view.Visualizer;
+import game.view.Visualizer.Visualizable;
+import java.awt.Font;
 
-public class Player{
+import com.google.gson.FieldAttributes;
+
+import java.awt.Color;
+
+public class Player implements Visualizable{
+    public enum Face{
+        HAPPY(" ͡° ͜ʖ ͡°"),
+        SERIOUS("▀̿Ĺ̯▀̿ ̿"),
+        SAD("ಠ╭╮ಠ"),
+        CUTE("｡◕‿◕｡"),
+        BEAR("ʕ•ᴥ•ʔ");
+
+
+        private final String string;
+        private final Font font;
+
+        Face(String string){
+            this.string = string;
+            font = new Font("Arrial",Font.PLAIN,26);
+        }
+
+        public String getString() {
+            return string;
+        }
+        public Font getFont() {
+            return font;
+        }
+    }
+
     static final double JUMP_FORCE = 1000;
     static final double WALK_FORCE = 10;
     static final double DOWN_FORCE = 500;
-
     static final double FRICTION = 0.2;
 
     boolean up = false;
@@ -20,11 +51,16 @@ public class Player{
 
     int score = 0;
 
-    PlayerBody body;
+    Ball body;
+
+    Face face;
+
 
     public Player(int num){
         this.num = num;
-        body = new PlayerBody(num);
+        face = (num == 1) ? Face.SERIOUS : Face.CUTE;
+        body = new Ball( num == 1 ? new Vector2D(500,500): new Vector2D(800,500),40, num == 1 ? Color.CYAN:Color.red,1,1);
+        body.setVisible(false);
     }
 
     public void update(){
@@ -50,7 +86,7 @@ public class Player{
         }
     }
 
-    public PlayerBody getBody() {
+    public Ball getBody() {
         return body;
     }
 
@@ -100,5 +136,14 @@ public class Player{
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public Face getFace() {
+        return face;
+    }
+
+    @Override
+    public Visual getVisual(Visualizer visualizer) {
+        return visualizer.visualize(this);
     }
 }

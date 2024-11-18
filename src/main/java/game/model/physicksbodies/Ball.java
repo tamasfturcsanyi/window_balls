@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import game.model.shapes.CollisionCircle;
 import game.model.shapes.CollisionShape;
-import game.view.Visual;
+import game.view.Visualizer.Visual;
 import game.view.Visualizer;
 import game.model.SimulationParameters;
 import game.model.Vector2D;

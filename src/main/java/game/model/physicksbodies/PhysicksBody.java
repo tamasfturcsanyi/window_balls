@@ -1,13 +1,12 @@
 package game.model.physicksbodies;
 
 import java.awt.Color;
-import game.view.Visual;
-import game.view.Visualizer;
+import game.view.Visualizer.Visualizable;
 import game.model.SimulationParameters;
 import game.model.Vector2D;
 import game.model.shapes.CollisionShape;
 
-public abstract class PhysicksBody {
+public abstract class PhysicksBody implements Visualizable{
     CollisionShape collisionShape;
 
     Color color = Color.BLUE;
@@ -37,8 +36,6 @@ public abstract class PhysicksBody {
     }
 
     public abstract boolean getFix();
-
-    public abstract Visual getVisual(Visualizer visualizer);
 
     public Color getColor() {
         return color;
