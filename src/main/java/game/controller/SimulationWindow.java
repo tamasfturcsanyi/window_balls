@@ -11,7 +11,7 @@ import java.awt.Rectangle;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class SimulationWindow implements Runnable{
     private volatile boolean running = true;
@@ -20,7 +20,7 @@ public class SimulationWindow implements Runnable{
 
     Simulation modelWorld;
 
-    ArrayList<Visualizable> visualizables = new ArrayList<>();
+    HashSet<Visualizable> visualizables = new HashSet<>();
 
     JFrame window;
 
@@ -50,6 +50,16 @@ public class SimulationWindow implements Runnable{
                 visualizables.add(body);
             }
         }
+    }
+
+    public void addToViewAndSimulation(PhysicksBody body){
+        visualizables.add(body);
+        modelWorld.addBody(body);
+    }
+
+    public void removeFromViewAndSimulation(PhysicksBody body){
+        visualizables.remove(body);
+        modelWorld.removeBody(body);
     }
 
     void updateView(){

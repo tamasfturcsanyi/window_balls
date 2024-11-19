@@ -47,6 +47,10 @@ public class Simulation{
         bodies.add(body);
     }
 
+    public void removeBody(PhysicksBody body){
+        bodies.remove(body);
+    }
+
     void bounceOfWalls(PhysicksBody physicksBody){
         for( Wall wall : walls){
             if(physicksBody.getCollisionShape().haveCollided(wall.getCollisionShape())){
@@ -107,8 +111,8 @@ public class Simulation{
 
         windowBounds = new Rectangle(0, 0, 1024, 768);
 
-        addBody(new Brick(new Vector2D(512 - 15, 300), new Vector2D(30,500)));
-        addBody(new Pole(new Vector2D(512,300),15,Color.orange));
+        addBody(new Brick(new Vector2D(windowBounds.width/2.0 - 15, 300), new Vector2D(30,500)));
+        addBody(new Pole(new Vector2D(windowBounds.width/2.0,300),15,Color.orange));
         addBody(ball);
     }
 

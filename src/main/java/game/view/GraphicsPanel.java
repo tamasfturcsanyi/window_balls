@@ -25,8 +25,8 @@ public class GraphicsPanel extends JPanel{
 
     @Override
     protected void paintComponent(Graphics g) {
-        image = new BufferedImage(2000, 2000, BufferedImage.TYPE_INT_ARGB);
         super.paintComponent(g);
+        image = new BufferedImage(2000, 2000, BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D g2 = (Graphics2D )g;
         Graphics2D imageGraphics2d = image.createGraphics();
@@ -36,6 +36,7 @@ public class GraphicsPanel extends JPanel{
         }
 
         g2.drawImage(image,0,0,this);
+
         reset();
     }
 

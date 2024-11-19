@@ -3,7 +3,7 @@ package game.model;
 public class SimulationParameters{
     double gravity = 10;
     double simulationSpeed = 10;
-    double bounceEnergyRemaining = 0.9;
+    double bounceEnergyRemaining = 0.6;
     double speedLimit = 200;
     double generalEnergyLoss = 0.0001;
 

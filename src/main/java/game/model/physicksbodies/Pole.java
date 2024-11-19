@@ -18,6 +18,10 @@ public class Pole extends FixBody{
         return new Vector2D(collisionShape.getBoundingBox().getWidth(),collisionShape.getBoundingBox().getHeight());
     }
 
+    public Vector2D getCenter(){
+        return collisionShape.getCenter();
+    }
+    
     @Override
     public Vector2D getPosition() {
         return collisionShape.getPosition();

@@ -24,6 +24,10 @@ public class Ball extends MobileBody{
         return collisionShape.getPosition();
     }
 
+    public Vector2D getCenter(){
+        return collisionShape.getCenter();
+    }
+
     @Override
     public void setPosition(Vector2D position) {
         collisionShape.setPosition(position);
