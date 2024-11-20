@@ -10,7 +10,7 @@ public class CollisionCircle extends Ellipse2D.Double implements CollisionShape{
     double radius;
 
     //coordinate of the circle's upperleft corner
-    transient Vector2D position;
+    Vector2D position;
 
     public CollisionCircle(Vector2D position, double radius){
         super(position.getX(),position.getY(),2*radius,2*radius);
