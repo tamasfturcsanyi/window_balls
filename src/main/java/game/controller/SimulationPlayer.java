@@ -1,6 +1,8 @@
-package game.controller;
+package game.controller.simulation_player;
 
 import java.awt.Rectangle;
+
+import game.controller.SimulationWindow;
 
 public class SimulationPlayer extends SimulationWindow{
     public SimulationPlayer(){
