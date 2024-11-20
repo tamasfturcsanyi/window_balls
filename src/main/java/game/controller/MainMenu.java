@@ -46,7 +46,7 @@ public class MainMenu extends SimulationWindow{
     }
 
     void initTitle(){
-        titleLabel = new FixLabel("WINDOW BALLS",new Vector2D(0 + 180.0,100));
+        titleLabel = new FixLabel("WINDOW BALLS",new Vector2D(WINDOW_WIDTH/2,WINDOW_HEIGHT/2));
         titleLabel.setFont(new Font("Impact",Font.BOLD,50));
         titleLabel.setForeground(Color.ORANGE);
         view.add(titleLabel);

@@ -11,6 +11,8 @@ import game.view.Visualizer;
 public class Brick extends FixBody{
     double bounciness = 10;
 
+    static final double LIMES = 10;
+
     public Brick(Vector2D position, Vector2D dimension){
         super(new CollisionRectangle(position, dimension),Color.ORANGE);
     }
@@ -51,8 +53,13 @@ public class Brick extends FixBody{
     @Override
     public Vector2D bounce(CollisionShape a) {
         Rectangle2D intersectionRectangle =  collisionShape.getBoundingBox().createIntersection(a.getBoundingBox());
+        double difference = intersectionRectangle.getWidth() - intersectionRectangle.getHeight();
+        //prevent corner rockets
+        if(Math.abs(difference) < LIMES){
+            return new Vector2D(0,0);
+        }
 
-        if(intersectionRectangle.getWidth() > intersectionRectangle.getHeight()){
+        if(difference > 0){
             return bounceVertically(a, intersectionRectangle);
         }else{
             return bounceHorizontally(a, intersectionRectangle);

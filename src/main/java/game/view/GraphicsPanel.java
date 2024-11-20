@@ -17,6 +17,7 @@ public class GraphicsPanel extends JPanel{
 
     public GraphicsPanel(){
         visualElements = new ArrayList<>();
+        //setLayout(null);
     }
 
     public void reset(){
@@ -26,17 +27,10 @@ public class GraphicsPanel extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        image = new BufferedImage(2000, 2000, BufferedImage.TYPE_INT_ARGB);
-
-        Graphics2D g2 = (Graphics2D )g;
-        Graphics2D imageGraphics2d = image.createGraphics();
-
+        Graphics2D g2 = (Graphics2D) g;
         for (Visual v : visualElements) {
-            v.draw(imageGraphics2d);
+            v.draw(g2);
         }
-
-        g2.drawImage(image,0,0,this);
-
         reset();
     }
 
