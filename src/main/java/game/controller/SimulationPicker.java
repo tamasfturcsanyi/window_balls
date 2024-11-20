@@ -1,6 +1,7 @@
 package game.controller;
 
-import java.awt.Rectangle;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -48,7 +49,9 @@ public class SimulationPicker{
         buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
 
-        buttonsPanel.add(new SimulationButton("src/main/resources/Preset_1.json"));
+        buttonsPanel.setPreferredSize(new Dimension(500,100));
+
+        buttonsPanel.add(new JButton("Add"));
         buttonsPanel.add(new JButton("Open"));
         buttonsPanel.add(new JButton("Delete"));
 
@@ -57,11 +60,11 @@ public class SimulationPicker{
 
     void initSimulationsPanel(){
         simulationsPanel = new JPanel();
+        simulationsPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         
-        simulationsPanel.add(new JButton("sim1"));
-        simulationsPanel.add(new JButton("sim2"));
-        simulationsPanel.add(new JButton("sim3"));
-
+        simulationsPanel.add(new SimulationButton("src/main/resources/Preset_1.json"));
+        simulationsPanel.add(new SimulationButton("src/main/resources/Preset_2.json"));
+        simulationsPanel.add(new SimulationButton("src/main/resources/Preset_3.json"));
         window.add(simulationsPanel);
     }
 

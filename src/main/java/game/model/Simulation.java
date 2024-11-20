@@ -10,6 +10,7 @@ import game.model.physicksbodies.PhysicksBody;
 import game.model.physicksbodies.Pole;
 import game.model.physicksbodies.Wall;
 import game.model.physicksbodies.volley.VolleyBall;
+import game.model.serialization.SimulationSerializer;
 
 import java.awt.Color;
 import java.awt.Rectangle;
@@ -104,6 +105,10 @@ public class Simulation{
         return params;
     }
 
+    public boolean isOnTheGround(PhysicksBody body){
+        return walls[2].isIntersectingWith(body);
+    }
+
     public void volleyPreset(VolleyBall ball){
         title = "Volley";
 
@@ -125,13 +130,40 @@ public class Simulation{
 
         addBody(new Brick(new Vector2D(300, 400), new Vector2D(10, 500)));
 
-        //addBody(new Pole(new Vector2D(200, 200), 20, Color.black));
+        addBody(new Pole(new Vector2D(200, 200), 20, Color.black));
         for(int i = 0; i < 5;++i){
             addBody(new Ball(new Vector2D(10 + 10*i,10), 20 + 5*i, new Color(rng.nextInt(0,256*256*256)), 0.5, 1 + i));
         }
+
+        SimulationSerializer.saveWorld(this);
     }
 
-    public boolean isOnTheGround(PhysicksBody body){
-        return walls[2].isIntersectingWith(body);
+    public void preset2(){
+        Random rng = new Random();
+
+        title = "Preset_2";
+
+        params = new SimulationParameters(10, 10, 0.6, 200,0.001,true);
+        for(int j = 0; j < 10; ++j){
+            for(int i = 0; i < 10;++i){
+                addBody(new Pole(new Vector2D(i*100,j*100),20,Color.BLUE));
+            }
+        }
+        addBody(new Ball(new Vector2D(100,10), 20, new Color(rng.nextInt(0,256*256*256)), 0.2, 10));
+
+        
+        SimulationSerializer.saveWorld(this);
+    }
+    
+    public void preset3(){
+        Random rng = new Random();
+
+        title = "Preset_3";
+
+        params = new SimulationParameters(0, 10, 0.6, 200,0.001,true);
+        for(int i = 0; i < 10;++i){
+            addBody(new Ball(new Vector2D(100 + 10*i,10), 20, new Color(rng.nextInt(0,256*256*256)), 1, 1));
+        }
+        SimulationSerializer.saveWorld(this);
     }
 }

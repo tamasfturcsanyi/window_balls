@@ -62,10 +62,14 @@ public class SimulationWindow implements Runnable{
         modelWorld.removeBody(body);
     }
 
-    void updateView(){
+    void addVisuals(){
         for (Visualizable v : visualizables) {
             view.addVisual(v.getVisual(new Visualizer(modelWorld.getWindowBounds())));
         }
+    }
+
+    void updateView(){
+        addVisuals();
         window.repaint();
     }
 

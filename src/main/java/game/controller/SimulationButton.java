@@ -1,49 +1,33 @@
 package game.controller;
 
 import java.awt.FlowLayout;
-import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-
-import game.model.Simulation;
-import game.model.physicksbodies.PhysicksBody;
-import game.model.serialization.SimulationSerializer;
-import game.view.GraphicsPanel;
-import game.view.Visualizer;
+import javax.swing.SwingUtilities;
 
 public class SimulationButton extends JButton{
 
-    ImageIcon makeIcon(Simulation sim){
-        GraphicsPanel view = new GraphicsPanel();
-        for (PhysicksBody body : sim.getPhysicksBodies()) {            
-            view.addVisual(body.getVisual(new Visualizer(sim.getWindowBounds())));
-        }
-        view.drawOnImage();
-        return new ImageIcon(view.getImagePath());
-    }
-
     public SimulationButton(String simFilePath){
-        SimulationPlayer sPlayer = new SimulationPlayer();
-        sPlayer.window.setVisible(false);
-        sPlayer.modelWorld = SimulationSerializer.loadWorld(simFilePath);
+        SimulationPlayer sPlayer = new SimulationPlayer(simFilePath);
+        Thread simThread = new Thread(sPlayer);
+        simThread.start();
         String title = sPlayer.modelWorld.getTitle();
 
         this.setText(title);
-
         try {
-            Thread.sleep(1000);
-            
+            Thread.sleep(100);            
         } catch (Exception e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
 
-        sPlayer.view.drawOnImage();
-         this.setIcon( new ImageIcon(sPlayer.view.getImagePath()));
-        //this.setIcon(makeIcon(sPlayer.modelWorld));
+        sPlayer.addVisuals();
+        
+        this.setIcon( new ImageIcon(sPlayer.view.drawOnImage()));
+
+        SwingUtilities.invokeLater(sPlayer::disposeWindow);
         
         this.setHorizontalTextPosition(SwingConstants.CENTER); // Text in the center horizontally
         this.setVerticalTextPosition(SwingConstants.TOP);   // Text below the image

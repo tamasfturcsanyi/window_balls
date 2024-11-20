@@ -25,15 +25,16 @@ public class GraphicsPanel extends JPanel{
         visualElements = new ArrayList<>();
     }
 
-    public void drawOnImage(){
+    public BufferedImage drawOnImage(){
         image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D imageGraphics2d = image.createGraphics();
-        imageGraphics2d.setBackground(Color.BLUE);
-
+        imageGraphics2d.setBackground(Color.WHITE);
+        imageGraphics2d.fillRect(0,0, getWidth(), getHeight());
         for (Visual v : visualElements) {
             v.draw(imageGraphics2d);
         }
+        return image;
     }
 
     @Override
