@@ -13,7 +13,7 @@ import game.model.physicksbodies.PhysicksBody;
 import game.model.shapes.CollisionShape;
 
 public class SimulationSerializer {
-    public void saveWorld(Simulation world){
+    public static void saveWorld(Simulation world){
         Gson gson = new GsonBuilder()
             .setPrettyPrinting()
             .registerTypeAdapter(PhysicksBody.class, new PhysicksBodyTypeAdapter())
@@ -32,7 +32,7 @@ public class SimulationSerializer {
         }
     }
 
-    public Simulation loadWorld(String path){
+    public  static Simulation loadWorld(String path){
         Gson gson = new GsonBuilder()
             .setPrettyPrinting()
             .registerTypeAdapter(CollisionShape.class,new CollisionShapeTypeAdapter())

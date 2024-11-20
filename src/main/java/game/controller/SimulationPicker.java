@@ -1,10 +1,15 @@
 package game.controller;
 
+import java.awt.Rectangle;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
+
+import game.model.Simulation;
+import game.model.serialization.SimulationSerializer;
 
 public class SimulationPicker{
     static final int WINDOW_WIDTH = 800;
@@ -19,6 +24,11 @@ public class SimulationPicker{
     
 
     public SimulationPicker(){
+
+        Simulation sim = new Simulation();
+        sim.preset1();
+        SimulationSerializer.saveWorld(sim);
+
         initwindow();
     }
 
@@ -38,7 +48,7 @@ public class SimulationPicker{
         buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
 
-        buttonsPanel.add(new JButton("Add"));
+        buttonsPanel.add(new SimulationButton("src/main/resources/Preset_1.json"));
         buttonsPanel.add(new JButton("Open"));
         buttonsPanel.add(new JButton("Delete"));
 
@@ -53,5 +63,9 @@ public class SimulationPicker{
         simulationsPanel.add(new JButton("sim3"));
 
         window.add(simulationsPanel);
+    }
+
+    public static void main(String[] args) {
+        SimulationPicker picker = new SimulationPicker();
     }
 } 

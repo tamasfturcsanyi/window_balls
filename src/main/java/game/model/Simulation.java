@@ -125,7 +125,7 @@ public class Simulation{
 
         addBody(new Brick(new Vector2D(300, 400), new Vector2D(10, 500)));
 
-        addBody(new Pole(new Vector2D(200, 200), 20, Color.black));
+        //addBody(new Pole(new Vector2D(200, 200), 20, Color.black));
         for(int i = 0; i < 5;++i){
             addBody(new Ball(new Vector2D(10 + 10*i,10), 20 + 5*i, new Color(rng.nextInt(0,256*256*256)), 0.5, 1 + i));
         }
