@@ -46,7 +46,7 @@ public class MainMenu extends SimulationWindow{
     }
 
     void initTitle(){
-        titleLabel = new FixLabel("WINDOW BALLS",new Vector2D(WINDOW_WIDTH/2,WINDOW_HEIGHT/2));
+        titleLabel = new FixLabel("WINDOW BALLS",new Vector2D(680,200));
         titleLabel.setFont(new Font(FONT_NAME,Font.BOLD,50));
         titleLabel.setForeground(Color.ORANGE);
         view.add(titleLabel);
@@ -139,11 +139,15 @@ public class MainMenu extends SimulationWindow{
         volleyButton.updatePosition(modelWorld.getWindowBounds());
     }
 
+    void updateTitle(){
+        titleLabel.setSize(800, 100);
+        titleLabel.updatePosition(modelWorld.getWindowBounds());
+    }
+
     @Override
     void updateView() {
         updateButtons();
-        
-        titleLabel.updatePosition(modelWorld.getWindowBounds());
+        updateTitle();
         super.updateView();
     }
 }
