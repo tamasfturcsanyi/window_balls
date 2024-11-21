@@ -2,42 +2,30 @@ package game.controller;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.ScrollPane;
 import java.io.File;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
-import game.model.Simulation;
-import game.model.serialization.SimulationSerializer;
-
-public class SimulationPicker{
+public class SimulationPicker implements Runnable {
     static final int WINDOW_WIDTH = 800;
     static final int WINDOW_HEIGHT = 700;
 
     static final String JSON_DIR_PATH = "src/main/resources/jsons";
 
     JFrame window;
-
     JPanel buttonsPanel;
-
     JPanel simulationsPanel;
 
-    
-
-    public SimulationPicker(){
-
-        Simulation sim = new Simulation();
-        sim.preset1();
-        SimulationSerializer.saveWorld(sim);
-
-        initwindow();
+    public SimulationPicker() {
+        initWindow();
     }
 
-    void initwindow(){
+    void initWindow() {
         window = new JFrame("Simulation Picker");
         window.setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         window.setLayout(new BoxLayout(window.getContentPane(), BoxLayout.Y_AXIS));
@@ -49,11 +37,10 @@ public class SimulationPicker{
         window.setVisible(true);
     }
 
-    void initButtonsPanel(){
+    void initButtonsPanel() {
         buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
-
-        buttonsPanel.setPreferredSize(new Dimension(500,100));
+        buttonsPanel.setPreferredSize(new Dimension(500, 100));
 
         buttonsPanel.add(new JButton("Add"));
         buttonsPanel.add(new JButton("Open"));
@@ -62,29 +49,39 @@ public class SimulationPicker{
         window.add(buttonsPanel);
     }
 
-    void initSimulationsPanel(){
+    void initSimulationsPanel() {
         simulationsPanel = new JPanel();
 
         File jsonsFolder = new File(JSON_DIR_PATH);
-
-        if(!jsonsFolder.isDirectory()){
+        if (!jsonsFolder.isDirectory()) {
+            System.err.println("The specified path is not a directory: " + JSON_DIR_PATH);
             return;
         }
-        File[] jsonFiles = jsonsFolder.listFiles();
 
-        simulationsPanel.setLayout(new GridLayout(jsonFiles.length,1));
-        
+        File[] jsonFiles = jsonsFolder.listFiles();
+        if (jsonFiles == null) {
+            System.err.println("Failed to list files in directory: " + JSON_DIR_PATH);
+            return;
+        }
+
+        simulationsPanel.setLayout(new GridLayout(jsonFiles.length, 1));
         for (File file : jsonFiles) {
             simulationsPanel.add(new SimulationButton(file));
         }
 
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.add(simulationsPanel);
-
+        JScrollPane scrollPane = new JScrollPane(simulationsPanel);
         window.add(scrollPane);
     }
 
-    public static void main(String[] args) {
-        SimulationPicker picker = new SimulationPicker();
+    @Override
+    public void run() {
+        while (true) {
+            
+        }
     }
-} 
+
+    public static void main(String[] args) {
+        Thread pickerThread = new Thread(new SimulationPicker());
+        pickerThread.start();
+    }
+}

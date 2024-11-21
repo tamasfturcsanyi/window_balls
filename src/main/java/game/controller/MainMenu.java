@@ -47,7 +47,7 @@ public class MainMenu extends SimulationWindow{
 
     void initTitle(){
         titleLabel = new FixLabel("WINDOW BALLS",new Vector2D(WINDOW_WIDTH/2,WINDOW_HEIGHT/2));
-        titleLabel.setFont(new Font("Impact",Font.BOLD,50));
+        titleLabel.setFont(new Font(FONT_NAME,Font.BOLD,50));
         titleLabel.setForeground(Color.ORANGE);
         view.add(titleLabel);
 
@@ -65,7 +65,7 @@ public class MainMenu extends SimulationWindow{
         simButton.setBorder(BorderFactory.createLineBorder(Color.BLACK,5));
         simButton.setFocusPainted(false);
 
-        simButton.addActionListener(e -> startSimulation());
+        simButton.addActionListener(e -> startSimPicker());
         modelWorld.addBody(simButton.getBody());
         view.add(simButton);
     }
@@ -122,10 +122,10 @@ public class MainMenu extends SimulationWindow{
         disposeWindow();
     }
 
-    void startSimulation(){
-        Thread simulationThread = new Thread(new SimulationPlayer());
-        simulationThread.start();
-
+    void startSimPicker(){
+        Thread pickerThread = new Thread(new SimulationPicker());
+        pickerThread.start();
+        
         disposeWindow();
     }
 
