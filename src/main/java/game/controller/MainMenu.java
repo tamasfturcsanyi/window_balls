@@ -123,8 +123,7 @@ public class MainMenu extends SimulationWindow{
     }
 
     void startSimPicker(){
-        Thread pickerThread = new Thread(new SimulationPicker());
-        pickerThread.start();
+        new SimulationPicker();
         
         disposeWindow();
     }

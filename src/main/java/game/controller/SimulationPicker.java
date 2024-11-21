@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
-public class SimulationPicker implements Runnable {
+public class SimulationPicker {
     static final int WINDOW_WIDTH = 800;
     static final int WINDOW_HEIGHT = 700;
 
@@ -73,15 +73,7 @@ public class SimulationPicker implements Runnable {
         window.add(scrollPane);
     }
 
-    @Override
-    public void run() {
-        while (true) {
-            
-        }
-    }
-
     public static void main(String[] args) {
-        Thread pickerThread = new Thread(new SimulationPicker());
-        pickerThread.start();
+        new SimulationPicker();
     }
 }
