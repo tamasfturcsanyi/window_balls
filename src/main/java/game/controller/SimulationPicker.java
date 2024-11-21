@@ -1,9 +1,13 @@
 package game.controller;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.io.File;
+import java.awt.Color;
+import java.awt.Font;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,15 +15,25 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
+import java.awt.Cursor;
+
+
 public class SimulationPicker {
     static final int WINDOW_WIDTH = 800;
     static final int WINDOW_HEIGHT = 700;
 
     static final String JSON_DIR_PATH = "src/main/resources/jsons";
 
+    static final String FONT_NAME = "Impact";
+
     JFrame window;
     JPanel buttonsPanel;
+
     JPanel simulationsPanel;
+
+    ArrayList<SimulationButton> simulationButtons = new ArrayList<>();
+
+    SimulationButton selectedButton;
 
     public SimulationPicker() {
         initWindow();
@@ -39,14 +53,34 @@ public class SimulationPicker {
 
     void initButtonsPanel() {
         buttonsPanel = new JPanel();
-        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
-        buttonsPanel.setPreferredSize(new Dimension(500, 100));
+        buttonsPanel.setPreferredSize(new Dimension(500, 200));
 
-        buttonsPanel.add(new JButton("Add"));
-        buttonsPanel.add(new JButton("Open"));
-        buttonsPanel.add(new JButton("Delete"));
+        JButton addButton = new JButton("Add");
+        initCoolButton(addButton,Color.GREEN);
+
+        JButton openButton = new JButton("Open");
+        initCoolButton(openButton,Color.CYAN);
+        openButton.addActionListener(s -> startSimulation());
+
+        JButton deleteButton = new JButton("Delete");
+        initCoolButton(deleteButton,Color.RED);
+
+        buttonsPanel.add(addButton);
+        buttonsPanel.add(openButton);
+        buttonsPanel.add(deleteButton);
 
         window.add(buttonsPanel);
+    }
+
+    void initCoolButton(JButton button, Color defaultColor){
+        button.setFont(new Font(FONT_NAME,Font.BOLD,32));
+        button.setBackground(defaultColor);
+        button.setPreferredSize(new Dimension(100,100));
+        button.setBorderPainted(true);
+        button.setBorder(BorderFactory.createLineBorder(Color.BLACK,5));
+        button.setFocusPainted(false);
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
     }
 
     void initSimulationsPanel() {
@@ -66,7 +100,11 @@ public class SimulationPicker {
 
         simulationsPanel.setLayout(new GridLayout(jsonFiles.length, 1));
         for (File file : jsonFiles) {
-            simulationsPanel.add(new SimulationButton(file));
+            SimulationButton simButton = new SimulationButton(file);
+            simButton.updateApperence();
+            simButton.addActionListener(s -> selectSimulation(simButton));
+            simulationButtons.add(simButton);
+            simulationsPanel.add(simButton);
         }
 
         JScrollPane scrollPane = new JScrollPane(simulationsPanel);
@@ -74,7 +112,36 @@ public class SimulationPicker {
         window.add(scrollPane);
     }
 
-    public static void main(String[] args) {
+    void selectSimulation(SimulationButton button){
+        if(button == selectedButton){
+            selectedButton = null;
+            button.selected = false;
+            button.updateApperence();
+            return;
+        }
+        for (SimulationButton simulationButton : simulationButtons) {
+            simulationButton.selected = false;
+            simulationButton.updateApperence();
+        }
+        button.selected = true;
+        selectedButton = button;
+        button.updateApperence(); 
+    }
+
+    void startSimulation(){
+        if(selectedButton == null){
+            return;
+        }
+
+        String jsonPath =  selectedButton.getJsonPath();
+        SimulationPlayer sPlayer = new SimulationPlayer(jsonPath);
+        Thread simPlayerThread = new Thread(sPlayer);
+        simPlayerThread.start();
+
+        window.dispose();
+        }
+
+        public static void main(String[] args) {
         new SimulationPicker();
     }
 }
