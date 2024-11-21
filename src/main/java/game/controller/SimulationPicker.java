@@ -70,6 +70,7 @@ public class SimulationPicker {
         }
 
         JScrollPane scrollPane = new JScrollPane(simulationsPanel);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         window.add(scrollPane);
     }
 
