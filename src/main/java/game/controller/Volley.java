@@ -26,7 +26,7 @@ public class Volley extends SimulationWindow{
         score.setFont(new Font("Impact", Font.BOLD, 52));
         view.add(score);
         modelWorld.volleyPreset(ball);
-        initVisualizables();
+        initView();
     }
 
     void setupPlayer1(){

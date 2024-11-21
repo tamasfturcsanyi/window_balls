@@ -1,7 +1,9 @@
 package game.controller;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.ScrollPane;
+import java.io.File;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -15,6 +17,8 @@ import game.model.serialization.SimulationSerializer;
 public class SimulationPicker{
     static final int WINDOW_WIDTH = 800;
     static final int WINDOW_HEIGHT = 700;
+
+    static final String JSON_DIR_PATH = "src/main/resources/jsons";
 
     JFrame window;
 
@@ -60,12 +64,24 @@ public class SimulationPicker{
 
     void initSimulationsPanel(){
         simulationsPanel = new JPanel();
-        simulationsPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        File jsonsFolder = new File(JSON_DIR_PATH);
+
+        if(!jsonsFolder.isDirectory()){
+            return;
+        }
+        File[] jsonFiles = jsonsFolder.listFiles();
+
+        simulationsPanel.setLayout(new GridLayout(jsonFiles.length,1));
         
-        simulationsPanel.add(new SimulationButton("src/main/resources/Preset_1.json"));
-        simulationsPanel.add(new SimulationButton("src/main/resources/Preset_2.json"));
-        simulationsPanel.add(new SimulationButton("src/main/resources/Preset_3.json"));
-        window.add(simulationsPanel);
+        for (File file : jsonFiles) {
+            simulationsPanel.add(new SimulationButton(file));
+        }
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.add(simulationsPanel);
+
+        window.add(scrollPane);
     }
 
     public static void main(String[] args) {

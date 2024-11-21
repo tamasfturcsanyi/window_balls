@@ -104,7 +104,7 @@ public class Simulation{
     public SimulationParameters getParams() {
         return params;
     }
-
+    
     public boolean isOnTheGround(PhysicksBody body){
         return walls[2].isIntersectingWith(body);
     }
@@ -124,6 +124,8 @@ public class Simulation{
     public void preset1(){//NOSONAR
         Random rng = new Random();
 
+        double windowX = windowBounds.getX();
+        double windowY = windowBounds.getY();
         title = "Preset_1";
 
         params = new SimulationParameters(10, 10, 0.6, 200,0.001,true);
@@ -132,7 +134,7 @@ public class Simulation{
 
         addBody(new Pole(new Vector2D(200, 200), 20, Color.black));
         for(int i = 0; i < 5;++i){
-            addBody(new Ball(new Vector2D(10 + 10*i,10), 20 + 5*i, new Color(rng.nextInt(0,256*256*256)), 0.5, 1 + i));
+            addBody(new Ball(new Vector2D(windowX+20 + 50*i,windowY + 50), 20 + 5*i, new Color(rng.nextInt(0,256*256*256)), 0.5, 1 + i));
         }
 
         SimulationSerializer.saveWorld(this);
@@ -158,11 +160,16 @@ public class Simulation{
     public void preset3(){
         Random rng = new Random();
 
+        double windowX = windowBounds.getX();
+        double windowY = windowBounds.getY();
+
         title = "Preset_3";
+
+
 
         params = new SimulationParameters(0, 10, 0.6, 200,0.001,true);
         for(int i = 0; i < 10;++i){
-            addBody(new Ball(new Vector2D(100 + 10*i,10), 20, new Color(rng.nextInt(0,256*256*256)), 1, 1));
+            addBody(new Ball(new Vector2D(windowX + 100 + 50*i,windowY + 100), 20, new Color(rng.nextInt(0,256*256*256)), 1, 1));
         }
         SimulationSerializer.saveWorld(this);
     }

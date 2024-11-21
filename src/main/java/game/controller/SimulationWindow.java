@@ -30,7 +30,7 @@ public class SimulationWindow implements Runnable{
     public SimulationWindow(String title, Rectangle windowBounds){
         modelWorld = new Simulation(title,windowBounds);
         view = new GraphicsPanel();
-        initVisualizables();
+        initView();
         initWindow();
     }
 
@@ -44,7 +44,7 @@ public class SimulationWindow implements Runnable{
         window.add(view);
     }
 
-    void initVisualizables(){
+    void initView(){
         for (PhysicksBody body : modelWorld.getPhysicksBodies()) {
             if(body.isVisible()){
                 visualizables.add(body);

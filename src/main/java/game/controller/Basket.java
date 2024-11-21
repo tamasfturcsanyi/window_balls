@@ -56,7 +56,7 @@ public class Basket extends SimulationWindow{
         addToViewAndSimulation(actualRing.getLeftPole());
         addToViewAndSimulation(actualRing.getRightPole());
         window.setResizable(false);
-        initVisualizables();
+        initView();
 
     }
 

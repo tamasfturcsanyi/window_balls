@@ -42,7 +42,7 @@ public class MainMenu extends SimulationWindow{
         initBasketButton();
         initVolleyButton();
         window.setResizable(false);
-        initVisualizables();
+        initView();
     }
 
     void initTitle(){

@@ -10,15 +10,15 @@ import game.model.serialization.SimulationSerializer;
 public class SimulationPlayer extends SimulationWindow{
     public SimulationPlayer(){
         super("Simulation", new Rectangle(500, 200, 700, 500));
-        modelWorld.preset2();
-        initVisualizables();
+        modelWorld.preset3();
+        initView();
         initPhotoButton();
     }
 
     public SimulationPlayer(String jsonPath){
         super("Simulation", new Rectangle(500, 200, 700, 500));
         modelWorld = SimulationSerializer.loadWorld(jsonPath);
-        initVisualizables();
+        initView();
         initPhotoButton();
     }
 

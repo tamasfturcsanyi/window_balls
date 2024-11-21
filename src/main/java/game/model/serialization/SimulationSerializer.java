@@ -13,6 +13,10 @@ import game.model.physicksbodies.PhysicksBody;
 import game.model.shapes.CollisionShape;
 
 public class SimulationSerializer {
+    // Private constructor to hide the implicit public one
+    private SimulationSerializer() {
+        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+    }
     public static void saveWorld(Simulation world){
         Gson gson = new GsonBuilder()
             .setPrettyPrinting()
@@ -23,7 +27,7 @@ public class SimulationSerializer {
 
         String worldJSON = gson.toJson(world);
         try {
-            FileWriter writer = new FileWriter("src/main/resources/" + world.getTitle() + ".json");
+            FileWriter writer = new FileWriter("src/main/resources/jsons/" + world.getTitle() + ".json");
             writer.write(worldJSON);
             writer.flush();
             writer.close();
