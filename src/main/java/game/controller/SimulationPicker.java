@@ -31,6 +31,10 @@ public class SimulationPicker {
 
     JPanel simulationsPanel;
 
+    JButton addButton;
+    JButton openButton;
+    JButton deleteButton;
+
     ArrayList<SimulationButton> simulationButtons = new ArrayList<>();
 
     SimulationButton selectedButton;
@@ -51,23 +55,36 @@ public class SimulationPicker {
         window.setVisible(true);
     }
 
+    void initAddButton(){
+        addButton = new JButton("Add");
+        initCoolButton(addButton,Color.GREEN);
+        buttonsPanel.add(addButton);
+    }
+
+    void initOpenButton(){
+        openButton = new JButton("Open");
+        initCoolButton(openButton,Color.CYAN);
+        openButton.addActionListener(s -> startSimulation());
+        openButton.setEnabled(false);
+        buttonsPanel.add(openButton);
+    }
+
+    void initDeleteButton(){
+        deleteButton = new JButton("Delete");
+        initCoolButton(deleteButton,Color.RED);
+        deleteButton.setEnabled(false);
+        buttonsPanel.add(deleteButton);
+    }
+
     void initButtonsPanel() {
         buttonsPanel = new JPanel();
         buttonsPanel.setPreferredSize(new Dimension(500, 200));
 
-        JButton addButton = new JButton("Add");
-        initCoolButton(addButton,Color.GREEN);
+        initAddButton();
 
-        JButton openButton = new JButton("Open");
-        initCoolButton(openButton,Color.CYAN);
-        openButton.addActionListener(s -> startSimulation());
+        initOpenButton();
 
-        JButton deleteButton = new JButton("Delete");
-        initCoolButton(deleteButton,Color.RED);
-
-        buttonsPanel.add(addButton);
-        buttonsPanel.add(openButton);
-        buttonsPanel.add(deleteButton);
+        initDeleteButton();
 
         window.add(buttonsPanel);
     }
@@ -117,6 +134,8 @@ public class SimulationPicker {
             selectedButton = null;
             button.selected = false;
             button.updateApperence();
+            openButton.setEnabled(false);
+            deleteButton.setEnabled(false);
             return;
         }
         for (SimulationButton simulationButton : simulationButtons) {
@@ -126,6 +145,8 @@ public class SimulationPicker {
         button.selected = true;
         selectedButton = button;
         button.updateApperence(); 
+        openButton.setEnabled(true);
+        deleteButton.setEnabled(true);
     }
 
     void startSimulation(){
