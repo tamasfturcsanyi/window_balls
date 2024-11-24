@@ -58,13 +58,14 @@ public class SimulationPicker {
     void initAddButton(){
         addButton = new JButton("Add");
         initCoolButton(addButton,Color.GREEN);
+        addButton.addActionListener(s -> startNewSimulation());
         buttonsPanel.add(addButton);
     }
 
     void initOpenButton(){
         openButton = new JButton("Open");
         initCoolButton(openButton,Color.CYAN);
-        openButton.addActionListener(s -> startSimulation());
+        openButton.addActionListener(o -> openSimulation());
         openButton.setEnabled(false);
         buttonsPanel.add(openButton);
     }
@@ -149,7 +150,15 @@ public class SimulationPicker {
         deleteButton.setEnabled(true);
     }
 
-    void startSimulation(){
+    void startNewSimulation(){
+        SimulationPlayer sPlayer = new SimulationPlayer();
+        Thread simPlayerThread = new Thread(sPlayer);
+        simPlayerThread.start();
+
+        window.dispose();
+    }
+
+    void openSimulation(){
         if(selectedButton == null){
             return;
         }
