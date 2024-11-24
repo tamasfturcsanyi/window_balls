@@ -20,15 +20,19 @@ import game.model.physicksbodies.PhysicksBody;
 
 public class CreateBodyDialog extends JDialog {
     private JComboBox<String> bodyTypeComboBox;
-    private JComboBox<String> colorComboBox;
+    private JComboBox<String> poleColorComboBox;
+    private JComboBox<String> ballColorComboBox;
     private JPanel cardPanel;
     private CardLayout cardLayout;
+    private JTextField ballCenterXField;
+    private JTextField ballCenterYField;
+    private JTextField ballRadiusField;
+    private JTextField ballBouncinessField;
+    private JTextField ballMassField;
 
-    private JTextField centerXField;
-    private JTextField centerYField;
-    private JTextField radiusField;
-    private JTextField bouncinessField;
-    private JTextField massField;
+    private JTextField poleCenterXField;
+    private JTextField poleCenterYField;
+    private JTextField poleRadiusField;
 
 
     private JTextField positionXField;
@@ -64,7 +68,8 @@ public class CreateBodyDialog extends JDialog {
                 cardLayout.show(cardPanel, (String) bodyTypeComboBox.getSelectedItem());
             }
         });
-        colorComboBox = new JComboBox<>(new String[]{"Red", "Green", "Blue", "Yellow", "Black", "White", "Gray", "Cyan", "Magenta", "Pink", "Orange"});
+        poleColorComboBox = new JComboBox<>(new String[]{"Red", "Green", "Blue", "Yellow", "Black", "White", "Gray", "Cyan", "Magenta", "Pink", "Orange"});
+        ballColorComboBox = new JComboBox<>(new String[]{"Red", "Green", "Blue", "Yellow", "Black", "White", "Gray", "Cyan", "Magenta", "Pink", "Orange"});
 
         cardPanel = new JPanel(cardLayout = new CardLayout());
 
@@ -87,23 +92,22 @@ public class CreateBodyDialog extends JDialog {
     private JPanel createBallPanel() {
         JPanel panel = new JPanel(new GridLayout(6, 2));
         panel.add(new JLabel("Center X:"));
-        centerXField = new JTextField();
-        panel.add(centerXField);
+        ballCenterXField = new JTextField();
+        panel.add(ballCenterXField);
         panel.add(new JLabel("Center Y:"));
-        centerYField = new JTextField();
-        panel.add(centerYField);
+        ballCenterYField = new JTextField();
+        panel.add(ballCenterYField);
         panel.add(new JLabel("Radius:"));
-        radiusField = new JTextField();
-        panel.add(radiusField);
-        panel.add(new JLabel("Color:"));
-        colorComboBox = new JComboBox<>(new String[]{"Red", "Green", "Blue", "Yellow", "Black", "White", "Gray", "Cyan", "Magenta", "Pink", "Orange"});
-        panel.add(colorComboBox);
+        ballRadiusField = new JTextField();
+        panel.add(ballRadiusField);
         panel.add(new JLabel("Bounciness:"));
-        bouncinessField = new JTextField();
-        panel.add(bouncinessField);
+        ballBouncinessField = new JTextField();
+        panel.add(ballBouncinessField);
         panel.add(new JLabel("Mass:"));
-        massField = new JTextField();
-        panel.add(massField);
+        ballMassField= new JTextField();
+        panel.add(ballMassField);
+        panel.add(new JLabel("Color:"));
+        panel.add(ballColorComboBox);
         return panel;
     }
     
@@ -127,21 +131,55 @@ public class CreateBodyDialog extends JDialog {
     private JPanel createPolePanel() {
         JPanel panel = new JPanel(new GridLayout(4, 2));
         panel.add(new JLabel("Center X:"));
-        centerXField = new JTextField();
-        panel.add(centerXField);
+        poleCenterXField = new JTextField();
+        panel.add(poleCenterXField);
         panel.add(new JLabel("Center Y:"));
-        centerYField = new JTextField();
-        panel.add(centerYField);
+        poleCenterYField = new JTextField();
+        panel.add(poleCenterYField);
         panel.add(new JLabel("Radius:"));
-        radiusField = new JTextField();
-        panel.add(radiusField);
+        poleRadiusField = new JTextField();
+        panel.add(poleRadiusField);
         panel.add(new JLabel("Color:"));
-        panel.add(colorComboBox);
+        panel.add(poleColorComboBox);
         return panel;
     }
 
+    private boolean validateFields() {
+        try {
+            switch ((String) bodyTypeComboBox.getSelectedItem()) {
+                case "Ball":
+                    Double.parseDouble(ballCenterXField.getText());
+                    Double.parseDouble(ballCenterYField.getText());
+                    Double.parseDouble(ballRadiusField.getText());
+                    Double.parseDouble(ballBouncinessField.getText());
+                    Double.parseDouble(ballMassField.getText());
+                    break;
+                case "Brick":
+                    Double.parseDouble(positionXField.getText());
+                    Double.parseDouble(positionYField.getText());
+                    Double.parseDouble(widthField.getText());
+                    Double.parseDouble(heightField.getText());
+                    break;
+                case "Pole":
+                    Double.parseDouble(poleCenterXField.getText());
+                    Double.parseDouble(poleCenterYField.getText());
+                    Double.parseDouble(poleRadiusField.getText());
+                    break;
+                default:
+                    return false;
+            }
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+
     void createBody() {
-        switch ((String)bodyTypeComboBox.getSelectedItem()) {
+        if (!validateFields()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all fields correctly.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        switch ((String) bodyTypeComboBox.getSelectedItem()) {
             case "Ball":
                 body = createBall();
                 break;
@@ -159,11 +197,12 @@ public class CreateBodyDialog extends JDialog {
 
     Ball createBall() {
         return new Ball(
-                new Vector2D(Double.parseDouble(centerXField.getText()),
-                        Double.parseDouble(centerYField.getText())),
-                Double.parseDouble(radiusField.getText()),
-                Color.getColor((String) colorComboBox.getSelectedItem()),
-                Double.parseDouble(bouncinessField.getText()), Double.parseDouble(massField.getText()));
+                new Vector2D(Double.parseDouble(ballCenterXField.getText()),
+                        Double.parseDouble(ballCenterYField.getText())),
+                Double.parseDouble(ballRadiusField.getText()),
+                Color.getColor((String) ballColorComboBox.getSelectedItem()),
+                Double.parseDouble(ballBouncinessField.getText()),
+                Double.parseDouble(ballMassField.getText()));
     }
 
     Brick createBrick(){
@@ -176,10 +215,10 @@ public class CreateBodyDialog extends JDialog {
 
     Pole createPole(){
         return new Pole(
-                new Vector2D(Double.parseDouble(centerXField.getText()),
-                        Double.parseDouble(centerYField.getText())),
-                Double.parseDouble(radiusField.getText()),
-                Color.getColor((String) colorComboBox.getSelectedItem()));
+                new Vector2D(Double.parseDouble(poleCenterXField.getText()),
+                        Double.parseDouble(poleCenterYField.getText())),
+                Double.parseDouble(poleRadiusField.getText()),
+                Color.getColor((String) poleColorComboBox.getSelectedItem()));
     }
 
     public PhysicksBody getBody() {
