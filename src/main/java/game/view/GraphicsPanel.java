@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 
 public class GraphicsPanel extends JPanel{
 
+    Color backgroundColor;
+
     transient BufferedImage image;
 
     transient List<Visual> visualElements;
@@ -29,7 +31,7 @@ public class GraphicsPanel extends JPanel{
         image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D imageGraphics2d = image.createGraphics();
-        imageGraphics2d.setBackground(Color.WHITE);
+        imageGraphics2d.setColor(backgroundColor);
         imageGraphics2d.fillRect(0,0, getWidth(), getHeight());
         for (Visual v : visualElements) {
             v.draw(imageGraphics2d);
@@ -40,16 +42,10 @@ public class GraphicsPanel extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D g2 = (Graphics2D )g;
-        Graphics2D imageGraphics2d = image.createGraphics();
 
-        for (Visual v : visualElements) {
-            v.draw(imageGraphics2d);
-        }
-
-        g2.drawImage(image,0,0,this);
+        g2.drawImage(drawOnImage(),0,0,this);
 
         reset();
     }
@@ -68,5 +64,9 @@ public class GraphicsPanel extends JPanel{
             e.printStackTrace();
             return null;
         }
+    }
+
+    public void setBackgroundColor(Color backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
 }

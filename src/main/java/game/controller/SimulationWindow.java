@@ -53,6 +53,7 @@ public class SimulationWindow implements Runnable{
     }
 
     void initView(){
+        view.setBackgroundColor(modelWorld.getBackgroundColor());
         for (PhysicksBody body : modelWorld.getPhysicksBodies()) {
             if(body.isVisible()){
                 visualizables.add(body);

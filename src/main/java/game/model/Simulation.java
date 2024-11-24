@@ -17,6 +17,8 @@ import java.awt.Rectangle;
 
 public class Simulation{
     String title = "Simulation";
+    Color backgroundColor = Color.WHITE;
+
 
     SimulationParameters params = new SimulationParameters();
 
@@ -105,6 +107,14 @@ public class Simulation{
         return params;
     }
     
+    public Color getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public void setBackgroundColor(Color backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+    
     public boolean isOnTheGround(PhysicksBody body){
         return walls[2].isIntersectingWith(body);
     }
@@ -112,6 +122,7 @@ public class Simulation{
     public void volleyPreset(VolleyBall ball){
         title = "Volley";
 
+        setBackgroundColor(Color.decode("#a3f0ff"));
         params = new SimulationParameters(10,10,0.5,200,0.001,false);
 
         windowBounds = new Rectangle(0, 0, 1024, 768);
@@ -127,6 +138,8 @@ public class Simulation{
         double windowX = windowBounds.getX();
         double windowY = windowBounds.getY();
         title = "Preset_1";
+
+        backgroundColor = new Color(100, 100, 255);
 
         params = new SimulationParameters(10, 10, 0.6, 200,0.001,true);
 
@@ -145,10 +158,13 @@ public class Simulation{
 
         title = "Preset_2";
 
+        backgroundColor = Color.decode("#fbc7ff");
+
         params = new SimulationParameters(10, 10, 0.6, 200,0.001,true);
         for(int j = 0; j < 10; ++j){
             for(int i = 0; i < 10;++i){
-                addBody(new Pole(new Vector2D(i*100,j*100),20,Color.BLUE));
+                int offset = (j % 2 == 0) ? 0:50;
+                addBody(new Pole(new Vector2D(i*100 + offset,j*100),20,Color.BLUE));
             }
         }
         addBody(new Ball(new Vector2D(100,10), 20, new Color(rng.nextInt(0,256*256*256)), 0.2, 10));
@@ -165,6 +181,7 @@ public class Simulation{
 
         title = "Preset_3";
 
+        backgroundColor = Color.BLACK;
 
 
         params = new SimulationParameters(0, 10, 0.6, 200,0.001,true);
@@ -172,5 +189,14 @@ public class Simulation{
             addBody(new Ball(new Vector2D(windowX + 100 + 50*i,windowY + 100), 20, new Color(rng.nextInt(0,256*256*256)), 1, 1));
         }
         SimulationSerializer.saveWorld(this);
+    }
+
+    public static void main(String[] args) {
+        Simulation sim = new Simulation();
+        sim.preset1();
+        sim = new Simulation();
+        sim.preset2();
+        sim = new Simulation();
+        sim.preset3();
     }
 }
