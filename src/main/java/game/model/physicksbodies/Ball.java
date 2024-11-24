@@ -97,7 +97,7 @@ public class Ball extends MobileBody{
         double delta = nanoDelta * 0.000000001;
 
         //apply simulationSpeed
-        delta = delta * params.getSimulationSpeed();
+        delta = delta * 10 * params.getSimulationSpeed();
 
         
         
