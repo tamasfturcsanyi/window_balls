@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 import game.model.SimulationParameters;
 import game.model.physicksbodies.PhysicksBody;
+import game.model.serialization.SimulationSerializer;
 
 
 public class SimulationPlayer extends SimulationWindow{
@@ -36,8 +37,8 @@ public class SimulationPlayer extends SimulationWindow{
 
     public SimulationPlayer(){
         super("Simulation", new Rectangle(500, 200, 700, 500));
-        modelWorld.preset3();
-        initView();
+        window.setLayout(new BoxLayout(window.getContentPane(), BoxLayout.Y_AXIS));
+        initButtonsPanel();
     }
 
     public SimulationPlayer(String jsonPath){
@@ -84,6 +85,15 @@ public class SimulationPlayer extends SimulationWindow{
         buttonPanel.add(settingsButton);
     }
 
+    void initSaveButton(){
+        saveButton = new JButton();
+        saveButton.setPreferredSize(new Dimension(BUTTON_HEIGHT,BUTTON_HEIGHT));
+        saveButton.setIcon(new ImageIcon("src/main/resources/save.png"));
+        saveButton.addActionListener(s -> startSaveDialog());
+
+        buttonPanel.add(saveButton);
+    }
+
     void initAddButton(){
         addButton = new JButton();
         addButton.setPreferredSize(new Dimension(BUTTON_HEIGHT,BUTTON_HEIGHT));
@@ -96,12 +106,11 @@ public class SimulationPlayer extends SimulationWindow{
     void initButtonsPanel(){
         buttonPanel = new JPanel();
         buttonPanel.setMaximumSize(new Dimension(window.getWidth(),BUTTON_HEIGHT));
+        buttonPanel.setMinimumSize(new Dimension(500,BUTTON_HEIGHT));
         buttonPanel.setBorder(BorderFactory.createBevelBorder(1));
 
-        saveButton = new JButton("Save");
-        saveButton.setSize(BUTTON_HEIGHT,BUTTON_HEIGHT);
-        buttonPanel.add(saveButton);
-
+        
+        initSaveButton();
         initSlowButton();
         initPlayButton();
         initFastButton();
@@ -144,12 +153,14 @@ public class SimulationPlayer extends SimulationWindow{
         modelWorld.stopSimulation();
         settingsButton.setEnabled(false);
         addButton.setEnabled(false);
+        saveButton.setEnabled(false);
     }
 
     void pauseSimulation(){
         playButton.setIcon(playIcon);
         settingsButton.setEnabled(true);
         addButton.setEnabled(true);
+        saveButton.setEnabled(true);
     }
 
     void speedUp(){
@@ -180,6 +191,18 @@ public class SimulationPlayer extends SimulationWindow{
         PhysicksBody body = cDialog.getBody();
         if(body != null){
             addToViewAndSimulation(body);
+        }
+    }
+
+    void startSaveDialog(){
+       SaveDialog sDialog = new SaveDialog(window);
+        sDialog.setVisible(true);
+
+        if(sDialog.getSave()){
+            if(!sDialog.toExistingFile()){
+                modelWorld.setTitle(sDialog.getFileName());
+            }
+            SimulationSerializer.saveWorld(modelWorld);
         }
     }
 }

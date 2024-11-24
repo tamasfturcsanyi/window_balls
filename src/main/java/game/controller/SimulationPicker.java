@@ -76,6 +76,8 @@ public class SimulationPicker {
         deleteButton = new JButton("Delete");
         initCoolButton(deleteButton,Color.RED);
         deleteButton.setEnabled(false);
+        deleteButton.addActionListener(d -> deleteSimulation());
+
         buttonsPanel.add(deleteButton);
     }
 
@@ -83,7 +85,7 @@ public class SimulationPicker {
         backButton = new JButton();
         ImageIcon backIcon = new ImageIcon("src/main/resources/back.png");
         backButton.setIcon(backIcon);
-        initCoolButton(backButton, Color.WHITE);
+        initCoolButton(backButton, Color.ORANGE);
         backButton.addActionListener(m -> startMainMenu());
         buttonsPanel.add(backButton);
     }
@@ -161,6 +163,21 @@ public class SimulationPicker {
         button.updateApperence(); 
         openButton.setEnabled(true);
         deleteButton.setEnabled(true);
+    }
+    void deleteSimulation(){
+        if(selectedButton == null){
+            return;
+        }
+        File jsonFile = new File(selectedButton.getJsonPath());
+        if(jsonFile.delete()){
+            simulationsPanel.remove(selectedButton);
+            simulationButtons.remove(selectedButton);
+            selectedButton = null;
+            openButton.setEnabled(false);
+            deleteButton.setEnabled(false);
+            window.revalidate();
+            window.repaint();
+        }
     }
 
     void startNewSimulation(){

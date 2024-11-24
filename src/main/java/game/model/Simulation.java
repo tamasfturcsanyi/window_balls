@@ -103,6 +103,10 @@ public class Simulation{
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public SimulationParameters getParams() {
         return params;
     }
