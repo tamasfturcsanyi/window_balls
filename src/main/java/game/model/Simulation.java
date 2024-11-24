@@ -119,6 +119,12 @@ public class Simulation{
         return walls[2].isIntersectingWith(body);
     }
 
+    public void stopSimulation(){
+        for (PhysicksBody physicksBody : bodies) {
+            physicksBody.stop();
+        }
+    }
+
     public void volleyPreset(VolleyBall ball){
         title = "Volley";
 

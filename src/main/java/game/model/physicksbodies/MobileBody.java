@@ -50,6 +50,11 @@ public abstract class MobileBody extends PhysicksBody {
         return false;
     }
 
+    @Override
+    public void stop() {
+        previousTime = 0;
+    }
+
     abstract void calculateForces(SimulationParameters params);
 
     abstract void calculateNewVelocity(double delta, SimulationParameters params);

@@ -59,4 +59,7 @@ public abstract class PhysicksBody implements Visualizable{
     public boolean isIntersectingWith(PhysicksBody otherBody){
         return (this != otherBody && this.getCollisionShape().haveCollided(otherBody.getCollisionShape()));
     }
+
+    //only important in MobileBodies
+    public void stop(){}
 }

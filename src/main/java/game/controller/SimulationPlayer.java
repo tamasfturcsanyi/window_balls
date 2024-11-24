@@ -6,33 +6,44 @@ import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 
 public class SimulationPlayer extends SimulationWindow{
-    static final int BUTTON_HEIGHT = 150;
+    static final int BUTTON_HEIGHT = 75;
 
     JPanel buttonPanel;
 
     JButton saveButton;
     JButton playButton;
+    ImageIcon playIcon = new ImageIcon("src/main/resources/play.png");
+    ImageIcon pauseIcon = new ImageIcon("src/main/resources/pause.png");
     JButton settingsButton;
     JButton addButton;
+
+    boolean playing = false;
 
     public SimulationPlayer(){
         super("Simulation", new Rectangle(500, 200, 700, 500));
         modelWorld.preset3();
         initView();
-        initPhotoButton();
     }
 
     public SimulationPlayer(String jsonPath){
         super(jsonPath);
         window.setSize(window.getWidth(), BUTTON_HEIGHT + window.getHeight());
         window.setLayout(new BoxLayout(window.getContentPane(), BoxLayout.Y_AXIS));
-        //initPhotoButton();
         initButtonsPanel();
+    }
+
+    void initPlayButton(){
+        playButton = new JButton();
+        playButton.setPreferredSize(new Dimension(BUTTON_HEIGHT,BUTTON_HEIGHT));
+        playButton.setIcon(playIcon);
+        playButton.addActionListener(p -> playButtonAction());
+        buttonPanel.add(playButton);
     }
 
     void initButtonsPanel(){
@@ -44,9 +55,7 @@ public class SimulationPlayer extends SimulationWindow{
         saveButton.setSize(BUTTON_HEIGHT,BUTTON_HEIGHT);
         buttonPanel.add(saveButton);
 
-        playButton = new JButton("Play");
-        playButton.setSize(BUTTON_HEIGHT,BUTTON_HEIGHT);
-        buttonPanel.add(playButton);
+        initPlayButton();
 
         settingsButton = new JButton("Settings");
         settingsButton.setSize(BUTTON_HEIGHT,BUTTON_HEIGHT);
@@ -60,17 +69,6 @@ public class SimulationPlayer extends SimulationWindow{
         window.add(view);
     }
 
-    void initPhotoButton(){
-        JButton button = new JButton("Click");
-        button.addActionListener(e -> {
-            addVisuals();
-            view.drawOnImage();
-            view.getImagePath();
-        });
-        view.setLayout(new FlowLayout());
-        view.add(button);
-    }
-
     @Override
     void updateModel() {
         if(modelWorld.getParams().getShakeable()){
@@ -80,6 +78,18 @@ public class SimulationPlayer extends SimulationWindow{
             newWindowBounds.height -= buttonPanel.getHeight();
             modelWorld.setWindowBounds(newWindowBounds);
         }
-        modelWorld.update();
+        if(playing){
+            modelWorld.update();
+        }
+    }
+
+    void playButtonAction(){
+        if(!playing){
+            playButton.setIcon(pauseIcon);
+            modelWorld.stopSimulation();
+        }else{
+            playButton.setIcon(playIcon);
+        }
+        playing = !playing;
     }
 }
