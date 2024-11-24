@@ -9,6 +9,7 @@ import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -34,6 +35,7 @@ public class SimulationPicker {
     JButton addButton;
     JButton openButton;
     JButton deleteButton;
+    JButton backButton;
 
     ArrayList<SimulationButton> simulationButtons = new ArrayList<>();
 
@@ -77,6 +79,15 @@ public class SimulationPicker {
         buttonsPanel.add(deleteButton);
     }
 
+    void initBackButton(){
+        backButton = new JButton();
+        ImageIcon backIcon = new ImageIcon("src/main/resources/back.png");
+        backButton.setIcon(backIcon);
+        initCoolButton(backButton, Color.WHITE);
+        backButton.addActionListener(m -> startMainMenu());
+        buttonsPanel.add(backButton);
+    }
+
     void initButtonsPanel() {
         buttonsPanel = new JPanel();
         buttonsPanel.setPreferredSize(new Dimension(500, 200));
@@ -86,6 +97,8 @@ public class SimulationPicker {
         initOpenButton();
 
         initDeleteButton();
+
+        initBackButton();
 
         window.add(buttonsPanel);
     }
@@ -173,5 +186,12 @@ public class SimulationPicker {
 
         public static void main(String[] args) {
         new SimulationPicker();
+    }
+
+    void startMainMenu(){
+        Thread menuThread = new Thread(new MainMenu());
+        menuThread.start();
+
+        window.dispose();
     }
 }
