@@ -1,6 +1,5 @@
 package game.controller;
 
-import java.awt.FlowLayout;
 import java.awt.Rectangle;
 import java.awt.Dimension;
 
@@ -8,7 +7,10 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import game.model.SimulationParameters;
 
 
 public class SimulationPlayer extends SimulationWindow{
@@ -17,9 +19,15 @@ public class SimulationPlayer extends SimulationWindow{
     JPanel buttonPanel;
 
     JButton saveButton;
+
     JButton playButton;
     ImageIcon playIcon = new ImageIcon("src/main/resources/play.png");
     ImageIcon pauseIcon = new ImageIcon("src/main/resources/pause.png");
+
+    JButton fastButton;
+    JButton slowButton;
+    JLabel speedLabel = new JLabel();
+
     JButton settingsButton;
     JButton addButton;
 
@@ -43,7 +51,27 @@ public class SimulationPlayer extends SimulationWindow{
         playButton.setPreferredSize(new Dimension(BUTTON_HEIGHT,BUTTON_HEIGHT));
         playButton.setIcon(playIcon);
         playButton.addActionListener(p -> playButtonAction());
+
         buttonPanel.add(playButton);
+        
+    }
+
+    void initFastButton(){
+        fastButton = new JButton();
+        fastButton.setPreferredSize(new Dimension(BUTTON_HEIGHT,BUTTON_HEIGHT));
+        ImageIcon fastIcon = new ImageIcon("src/main/resources/fastForward.png");
+        fastButton.setIcon(fastIcon);
+        fastButton.addActionListener(s -> speedUp());
+        buttonPanel.add(fastButton);
+    }
+
+    void initSlowButton(){
+        slowButton = new JButton();
+        slowButton.setPreferredSize(new Dimension(BUTTON_HEIGHT,BUTTON_HEIGHT));
+        ImageIcon slowIcon = new ImageIcon("src/main/resources/slowDown.png");
+        slowButton.setIcon(slowIcon);
+        slowButton.addActionListener(s -> slowDown());
+        buttonPanel.add(slowButton);
     }
 
     void initButtonsPanel(){
@@ -55,7 +83,11 @@ public class SimulationPlayer extends SimulationWindow{
         saveButton.setSize(BUTTON_HEIGHT,BUTTON_HEIGHT);
         buttonPanel.add(saveButton);
 
+        initSlowButton();
         initPlayButton();
+        initFastButton();
+        buttonPanel.add(speedLabel);
+        speedLabel.setText("X"+modelWorld.getParams().getSimulationSpeed());
 
         settingsButton = new JButton("Settings");
         settingsButton.setSize(BUTTON_HEIGHT,BUTTON_HEIGHT);
@@ -91,5 +123,17 @@ public class SimulationPlayer extends SimulationWindow{
             playButton.setIcon(playIcon);
         }
         playing = !playing;
+    }
+
+    void speedUp(){
+        SimulationParameters params = modelWorld.getParams();
+        modelWorld.setSimulationSpeed(params.getSimulationSpeed() + 0.25);
+        speedLabel.setText("X"+modelWorld.getParams().getSimulationSpeed());
+    }
+
+    void slowDown(){
+        SimulationParameters params = modelWorld.getParams();
+        modelWorld.setSimulationSpeed(Math.max(params.getSimulationSpeed() - 0.25,0));
+        speedLabel.setText("X"+modelWorld.getParams().getSimulationSpeed());
     }
 }
