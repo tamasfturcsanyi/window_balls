@@ -27,7 +27,7 @@ public class Simulation{
     java.awt.Rectangle windowBounds;
 
     public Simulation(){
-        windowBounds = new Rectangle(500, 200, 500, 400);
+        windowBounds = new Rectangle(500, 200, 700, 500);
         wallInit();
     }
 

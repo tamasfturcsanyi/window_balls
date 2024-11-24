@@ -40,12 +40,15 @@ public class SimulationPlayer extends SimulationWindow{
         super("Simulation", new Rectangle(500, 200, 700, 500));
         window.setLayout(new BoxLayout(window.getContentPane(), BoxLayout.Y_AXIS));
         initButtonsPanel();
+        window.setResizable(true);
+
     }
 
     public SimulationPlayer(String jsonPath){
         super(jsonPath);
         window.setSize(window.getWidth(), BUTTON_HEIGHT + window.getHeight());
         window.setLayout(new BoxLayout(window.getContentPane(), BoxLayout.Y_AXIS));
+        window.setResizable(true);
         initButtonsPanel();
     }
 
@@ -116,7 +119,7 @@ public class SimulationPlayer extends SimulationWindow{
     void initButtonsPanel(){
         buttonPanel = new JPanel();
         buttonPanel.setMaximumSize(new Dimension(window.getWidth(),BUTTON_HEIGHT));
-        buttonPanel.setMinimumSize(new Dimension(500,BUTTON_HEIGHT));
+        buttonPanel.setMinimumSize(new Dimension(700,BUTTON_HEIGHT));
         buttonPanel.setBorder(BorderFactory.createBevelBorder(1));
 
         
@@ -168,6 +171,7 @@ public class SimulationPlayer extends SimulationWindow{
         settingsButton.setEnabled(false);
         addButton.setEnabled(false);
         saveButton.setEnabled(false);
+        window.setResizable(false);
     }
 
     void pauseSimulation(){
@@ -175,6 +179,7 @@ public class SimulationPlayer extends SimulationWindow{
         settingsButton.setEnabled(true);
         addButton.setEnabled(true);
         saveButton.setEnabled(true);
+        window.setResizable(true);
     }
 
     void speedUp(){
@@ -222,7 +227,7 @@ public class SimulationPlayer extends SimulationWindow{
     }
 
     void openSimulationPicker(){
-        SimulationPicker sPicker = new SimulationPicker();
+        new SimulationPicker();
 
         disposeWindow();
     }
