@@ -48,7 +48,7 @@ public class Basket extends SimulationWindow{
         Thread timeThread = new Thread(new Timer());
         timeIsTicking = true;
         timeThread.start();
-        view.setBackground(colors.get(10));
+        view.setBackgroundColor(colors.get(10));
 
         view.add(scoreLabel);
         initTimeLabel();
@@ -57,14 +57,14 @@ public class Basket extends SimulationWindow{
         addToViewAndSimulation(actualRing.getRightPole());
         window.setResizable(false);
         initView();
-
+        updateBackground();
     }
 
     void updateBackground(){
         if(timeLeft < 10){
-            view.setBackground(colors.get(timeLeft));
+            view.setBackgroundColor(colors.get(timeLeft));
         }else{
-            view.setBackground(colors.get(10));
+            view.setBackgroundColor(colors.get(10));
         }
         timeLabel.setText(timeLeft + "");
         timeLabel.updatePosition(modelWorld.getWindowBounds());
@@ -82,9 +82,6 @@ public class Basket extends SimulationWindow{
                 }
                 --timeLeft;
                 updateBackground();
-                
-
-                
                 if(timeLeft == 0){
                     lose();
                 }
@@ -136,7 +133,7 @@ public class Basket extends SimulationWindow{
 
     void lose(){
         timeIsTicking = false;
-        view.setBackground(Color.RED);
+        view.setBackgroundColor(Color.RED);
         removeFromViewAndSimulation(actualRing.getLeftPole());
         removeFromViewAndSimulation(actualRing.getRightPole());
         showGameOverDialog(window);

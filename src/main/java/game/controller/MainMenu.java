@@ -35,7 +35,6 @@ public class MainMenu extends SimulationWindow{
         initTitle();
 
         view.setLayout(null);
-        view.setBackground(new Color(100, 100, 255));
 
 
         initSimButton();
