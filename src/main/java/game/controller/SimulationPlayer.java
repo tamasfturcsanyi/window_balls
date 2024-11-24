@@ -83,6 +83,14 @@ public class SimulationPlayer extends SimulationWindow{
         buttonPanel.add(settingsButton);
     }
 
+    void initAddButton(){
+        addButton = new JButton();
+        addButton.setPreferredSize(new Dimension(BUTTON_HEIGHT,BUTTON_HEIGHT));
+        addButton.setIcon(new ImageIcon("src/main/resources/add.png"));
+
+        buttonPanel.add(addButton);
+    }
+
     void initButtonsPanel(){
         buttonPanel = new JPanel();
         buttonPanel.setMaximumSize(new Dimension(window.getWidth(),BUTTON_HEIGHT));
@@ -100,9 +108,7 @@ public class SimulationPlayer extends SimulationWindow{
 
         initSettingsButton();
 
-        addButton = new JButton("Add");
-        addButton.setSize(BUTTON_HEIGHT,BUTTON_HEIGHT);
-        buttonPanel.add(addButton);
+        initAddButton();
 
         window.add(buttonPanel);
         window.add(view);
@@ -135,11 +141,13 @@ public class SimulationPlayer extends SimulationWindow{
         playButton.setIcon(pauseIcon);
         modelWorld.stopSimulation();
         settingsButton.setEnabled(false);
+        addButton.setEnabled(false);
     }
 
     void pauseSimulation(){
         playButton.setIcon(playIcon);
         settingsButton.setEnabled(true);
+        addButton.setEnabled(true);
     }
 
     void speedUp(){
