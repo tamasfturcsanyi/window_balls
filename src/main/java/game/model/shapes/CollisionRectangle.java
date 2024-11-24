@@ -22,6 +22,8 @@ public class CollisionRectangle extends Rectangle2D.Double implements CollisionS
     @Override
     public void setPosition(Vector2D position) {
         this.position = position;
+        super.x = position.getX();
+        super.y = position.getY();
     }
 
     @Override
