@@ -1,24 +1,29 @@
 package game.model;
 
+import java.awt.Color;
+
 public class SimulationParameters{
     Vector2D gravity = new Vector2D(0,10);
     double simulationSpeed = 1;
     double bounceEnergyRemaining = 0.6;
     double speedLimit = 200;
     double generalEnergyLoss = 0.0001;
+    Color SimulationBackground = Color.WHITE;
 
     boolean shakeable = true;
 
     public SimulationParameters(){
     }
 
-    public SimulationParameters(Vector2D gravity , double speed, double bounceEnergyRemaining, double speedLimit, double generalEnergyLoss, boolean shakeable){
+    public SimulationParameters(Vector2D gravity , double speed, double bounceEnergyRemaining,
+     double speedLimit, double generalEnergyLoss, boolean shakeable, Color SimulationBackground){
         this.gravity = gravity;
         this.simulationSpeed = speed;
         this.bounceEnergyRemaining = bounceEnergyRemaining;
         this.speedLimit = speedLimit;
         this.generalEnergyLoss = generalEnergyLoss;
         this.shakeable = shakeable;
+        this.SimulationBackground = SimulationBackground;
     }
 
     public Vector2D getGravity() {
@@ -47,5 +52,9 @@ public class SimulationParameters{
 
     public boolean isShakeable(){
         return shakeable;
+    }
+
+    public Color getSimulationBackground() {
+        return SimulationBackground;
     }
 }

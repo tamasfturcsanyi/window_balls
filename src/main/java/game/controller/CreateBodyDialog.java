@@ -2,26 +2,20 @@ package game.controller;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import game.model.Vector2D;
 import game.model.physicksbodies.Ball;
 import game.model.physicksbodies.Brick;
 import game.model.physicksbodies.Pole;
-import javax.swing.UIManager;
-import javax.swing.plaf.FontUIResource;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.awt.Color;
 
 import game.model.physicksbodies.PhysicksBody;
 
 
 public class CreateBodyDialog extends JDialog {
     private JComboBox<String> bodyTypeComboBox;
-    private JComboBox<String> poleColorComboBox;
-    private JComboBox<String> ballColorComboBox;
+    private ColorPicker poleColorComboBox;
+    private ColorPicker ballColorComboBox;
     private JPanel cardPanel;
     private CardLayout cardLayout;
     private JTextField ballCenterXField;
@@ -41,37 +35,19 @@ public class CreateBodyDialog extends JDialog {
     private JTextField heightField;
 
 
-    private PhysicksBody body;
-
-    public class FontUtil {
-        public static void setUIFont(FontUIResource f) {
-            Enumeration<Object> keys = UIManager.getDefaults().keys();
-            while (keys.hasMoreElements()) {
-                Object key = keys.nextElement();
-                Object value = UIManager.get(key);
-                if (value instanceof FontUIResource) {
-                    UIManager.put(key, f);
-                }
-            }
-        }
-    }
+    private transient PhysicksBody body;
     
     public CreateBodyDialog(Frame owner) {
         super(owner, "Create Body", true);
         setLayout(new BorderLayout());
-        FontUtil.setUIFont(new FontUIResource(UIManager.getFont("Label.font").deriveFont(Font.BOLD, 32)));
         setLayout(new BorderLayout());
         bodyTypeComboBox = new JComboBox<>(new String[]{"Ball", "Brick", "Pole"});
-        bodyTypeComboBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, (String) bodyTypeComboBox.getSelectedItem());
-            }
-        });
-        poleColorComboBox = new JComboBox<>(new String[]{"Red", "Green", "Blue", "Yellow", "Black", "White", "Gray", "Cyan", "Magenta", "Pink", "Orange"});
-        ballColorComboBox = new JComboBox<>(new String[]{"Red", "Green", "Blue", "Yellow", "Black", "White", "Gray", "Cyan", "Magenta", "Pink", "Orange"});
+        bodyTypeComboBox.addActionListener(s -> cardLayout.show(cardPanel, (String) bodyTypeComboBox.getSelectedItem()));
+        poleColorComboBox = new ColorPicker();
+        ballColorComboBox = new ColorPicker();
 
-        cardPanel = new JPanel(cardLayout = new CardLayout());
+        cardLayout = new CardLayout();
+        cardPanel = new JPanel(cardLayout);
 
         cardPanel.add(createBallPanel(), "Ball");
         cardPanel.add(createBrickPanel(), "Brick");
@@ -195,41 +171,13 @@ public class CreateBodyDialog extends JDialog {
         setVisible(false);
     }
 
-    Color toColor(String colorName){
-        switch (colorName) {
-            case "Red":
-                return Color.RED;
-            case "Green":
-                return Color.GREEN;
-            case "Blue":
-                return Color.BLUE;
-            case "Yellow":
-                return Color.YELLOW;
-            case "Black":
-                return Color.BLACK;
-            case "White":
-                return Color.WHITE;
-            case "Gray":
-                return Color.GRAY;
-            case "Cyan":
-                return Color.CYAN;
-            case "Magenta":
-                return Color.MAGENTA;
-            case "Pink":
-                return Color.PINK;
-            case "Orange":
-                return Color.ORANGE;
-            default:
-                return Color.BLACK;
-        }
-    }
 
     Ball createBall() {
         return new Ball(
                 new Vector2D(Double.parseDouble(ballCenterXField.getText()),
                         Double.parseDouble(ballCenterYField.getText())),
                 Double.parseDouble(ballRadiusField.getText()),
-                toColor((String) ballColorComboBox.getSelectedItem()),
+                 ballColorComboBox.getColor(),
                 Double.parseDouble(ballBouncinessField.getText()),
                 Double.parseDouble(ballMassField.getText()));
     }
@@ -247,7 +195,7 @@ public class CreateBodyDialog extends JDialog {
                 new Vector2D(Double.parseDouble(poleCenterXField.getText()),
                         Double.parseDouble(poleCenterYField.getText())),
                 Double.parseDouble(poleRadiusField.getText()),
-                toColor((String) poleColorComboBox.getSelectedItem()));
+                poleColorComboBox.getColor());
     }
 
     public PhysicksBody getBody() {
@@ -259,7 +207,7 @@ public class CreateBodyDialog extends JDialog {
             @Override
             public void run() {
                 JFrame frame = new JFrame("Test AddBodyDialog");
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 frame.setSize(300, 200);
                 frame.setVisible(true);
                 ArrayList<PhysicksBody> bodies = new ArrayList<>();

@@ -92,6 +92,7 @@ public class SimulationPicker {
 
     void initButtonsPanel() {
         buttonsPanel = new JPanel();
+        buttonsPanel.setBackground(Color.PINK);
         buttonsPanel.setPreferredSize(new Dimension(500, 200));
 
         initAddButton();

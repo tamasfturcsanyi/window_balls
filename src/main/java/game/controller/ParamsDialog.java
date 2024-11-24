@@ -13,13 +13,15 @@ public class ParamsDialog extends JDialog {
     private JTextField speedLimitField;
     private JTextField generalEnergyLossField;
     private JCheckBox shakeableCheckBox;
+    private ColorPicker backgroundColorPicker;
+
     private SimulationParameters originalParameters;
     private SimulationParameters currentParameters;
     
     public ParamsDialog(Frame parent, SimulationParameters simulationParameters) {
         super(parent, "Simulation Parameters", true);
         this.originalParameters = simulationParameters;
-        setLayout(new GridLayout(8, 2));
+        setLayout(new GridLayout(9, 2));
         setDialogProperties();
 
         initLabels();
@@ -61,6 +63,10 @@ public class ParamsDialog extends JDialog {
         add(new JLabel("Shakeable:"));
         shakeableCheckBox = new JCheckBox();
         add(shakeableCheckBox);
+
+        add(new JLabel("Background Color:"));
+        backgroundColorPicker = new ColorPicker();
+        add(backgroundColorPicker);
     }
 
     void initOKButton(){
@@ -78,6 +84,7 @@ public class ParamsDialog extends JDialog {
             double speedLimit = Double.parseDouble(speedLimitField.getText());
             double generalEnergyLoss = Double.parseDouble(generalEnergyLossField.getText());
             boolean shakeable = shakeableCheckBox.isSelected();
+            Color backgroundColor = backgroundColorPicker.getColor();
 
             currentParameters = new SimulationParameters(
                     new Vector2D(gravityX, gravityY),
@@ -85,7 +92,8 @@ public class ParamsDialog extends JDialog {
                     bounceEnergyRemaining,
                     speedLimit,
                     generalEnergyLoss,
-                    shakeable);
+                    shakeable,
+                    backgroundColor);
 
             setVisible(false);
         } catch (NumberFormatException e) {
@@ -112,6 +120,7 @@ public class ParamsDialog extends JDialog {
         speedLimitField.setText(String.valueOf(params.getSpeedLimit()));
         generalEnergyLossField.setText(String.valueOf(params.getGeneralEnergyLoss()));
         shakeableCheckBox.setSelected(params.isShakeable());
+        backgroundColorPicker.setSelectedItem("White");
     }
 
     private void setDialogProperties() {

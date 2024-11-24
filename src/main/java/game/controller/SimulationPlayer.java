@@ -21,6 +21,7 @@ public class SimulationPlayer extends SimulationWindow{
     JPanel buttonPanel;
 
     JButton saveButton;
+    JButton addButton;
 
     JButton playButton;
     ImageIcon playIcon = new ImageIcon("src/main/resources/play.png");
@@ -31,7 +32,7 @@ public class SimulationPlayer extends SimulationWindow{
     JLabel speedLabel = new JLabel();
 
     JButton settingsButton;
-    JButton addButton;
+    JButton backButton;
 
     boolean playing = false;
 
@@ -103,6 +104,15 @@ public class SimulationPlayer extends SimulationWindow{
         buttonPanel.add(addButton);
     }
 
+    void initBackButton(){
+        backButton = new JButton();
+        backButton.setPreferredSize(new Dimension(BUTTON_HEIGHT,BUTTON_HEIGHT));
+        backButton.setIcon(new ImageIcon("src/main/resources/backMini.png"));
+        backButton.addActionListener(o -> openSimulationPicker());
+
+        buttonPanel.add(backButton);
+    }
+
     void initButtonsPanel(){
         buttonPanel = new JPanel();
         buttonPanel.setMaximumSize(new Dimension(window.getWidth(),BUTTON_HEIGHT));
@@ -111,15 +121,19 @@ public class SimulationPlayer extends SimulationWindow{
 
         
         initSaveButton();
+        initAddButton();
+
         initSlowButton();
         initPlayButton();
         initFastButton();
+
         buttonPanel.add(speedLabel);
         speedLabel.setText("X"+modelWorld.getParams().getSimulationSpeed());
+        speedLabel.setFont(speedLabel.getFont().deriveFont(24.0f));
 
         initSettingsButton();
+        initBackButton();
 
-        initAddButton();
 
         window.add(buttonPanel);
         window.add(view);
@@ -182,6 +196,7 @@ public class SimulationPlayer extends SimulationWindow{
         SimulationParameters params = pDialog.getSimulationParameters();
         if(params != null){
             modelWorld.setParams(params);
+            view.setBackgroundColor(params.getSimulationBackground());
         }
     }
 
@@ -204,5 +219,11 @@ public class SimulationPlayer extends SimulationWindow{
             }
             SimulationSerializer.saveWorld(modelWorld);
         }
+    }
+
+    void openSimulationPicker(){
+        SimulationPicker sPicker = new SimulationPicker();
+
+        disposeWindow();
     }
 }

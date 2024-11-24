@@ -17,8 +17,6 @@ import java.awt.Rectangle;
 
 public class Simulation{
     String title = "Simulation";
-    Color backgroundColor = Color.WHITE;
-
 
     SimulationParameters params = new SimulationParameters();
 
@@ -115,14 +113,6 @@ public class Simulation{
         this.params = params;
     }
     
-    public Color getBackgroundColor() {
-        return backgroundColor;
-    }
-
-    public void setBackgroundColor(Color backgroundColor) {
-        this.backgroundColor = backgroundColor;
-    }
-    
     public boolean isOnTheGround(PhysicksBody body){
         return walls[2].isIntersectingWith(body);
     }
@@ -140,8 +130,7 @@ public class Simulation{
     public void volleyPreset(VolleyBall ball){
         title = "Volley";
 
-        setBackgroundColor(Color.decode("#a3f0ff"));
-        params = new SimulationParameters(new Vector2D(0,10),1,0.5,200,0.001,false);
+        params = new SimulationParameters(new Vector2D(0,10),1,0.5,200,0.001,false,Color.decode("#a3f0ff"));
 
         windowBounds = new Rectangle(0, 0, 1024, 768);
 
@@ -157,9 +146,8 @@ public class Simulation{
         double windowY = windowBounds.getY();
         title = "Preset_1";
 
-        backgroundColor = new Color(100, 100, 255);
 
-        params = new SimulationParameters(new Vector2D(0,10), 1, 0.6, 200,0.001,true);
+        params = new SimulationParameters(new Vector2D(0,10), 1, 0.6, 200,0.001,true,new Color(100, 100, 255));
 
         addBody(new Brick(new Vector2D(300, 400), new Vector2D(10, 500)));
 
@@ -176,9 +164,7 @@ public class Simulation{
 
         title = "Preset_2";
 
-        backgroundColor = Color.decode("#fbc7ff");
-
-        params = new SimulationParameters(new Vector2D(0,10), 1, 0.6, 200,0.001,true);
+        params = new SimulationParameters(new Vector2D(0,10), 1, 0.6, 200,0.001,true,Color.decode("#fbc7ff"));
         for(int j = 0; j < 10; ++j){
             for(int i = 0; i < 10;++i){
                 int offset = (j % 2 == 0) ? 0:50;
@@ -199,10 +185,8 @@ public class Simulation{
 
         title = "Preset_3";
 
-        backgroundColor = Color.BLACK;
 
-
-        params = new SimulationParameters(new Vector2D(0,0), 1, 0.6, 200,0.001,true);
+        params = new SimulationParameters(new Vector2D(0,0), 1, 0.6, 200,0.001,true,Color.BLACK);
         for(int i = 0; i < 10;++i){
             addBody(new Ball(new Vector2D(windowX + 100 + 50*i,windowY + 100), 20, new Color(rng.nextInt(0,256*256*256)), 1, 1));
         }
