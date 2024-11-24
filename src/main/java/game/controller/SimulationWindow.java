@@ -2,6 +2,7 @@ package game.controller;
 
 import game.model.Simulation;
 import game.model.physicksbodies.PhysicksBody;
+import game.model.serialization.SimulationSerializer;
 import game.view.Visualizer;
 import game.view.Visualizer.Visualizable;
 import game.view.GraphicsPanel;
@@ -29,6 +30,13 @@ public class SimulationWindow implements Runnable{
 
     public SimulationWindow(String title, Rectangle windowBounds){
         modelWorld = new Simulation(title,windowBounds);
+        view = new GraphicsPanel();
+        initView();
+        initWindow();
+    }
+
+    public SimulationWindow(String jsonPath){
+        modelWorld = SimulationSerializer.loadWorld(jsonPath);
         view = new GraphicsPanel();
         initView();
         initWindow();

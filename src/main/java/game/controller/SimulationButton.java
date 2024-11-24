@@ -18,19 +18,19 @@ public class SimulationButton extends JButton{
 
     public SimulationButton(File jsonFile){
         jsonPath = jsonFile.getAbsolutePath();
-        SimulationPlayer sPlayer = new SimulationPlayer(jsonPath);
-        sPlayer.window.setVisible(false);
-        sPlayer.window.revalidate();
+        SimulationWindow simWindow = new SimulationWindow(jsonPath);
+        simWindow.window.setVisible(false);
+        simWindow.window.revalidate();
 
-        String title = sPlayer.modelWorld.getTitle();
+        String title = simWindow.modelWorld.getTitle();
 
         this.setText(title);
         this.setFont(new Font("Impact", Font.BOLD, 24)); // Set the font size to 16
 
-        sPlayer.addVisuals();
-        this.setIcon( new ImageIcon(sPlayer.view.drawOnImage()));
+        simWindow.addVisuals();
+        this.setIcon( new ImageIcon(simWindow.view.drawOnImage()));
 
-        SwingUtilities.invokeLater(sPlayer::disposeWindow);
+        SwingUtilities.invokeLater(simWindow::disposeWindow);
         
         this.setHorizontalTextPosition(SwingConstants.CENTER); // Text in the center horizontally
         this.setVerticalTextPosition(SwingConstants.TOP);   // Text above the image

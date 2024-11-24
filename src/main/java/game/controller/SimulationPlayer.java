@@ -29,11 +29,7 @@ public class SimulationPlayer extends SimulationWindow{
     }
 
     public SimulationPlayer(String jsonPath){
-        super("Simulation", new Rectangle(500, 200, 700, 500));
-        modelWorld = SimulationSerializer.loadWorld(jsonPath);
-        initWindow();
-        initView();
-
+        super(jsonPath);
         window.setSize(window.getWidth(), BUTTON_HEIGHT + window.getHeight());
         window.setLayout(new BoxLayout(window.getContentPane(), BoxLayout.Y_AXIS));
         //initPhotoButton();
