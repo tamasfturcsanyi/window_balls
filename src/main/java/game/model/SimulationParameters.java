@@ -1,7 +1,7 @@
 package game.model;
 
 public class SimulationParameters{
-    double gravity = 10;
+    Vector2D gravity = new Vector2D(0,10);
     double simulationSpeed = 1;
     double bounceEnergyRemaining = 0.6;
     double speedLimit = 200;
@@ -12,7 +12,7 @@ public class SimulationParameters{
     public SimulationParameters(){
     }
 
-    public SimulationParameters(double gravity , double speed, double bounceEnergyRemaining, double speedLimit, double generalEnergyLoss, boolean shakeable){
+    public SimulationParameters(Vector2D gravity , double speed, double bounceEnergyRemaining, double speedLimit, double generalEnergyLoss, boolean shakeable){
         this.gravity = gravity;
         this.simulationSpeed = speed;
         this.bounceEnergyRemaining = bounceEnergyRemaining;
@@ -21,7 +21,7 @@ public class SimulationParameters{
         this.shakeable = shakeable;
     }
 
-    public double getGravity() {
+    public Vector2D getGravity() {
         return gravity;
     }
 

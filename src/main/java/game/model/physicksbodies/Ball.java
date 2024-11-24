@@ -42,7 +42,7 @@ public class Ball extends MobileBody{
 
         force = new Vector2D(0,0);
         //apply gravity
-        force = force.add(new Vector2D(0, params.getGravity() * mass));
+        force = force.add(params.getGravity().stretch(mass));
 
         force = force.add(externalForces);
 
