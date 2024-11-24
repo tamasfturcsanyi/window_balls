@@ -9,7 +9,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import game.model.serialization.SimulationSerializer;
 
 public class SimulationPlayer extends SimulationWindow{
     static final int BUTTON_HEIGHT = 150;
@@ -38,7 +37,7 @@ public class SimulationPlayer extends SimulationWindow{
 
     void initButtonsPanel(){
         buttonPanel = new JPanel();
-        buttonPanel.setPreferredSize(new Dimension(window.getWidth(),BUTTON_HEIGHT));
+        buttonPanel.setMaximumSize(new Dimension(window.getWidth(),BUTTON_HEIGHT));
         buttonPanel.setBorder(BorderFactory.createBevelBorder(1));
 
         saveButton = new JButton("Save");
@@ -58,6 +57,7 @@ public class SimulationPlayer extends SimulationWindow{
         buttonPanel.add(addButton);
 
         window.add(buttonPanel);
+        window.add(view);
     }
 
     void initPhotoButton(){
@@ -71,4 +71,15 @@ public class SimulationPlayer extends SimulationWindow{
         view.add(button);
     }
 
+    @Override
+    void updateModel() {
+        if(modelWorld.getParams().getShakeable()){
+            Rectangle newWindowBounds = window.getBounds();
+            newWindowBounds.x -= view.getBounds().x;
+            newWindowBounds.y -= view.getBounds().y;
+            newWindowBounds.height -= buttonPanel.getHeight();
+            modelWorld.setWindowBounds(newWindowBounds);
+        }
+        modelWorld.update();
+    }
 }
