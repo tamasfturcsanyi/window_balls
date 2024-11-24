@@ -47,7 +47,7 @@ public class SimulationWindow implements Runnable{
         window.setTitle(modelWorld.getTitle());
         window.setBounds(modelWorld.getWindowBounds());
         window.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        window.setResizable(true);
+        window.setResizable(false);
         window.setVisible(true);
         window.add(view);
     }

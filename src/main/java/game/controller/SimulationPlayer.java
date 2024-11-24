@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import game.model.SimulationParameters;
+import game.model.physicksbodies.PhysicksBody;
 
 
 public class SimulationPlayer extends SimulationWindow{
@@ -87,6 +88,7 @@ public class SimulationPlayer extends SimulationWindow{
         addButton = new JButton();
         addButton.setPreferredSize(new Dimension(BUTTON_HEIGHT,BUTTON_HEIGHT));
         addButton.setIcon(new ImageIcon("src/main/resources/add.png"));
+        addButton.addActionListener(c -> startCreateDialog());
 
         buttonPanel.add(addButton);
     }
@@ -169,6 +171,15 @@ public class SimulationPlayer extends SimulationWindow{
         SimulationParameters params = pDialog.getSimulationParameters();
         if(params != null){
             modelWorld.setParams(params);
+        }
+    }
+
+    void startCreateDialog(){
+        CreateBodyDialog cDialog = new CreateBodyDialog(window);
+        cDialog.setVisible(true);
+        PhysicksBody body = cDialog.getBody();
+        if(body != null){
+            addToViewAndSimulation(body);
         }
     }
 }

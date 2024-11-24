@@ -195,12 +195,41 @@ public class CreateBodyDialog extends JDialog {
         setVisible(false);
     }
 
+    Color toColor(String colorName){
+        switch (colorName) {
+            case "Red":
+                return Color.RED;
+            case "Green":
+                return Color.GREEN;
+            case "Blue":
+                return Color.BLUE;
+            case "Yellow":
+                return Color.YELLOW;
+            case "Black":
+                return Color.BLACK;
+            case "White":
+                return Color.WHITE;
+            case "Gray":
+                return Color.GRAY;
+            case "Cyan":
+                return Color.CYAN;
+            case "Magenta":
+                return Color.MAGENTA;
+            case "Pink":
+                return Color.PINK;
+            case "Orange":
+                return Color.ORANGE;
+            default:
+                return Color.BLACK;
+        }
+    }
+
     Ball createBall() {
         return new Ball(
                 new Vector2D(Double.parseDouble(ballCenterXField.getText()),
                         Double.parseDouble(ballCenterYField.getText())),
                 Double.parseDouble(ballRadiusField.getText()),
-                Color.getColor((String) ballColorComboBox.getSelectedItem()),
+                toColor((String) ballColorComboBox.getSelectedItem()),
                 Double.parseDouble(ballBouncinessField.getText()),
                 Double.parseDouble(ballMassField.getText()));
     }
@@ -218,7 +247,7 @@ public class CreateBodyDialog extends JDialog {
                 new Vector2D(Double.parseDouble(poleCenterXField.getText()),
                         Double.parseDouble(poleCenterYField.getText())),
                 Double.parseDouble(poleRadiusField.getText()),
-                Color.getColor((String) poleColorComboBox.getSelectedItem()));
+                toColor((String) poleColorComboBox.getSelectedItem()));
     }
 
     public PhysicksBody getBody() {
