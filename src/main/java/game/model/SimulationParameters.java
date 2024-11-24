@@ -45,7 +45,7 @@ public class SimulationParameters{
         return generalEnergyLoss;
     }
 
-    public boolean getShakeable(){
+    public boolean isShakeable(){
         return shakeable;
     }
 }

@@ -83,7 +83,7 @@ public class SimulationWindow implements Runnable{
     }
 
     void updateModel(){
-        if(modelWorld.getParams().getShakeable()){
+        if(modelWorld.getParams().isShakeable()){
             modelWorld.setWindowBounds(window.getBounds());
         }
         modelWorld.update();

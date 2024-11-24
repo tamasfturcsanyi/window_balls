@@ -74,6 +74,15 @@ public class SimulationPlayer extends SimulationWindow{
         buttonPanel.add(slowButton);
     }
 
+    void initSettingsButton(){
+        settingsButton = new JButton();
+        settingsButton.setPreferredSize(new Dimension(BUTTON_HEIGHT,BUTTON_HEIGHT));
+        ImageIcon settingsIcon = new ImageIcon("src/main/resources/settings.png");
+        settingsButton.setIcon(settingsIcon);
+        settingsButton.addActionListener(d -> startParamsDialog());
+        buttonPanel.add(settingsButton);
+    }
+
     void initButtonsPanel(){
         buttonPanel = new JPanel();
         buttonPanel.setMaximumSize(new Dimension(window.getWidth(),BUTTON_HEIGHT));
@@ -89,9 +98,7 @@ public class SimulationPlayer extends SimulationWindow{
         buttonPanel.add(speedLabel);
         speedLabel.setText("X"+modelWorld.getParams().getSimulationSpeed());
 
-        settingsButton = new JButton("Settings");
-        settingsButton.setSize(BUTTON_HEIGHT,BUTTON_HEIGHT);
-        buttonPanel.add(settingsButton);
+        initSettingsButton();
 
         addButton = new JButton("Add");
         addButton.setSize(BUTTON_HEIGHT,BUTTON_HEIGHT);
@@ -103,7 +110,7 @@ public class SimulationPlayer extends SimulationWindow{
 
     @Override
     void updateModel() {
-        if(modelWorld.getParams().getShakeable()){
+        if(modelWorld.getParams().isShakeable()){
             Rectangle newWindowBounds = window.getBounds();
             newWindowBounds.x -= view.getBounds().x;
             newWindowBounds.y -= view.getBounds().y;
@@ -117,12 +124,22 @@ public class SimulationPlayer extends SimulationWindow{
 
     void playButtonAction(){
         if(!playing){
-            playButton.setIcon(pauseIcon);
-            modelWorld.stopSimulation();
+            resumeSimulation();
         }else{
-            playButton.setIcon(playIcon);
+            pauseSimulation();
         }
         playing = !playing;
+    }
+
+    void resumeSimulation(){
+        playButton.setIcon(pauseIcon);
+        modelWorld.stopSimulation();
+        settingsButton.setEnabled(false);
+    }
+
+    void pauseSimulation(){
+        playButton.setIcon(playIcon);
+        settingsButton.setEnabled(true);
     }
 
     void speedUp(){
@@ -135,5 +152,15 @@ public class SimulationPlayer extends SimulationWindow{
         SimulationParameters params = modelWorld.getParams();
         modelWorld.setSimulationSpeed(Math.max(params.getSimulationSpeed() - 0.25,0));
         speedLabel.setText("X"+modelWorld.getParams().getSimulationSpeed());
+    }
+
+    void startParamsDialog(){
+        ParamsDialog pDialog = new ParamsDialog(window,modelWorld.getParams());
+        pDialog.setVisible(true);
+
+        SimulationParameters params = pDialog.getSimulationParameters();
+        if(params != null){
+            modelWorld.setParams(params);
+        }
     }
 }

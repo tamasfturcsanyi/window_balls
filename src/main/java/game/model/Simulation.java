@@ -106,6 +106,10 @@ public class Simulation{
     public SimulationParameters getParams() {
         return params;
     }
+
+    public void setParams(SimulationParameters params) {
+        this.params = params;
+    }
     
     public Color getBackgroundColor() {
         return backgroundColor;
