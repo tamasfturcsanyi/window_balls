@@ -14,6 +14,8 @@ public abstract class PhysicksBody implements Visualizable{
 
     boolean intersecting = false;
 
+    boolean selected = false;
+
     PhysicksBody(CollisionShape collisionShape, Color color){
         this.collisionShape = collisionShape;
         this.color = color;
@@ -48,6 +50,14 @@ public abstract class PhysicksBody implements Visualizable{
     public void setVisible(boolean visible){
         this.visible = visible;
     }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+    public boolean isSelected() {
+        return selected;
+    }
+
     public void setIntersecting(boolean intersecting) {
         this.intersecting = intersecting;
     }

@@ -29,20 +29,28 @@ public class Visualizer{
     class BrickVisual implements Visual{
         Rectangle shape;
         Color color;
+        boolean selected = false;
 
-        BrickVisual(double x, double y, Vector2D dimension, Color color){
+        BrickVisual(double x, double y, Vector2D dimension, Color color, boolean selected){
             this.shape = new Rectangle(
                 (int)x,
                 (int)y,
                 (int)dimension.getX(),
                 (int)dimension.getY());
             this.color = color;
+            this.selected = selected;
         }
 
         @Override
         public void draw(Graphics2D g2) {
             g2.setColor(color);
             g2.fill(shape);
+
+            if(selected){
+                g2.setStroke(new java.awt.BasicStroke(5));
+                g2.setColor(Color.YELLOW);
+                g2.draw(shape);
+            }
         }
     }
 
@@ -55,16 +63,22 @@ public class Visualizer{
     class BallVisual implements Visual{
         Ellipse2D.Double shape;
         Color color;
+        boolean selected = false;
 
-        BallVisual(double x, double y,double width, double height, Color color){
+        BallVisual(double x, double y,double width, double height, Color color, boolean selected){
             this.color = color;
             shape = new Ellipse2D.Double(x,y,width,height);
+            this.selected = selected;
         }
 
        @Override
        public void draw(Graphics2D g2) {
            g2.setColor(color);
            g2.fill(shape);
+           if(selected){
+               g2.setColor(Color.YELLOW);
+               g2.draw(shape);
+           }
        }
     }
 
@@ -80,7 +94,8 @@ public class Visualizer{
                 ball.getPosition().getY() - windowBounds.y,
                 ball.getDimension().getX(),
                 ball.getDimension().getY(),
-                ball.getColor());
+                ball.getColor(),
+                false);
             this.face = face;
             this.x = x;
             this.y = y;
@@ -101,14 +116,15 @@ public class Visualizer{
             ball.getPosition().getY() - windowBounds.y,
             ball.getDimension().getX(),
             ball.getDimension().getY(),
-            ball.getColor());
+            ball.getColor(),
+            ball.isSelected());
     }
 
     public Visual visualize(Brick brick){
         return new BrickVisual(
             brick.getPosition().getX() - windowBounds.getX(),
             brick.getPosition().getY() - windowBounds.getY(),
-            brick.getDimension(),brick.getColor());
+            brick.getDimension(),brick.getColor(),brick.isSelected());
     }
 
     public Visual visualize(Pole pole){
@@ -117,7 +133,8 @@ public class Visualizer{
             pole.getPosition().getY() - windowBounds.y,
             pole.getDimension().getX(),
             pole.getDimension().getY(),
-            pole.getColor());
+            pole.getColor(),
+            pole.isSelected());
     }
 
     public Visual visualize(Player player){

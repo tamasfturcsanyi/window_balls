@@ -13,6 +13,7 @@ import game.model.physicksbodies.volley.VolleyBall;
 import game.model.serialization.SimulationSerializer;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.Rectangle;
 
 public class Simulation{
@@ -125,6 +126,19 @@ public class Simulation{
 
     public void setSimulationSpeed(double speed){
         params.simulationSpeed = speed;
+    }
+
+    public PhysicksBody selectBodyAt(Point p){
+        for (PhysicksBody physicksBody : bodies) {
+            physicksBody.setSelected(false);
+        }
+        for (PhysicksBody physicksBody : bodies) {
+            if(physicksBody.getCollisionShape().getBoundingBox().contains(p)){
+                physicksBody.setSelected(true);
+                return physicksBody;
+            }
+        }
+        return null;
     }
 
     public void volleyPreset(VolleyBall ball){
