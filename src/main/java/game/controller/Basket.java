@@ -35,27 +35,27 @@ public class Basket extends SimulationWindow{
 
     private static final String FONT = "Impact";
 
-    int score = 0;
+    private int score = 0;
 
-    int highScore;
+    private int highScore;
 
-    int timeLeft = 10;
+    private int timeLeft = 10;
 
-    int timeBonus = 5;
+    private int timeBonus = 5;
 
 
-    boolean ballWasAboveRing = false;
+    private boolean ballWasAboveRing = false;
 
-    boolean timeIsTicking = false;
+    private boolean timeIsTicking = false;
 
-    FixLabel scoreLabel;
+    private FixLabel scoreLabel;
 
-    FixLabel timeLabel;
+    private FixLabel timeLabel;
 
-    HashMap<Integer,Color> colors = new HashMap<>();
+    private HashMap<Integer,Color> colors = new HashMap<>();
 
-    Ball basketBall;
-    Ring actualRing;
+    private Ball basketBall;
+    private Ring actualRing;
 
 
     public Basket(){
@@ -81,9 +81,17 @@ public class Basket extends SimulationWindow{
     }
 
     void initBalls(){
+        initBasketBall();
+        initRing();
+    }
+
+    void initBasketBall(){
         basketBall = new Ball(new Vector2D(700,400), 30, new Color(255,128,0), 0.6, 1);
-        actualRing = new Ring();
         addToViewAndSimulation(basketBall);
+    }
+
+    void initRing(){
+        actualRing = new Ring();
         addToViewAndSimulation(actualRing.getLeftPole());
         addToViewAndSimulation(actualRing.getRightPole());
     }
@@ -123,16 +131,34 @@ public class Basket extends SimulationWindow{
         view.add(scoreLabel);
     }
 
-    void updateBackground(){
-        if(timeLeft < 10){
-            timeLabel.setPosition(new Vector2D((SCREEN_WIDTH - 120)/2.0,(SCREEN_HEIGHT - 300)/2.0));
+    void updateBackground() {
+        updateTimeLabelPosition();
+        updateBackgroundColor();
+        updateTimeLabelText();
+        updateTimeLabelPositionInView();
+    }
+
+    void updateTimeLabelPosition() {
+        if (timeLeft < 10) {
+            timeLabel.setPosition(new Vector2D((SCREEN_WIDTH - 120) / 2.0, (SCREEN_HEIGHT - 300) / 2.0));
+        } else {
+            timeLabel.setPosition(new Vector2D((SCREEN_WIDTH - 200) / 2.0, (SCREEN_HEIGHT - 300) / 2.0));
+        }
+    }
+
+    void updateBackgroundColor() {
+        if (timeLeft < 10) {
             view.setBackgroundColor(colors.get(timeLeft));
-        }else{
-            timeLabel.setPosition(new Vector2D((SCREEN_WIDTH - 200)/2.0,(SCREEN_HEIGHT - 300)/2.0));
+        } else {
             view.setBackgroundColor(colors.get(10));
         }
+    }
+
+    void updateTimeLabelText() {
         timeLabel.setText(timeLeft + "");
-        
+    }
+
+    void updateTimeLabelPositionInView() {
         timeLabel.updatePosition(modelWorld.getWindowBounds());
     }
 
@@ -156,6 +182,11 @@ public class Basket extends SimulationWindow{
         }
     }
 
+    /**
+     * Displays a game over dialog with the final score and high score.
+     * 
+     * @param parentFrame the parent frame for the dialog
+     */
     @SuppressWarnings("unused")
     void showGameOverDialog(JFrame parentFrame) {
         // Create JDialog
