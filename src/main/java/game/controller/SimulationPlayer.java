@@ -319,7 +319,7 @@ public class SimulationPlayer extends SimulationWindow{
 
     void deleteSelectedBody(){
         if(selectedBody != null){
-            removeFromViewAndSimulation(selectedBody);
+            removeBodyFromViewAndSimulation(selectedBody);
             selectedBody = null;
         }
     }

@@ -213,8 +213,8 @@ public class Basket extends SimulationWindow{
     void lose(){
         timeIsTicking = false;
         view.setBackgroundColor(Color.RED);
-        removeFromViewAndSimulation(actualRing.getLeftPole());
-        removeFromViewAndSimulation(actualRing.getRightPole());
+        removeBodyFromViewAndSimulation(actualRing.getLeftPole());
+        removeBodyFromViewAndSimulation(actualRing.getRightPole());
         if(score > highScore){
             saveHighScore();
         }
@@ -239,8 +239,8 @@ public class Basket extends SimulationWindow{
     }
 
     void newRing(){
-        removeFromViewAndSimulation(actualRing.getLeftPole());
-        removeFromViewAndSimulation(actualRing.getRightPole());
+        removeBodyFromViewAndSimulation(actualRing.getLeftPole());
+        removeBodyFromViewAndSimulation(actualRing.getRightPole());
         actualRing = new Ring();
         addToViewAndSimulation(actualRing.getLeftPole());
         addToViewAndSimulation(actualRing.getRightPole());

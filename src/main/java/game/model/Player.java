@@ -10,7 +10,7 @@ import java.awt.Color;
 
 public class Player implements Visualizable{
     public enum Face{
-        HAPPY(" ͡° ͜ʖ ͡°"),
+        LEMMY(" ͡° ͜ʖ ͡°"),
         SERIOUS("▀̿Ĺ̯▀̿ ̿"),
         SAD("ಠ╭╮ಠ"),
         CUTE("｡◕‿◕｡"),
@@ -54,10 +54,10 @@ public class Player implements Visualizable{
     Face face;
 
 
-    public Player(int num){
+    public Player(int num, Color color, Face face){
         this.num = num;
-        face = (num == 1) ? Face.SERIOUS : Face.CUTE;
-        body = new Ball( num == 1 ? new Vector2D(500,500): new Vector2D(800,500),40, num == 1 ? Color.CYAN:Color.red,1,1);
+        this.face = face;
+        body = new Ball( num == 1 ? new Vector2D(500,500): new Vector2D(800,500),40, color,1,1);
         body.setVisible(false);
     }
 

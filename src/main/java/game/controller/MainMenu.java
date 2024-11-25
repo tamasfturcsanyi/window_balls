@@ -108,7 +108,7 @@ public class MainMenu extends SimulationWindow{
 
     //starts a volley window, disposes the MainMenu Window
     void startVolley(){
-        Thread volleyThread = new Thread(new Volley());
+        Thread volleyThread = new Thread(new VolleyStarter());
         volleyThread.start();
 
         disposeWindow();

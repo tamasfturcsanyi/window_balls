@@ -16,29 +16,28 @@ public class Volley extends SimulationWindow{
 
     JLabel score;
 
-    public Volley(){
+    public Volley(Player player1, Player player2){
         super("Volley",new Rectangle(0, 0, 1024, 768));
-        setupPlayer1();
-        setupPlayer2();
+        setupPlayer1(player1);
+        setupPlayer2(player2);
         ball = new VolleyBall();
         score = new JLabel();
         updateScore();
         score.setFont(new Font("Impact", Font.BOLD, 52));
         view.add(score);
-        modelWorld.volleyPreset(ball);
+        modelWorld.volleyPreset();
+        modelWorld.addBody(ball);
         initView();
     }
 
-    void setupPlayer1(){
-        player1 = new Player(1);
+    void setupPlayer1(Player player1){
         modelWorld.addBody(player1.getBody());
         visualizables.add(player1);
         PlayerController pc1 = new PlayerController(player1,ControlScheme.WASD);
         window.addKeyListener(pc1);
     }
 
-    void setupPlayer2(){
-        player2 = new Player(2);
+    void setupPlayer2(Player player2){
         modelWorld.addBody(player2.getBody());
         visualizables.add(player2);
         PlayerController pc2 = new PlayerController(player2,ControlScheme.ARROWS);

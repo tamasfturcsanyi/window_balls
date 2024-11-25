@@ -66,9 +66,13 @@ public class SimulationWindow implements Runnable{
         modelWorld.addBody(body);
     }
 
-    public void removeFromViewAndSimulation(PhysicksBody body){
+    public void removeBodyFromViewAndSimulation(PhysicksBody body){
         visualizables.remove(body);
         modelWorld.removeBody(body);
+    }
+
+    public void removeVisualizable(Visualizable visualizable){
+        visualizables.remove(visualizable);
     }
 
     void addVisuals(){

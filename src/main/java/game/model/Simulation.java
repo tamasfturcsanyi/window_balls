@@ -141,16 +141,16 @@ public class Simulation{
         return null;
     }
 
-    public void volleyPreset(VolleyBall ball){
+    public void volleyPreset(){
         title = "Volley";
 
-        params = new SimulationParameters(new Vector2D(0,10),1,0.5,200,0.001,false,Color.decode("#a3f0ff"));
+        params = new SimulationParameters(new Vector2D(0,10),1,0.5,200,0.001,false,Color.WHITE);
 
         windowBounds = new Rectangle(0, 0, 1024, 768);
 
         addBody(new Brick(new Vector2D(windowBounds.width/2.0 - 15, 300), new Vector2D(30,500)));
         addBody(new Pole(new Vector2D(windowBounds.width/2.0,300),15,Color.orange));
-        addBody(ball);
+        //addBody(ball);
     }
 
     public void preset1(){//NOSONAR
