@@ -1,9 +1,8 @@
-package game.model.physicksbodies.volley;
+package game.model.physicksbodies;
 
 import java.awt.Color;
 
 import game.model.Vector2D;
-import game.model.physicksbodies.Ball;
 
 public class VolleyBall extends Ball{
     public VolleyBall(){
