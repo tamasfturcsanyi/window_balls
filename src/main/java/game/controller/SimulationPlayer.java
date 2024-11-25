@@ -125,7 +125,8 @@ public class SimulationPlayer extends SimulationWindow{
     @Override
     void initWindow() {
         super.initWindow();
-        window.setSize(window.getWidth(), BUTTON_HEIGHT + window.getHeight());
+        window.setBounds(window.getX(), window.getY()+BUTTON_HEIGHT+28,
+            window.getWidth(), BUTTON_HEIGHT + window.getHeight());
         window.setLayout(new BoxLayout(window.getContentPane(), BoxLayout.Y_AXIS));
         window.setResizable(true);
     }
