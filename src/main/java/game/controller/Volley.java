@@ -13,7 +13,7 @@ import game.model.physicksbodies.volley.VolleyBall;
 import game.view.SolidButton;
 
 public class Volley extends SimulationWindow{
-    private final static String FONT_NAME = "Impact";
+    private static final String FONT_NAME = "Impact";
 
     Player player1;
     Player player2;

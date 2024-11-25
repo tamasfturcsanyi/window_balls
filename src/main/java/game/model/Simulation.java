@@ -9,7 +9,6 @@ import game.model.physicksbodies.Brick;
 import game.model.physicksbodies.PhysicksBody;
 import game.model.physicksbodies.Pole;
 import game.model.physicksbodies.Wall;
-import game.model.physicksbodies.volley.VolleyBall;
 import game.model.serialization.SimulationSerializer;
 
 import java.awt.Color;
@@ -150,15 +149,14 @@ public class Simulation{
 
         addBody(new Brick(new Vector2D(windowBounds.width/2.0 - 15, 300), new Vector2D(30,500)));
         addBody(new Pole(new Vector2D(windowBounds.width/2.0,300),15,Color.orange));
-        //addBody(ball);
     }
 
-    public void preset1(){//NOSONAR
+    public void MenuPreset(){//NOSONAR
         Random rng = new Random();
 
         double windowX = windowBounds.getX();
         double windowY = windowBounds.getY();
-        title = "Preset_1";
+        title = "MenuPreset";
 
 
         params = new SimulationParameters(new Vector2D(0,10), 1, 0.6, 200,0.001,true,new Color(100, 100, 255));
@@ -167,52 +165,9 @@ public class Simulation{
 
         addBody(new Pole(new Vector2D(200, 200), 20, Color.black));
         for(int i = 0; i < 5;++i){
-            addBody(new Ball(new Vector2D(windowX+20 + 50*i,windowY + 50), 20 + 5*i, new Color(rng.nextInt(0,256*256*256)), 0.5, 1 + i));
+            addBody(new Ball(new Vector2D(windowX+20 + 50*i,windowY + 50), (double)(20 + 5*i), new Color(rng.nextInt(0,256*256*256)), 0.5, 1.0 + i));
         }
 
         SimulationSerializer.saveWorld(this);
-    }
-
-    public void preset2(){
-        Random rng = new Random();
-
-        title = "Preset_2";
-
-        params = new SimulationParameters(new Vector2D(0,10), 1, 0.6, 200,0.001,true,Color.decode("#fbc7ff"));
-        for(int j = 0; j < 10; ++j){
-            for(int i = 0; i < 10;++i){
-                int offset = (j % 2 == 0) ? 0:50;
-                addBody(new Pole(new Vector2D(i*100 + offset,j*100),20,Color.BLUE));
-            }
-        }
-        addBody(new Ball(new Vector2D(100,10), 20, new Color(rng.nextInt(0,256*256*256)), 0.2, 10));
-
-        
-        SimulationSerializer.saveWorld(this);
-    }
-    
-    public void preset3(){
-        Random rng = new Random();
-
-        double windowX = windowBounds.getX();
-        double windowY = windowBounds.getY();
-
-        title = "Preset_3";
-
-
-        params = new SimulationParameters(new Vector2D(0,0), 1, 0.6, 200,0.001,true,Color.BLACK);
-        for(int i = 0; i < 10;++i){
-            addBody(new Ball(new Vector2D(windowX + 100 + 50*i,windowY + 100), 20, new Color(rng.nextInt(0,256*256*256)), 1, 1));
-        }
-        SimulationSerializer.saveWorld(this);
-    }
-
-    public static void main(String[] args) {
-        Simulation sim = new Simulation();
-        sim.preset1();
-        sim = new Simulation();
-        sim.preset2();
-        sim = new Simulation();
-        sim.preset3();
     }
 }

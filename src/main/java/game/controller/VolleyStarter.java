@@ -41,6 +41,7 @@ public class VolleyStarter extends SimulationWindow {
         initButtons();
     }
 
+    @SuppressWarnings("unused")
     void initPlayer1ColorPicker(){
         player1ColorPicker = new ColorPicker();
         player1ColorPicker.setFont(font);
@@ -51,6 +52,7 @@ public class VolleyStarter extends SimulationWindow {
         view.add(player1ColorPicker);
     }
 
+    @SuppressWarnings("unused")
     void initPlayer2ColorPicker(){
         player2ColorPicker = new ColorPicker();
         player2ColorPicker.setFont(font);
@@ -61,6 +63,7 @@ public class VolleyStarter extends SimulationWindow {
         view.add(player2ColorPicker);
     }
 
+    @SuppressWarnings("unused")
     void initPlayer1FacePicker(){
         player1FacePicker = new JComboBox<>(Face.values());
         player1FacePicker.setFont(font);
@@ -68,6 +71,7 @@ public class VolleyStarter extends SimulationWindow {
         view.add(player1FacePicker);
     }
 
+    @SuppressWarnings("unused")
     void initPlayer2FacePicker(){
         player2FacePicker = new JComboBox<>(Face.values());
         player2FacePicker.setFont(font);
@@ -88,6 +92,7 @@ public class VolleyStarter extends SimulationWindow {
         view.add(pointsToVictorySpinner);
     }
 
+    @SuppressWarnings("unused")
     void initStartButton(){
             JButton startButton = new JButton("Start");
             startButton.setFont(font);
