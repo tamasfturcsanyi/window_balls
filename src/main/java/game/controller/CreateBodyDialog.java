@@ -7,7 +7,6 @@ import game.model.physicksbodies.Ball;
 import game.model.physicksbodies.Brick;
 import game.model.physicksbodies.Pole;
 
-import java.util.ArrayList;
 
 import game.model.physicksbodies.PhysicksBody;
 
@@ -52,6 +51,7 @@ public class CreateBodyDialog extends JDialog {
         cardPanel.add(createBallPanel(), "Ball");
         cardPanel.add(createBrickPanel(), "Brick");
         cardPanel.add(createPolePanel(), "Pole");
+        fillWithDefaultValues();
 
         add(bodyTypeComboBox, BorderLayout.NORTH);
         add(cardPanel, BorderLayout.CENTER);
@@ -202,23 +202,21 @@ public class CreateBodyDialog extends JDialog {
         return body;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                JFrame frame = new JFrame("Test AddBodyDialog");
-                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                frame.setSize(300, 200);
-                frame.setVisible(true);
-                ArrayList<PhysicksBody> bodies = new ArrayList<>();
+    void fillWithDefaultValues(){
+        ballCenterXField.setText("600");
+        ballCenterYField.setText("200");
+        ballRadiusField.setText("30");
+        ballBouncinessField.setText("0.5");
+        ballMassField.setText("1");
 
-                CreateBodyDialog dialog = new CreateBodyDialog(frame);
-                dialog.setVisible(true);
-                PhysicksBody body = dialog.getBody();
-                if (body != null) {
-                    bodies.add(body);
-                }                  
-            }
-        });
+        positionXField.setText("600");
+        positionYField.setText("300");
+        widthField.setText("100");
+        heightField.setText("100");
+
+        poleCenterXField.setText("700");
+        poleCenterYField.setText("200");
+        poleRadiusField.setText("30");
+        poleColorComboBox.setSelectedItem("Blue");
     }
 }

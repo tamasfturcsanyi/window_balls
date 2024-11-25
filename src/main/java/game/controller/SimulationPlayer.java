@@ -54,13 +54,15 @@ public class SimulationPlayer extends SimulationWindow{
 
     public SimulationPlayer(){
         super("Simulation", new Rectangle(500, 200, 700, 500));
-        initButtonsPanel();
-        view.addMouseListener(new SimulationMouseListener(this));
-
+        initPanels();
     }
 
     public SimulationPlayer(String jsonPath){
         super(jsonPath);
+        initPanels();
+    }
+
+    void initPanels(){
         initButtonsPanel();
         view.addMouseListener(new SimulationMouseListener(this));
         view.addKeyListener(new KeyAdapter() {
@@ -293,7 +295,6 @@ public class SimulationPlayer extends SimulationWindow{
     }
 
     void copySelectedBody(){
-        System.out.println("copying");
         if(selectedBody != null){
             Gson gson = new GsonBuilder()
             .setPrettyPrinting()
@@ -311,7 +312,6 @@ public class SimulationPlayer extends SimulationWindow{
     }
 
     void deleteSelectedBody(){
-        System.out.println("deleting");
         if(selectedBody != null){
             removeFromViewAndSimulation(selectedBody);
             selectedBody = null;
