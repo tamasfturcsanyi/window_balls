@@ -5,10 +5,11 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 import game.model.Player;
 import game.model.Player.Face;
@@ -22,7 +23,9 @@ public class VolleyStarter extends SimulationWindow {
     private ColorPicker player1ColorPicker;
     private ColorPicker player2ColorPicker;
 
-    Font font = new Font("Impact", Font.PLAIN, 18);
+    JSpinner pointsToVictorySpinner;
+    Font font = new Font("Impact", Font.PLAIN, 42);
+    //Font font = new Font("Impact", Font.PLAIN, 12);
 
 
     public VolleyStarter(){
@@ -72,26 +75,63 @@ public class VolleyStarter extends SimulationWindow {
         view.add(player2FacePicker);
     }
 
+    void initPointsToVictorySpinner(){
+        JLabel pointsToVictoryLabel = new JLabel("Points to victory:");
+        pointsToVictoryLabel.setFont(font);
+
+        view.add(pointsToVictoryLabel);
+
+        SpinnerNumberModel model = new SpinnerNumberModel(5, 1, 100, 1);
+        pointsToVictorySpinner = new JSpinner(model);
+        pointsToVictorySpinner.setFont(font);
+
+        view.add(pointsToVictorySpinner);
+    }
+
+    void initStartButton(){
+            JButton startButton = new JButton("Start");
+            startButton.setFont(font);
+
+            view.add(startButton);
+        }
+
     void initButtons(){
 
-        view.setLayout(new GridLayout(4, 2, 10, 10)); // Adding some spacing between components
+        view.setLayout(new GridLayout(5, 3, 10, 10)); // Adding some spacing between components
 
 
         JLabel player1Label = new JLabel("Player 1");
         player1Label.setFont(font);
         view.add(player1Label);
 
+        view.add(new JLabel(""));
+
+
         JLabel player2Label = new JLabel("Player 2");
         player2Label.setFont(font);
         view.add(player2Label);
+
         
         initPlayer1ColorPicker();
 
+        JLabel colorLabel = new JLabel("Color:");
+        colorLabel.setFont(font);
+        view.add(colorLabel);
+
         initPlayer2ColorPicker();
+
 
         initPlayer1FacePicker();
 
+        JLabel faceLabel = new JLabel("Face:");
+        faceLabel.setFont(font);
+        view.add(faceLabel);
+
         initPlayer2FacePicker();
+
+        initPointsToVictorySpinner();
+
+        initStartButton();
 
         setDefaultValues();
 
@@ -126,47 +166,5 @@ public class VolleyStarter extends SimulationWindow {
 
         modelWorld.addBody(player2.getBody());
         visualizables.add(player2);
-    }
-
-    static void example(){
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                JFrame frame = new JFrame("Volley Starter");
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-                JPanel panel = new JPanel();
-                panel.setLayout(new GridLayout(4, 2));
-
-                JLabel player1Label = new JLabel("Player 1");
-                panel.add(player1Label);
-
-                JLabel player2Label = new JLabel("Player 2");
-                panel.add(player2Label);
-
-                ColorPicker player1ColorPicker = new ColorPicker();
-                panel.add(player1ColorPicker);
-
-                ColorPicker player2ColorPicker = new ColorPicker();
-                panel.add(player2ColorPicker);
-
-                JComboBox<Player.Face> player1FacePicker = new JComboBox<>(Player.Face.values());
-                panel.add(player1FacePicker);
-
-                JComboBox<Player.Face> player2FacePicker = new JComboBox<>(Player.Face.values());
-                panel.add(player2FacePicker);
-
-                frame.add(panel);
-                frame.pack();
-                frame.setVisible(true);
-            }
-        });
-    
-    }
-
-    public static void main(String[] args) {
-        //example();
-        VolleyStarter vs = new VolleyStarter();
-        Thread t = new Thread(vs);
-        t.start();
     }
 }
