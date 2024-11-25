@@ -16,14 +16,14 @@ public class SimulationParameters{
     }
 
     public SimulationParameters(Vector2D gravity , double speed, double bounceEnergyRemaining,
-     double speedLimit, double generalEnergyLoss, boolean shakeable, Color SimulationBackground){
+     double speedLimit, double generalEnergyLoss, boolean shakeable, Color simulationBackground){
         this.gravity = gravity;
         this.simulationSpeed = speed;
         this.bounceEnergyRemaining = bounceEnergyRemaining;
         this.speedLimit = speedLimit;
         this.generalEnergyLoss = generalEnergyLoss;
         this.shakeable = shakeable;
-        this.simulationBackground = SimulationBackground;
+        this.simulationBackground = simulationBackground;
     }
 
     public Vector2D getGravity() {

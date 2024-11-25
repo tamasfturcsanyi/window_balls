@@ -27,7 +27,8 @@ public class FPSCounter implements Runnable{
                 label.setText("FPS: " + fps);
                 fps = 0;
             } catch (Exception e) {
-                // TODO: handle exception
+                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         }
     }
