@@ -1,4 +1,4 @@
-package game.controller;
+package game.view;
 
 import javax.swing.*;
 import java.awt.*;
@@ -87,7 +87,7 @@ public class SaveDialog extends JDialog {
         setVisible(false);
     }
 
-    boolean toExistingFile(){
+    public boolean toExistingFile(){
         return saveToExistingFileCheckBox.isSelected();
     }
 
