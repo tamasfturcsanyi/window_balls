@@ -7,7 +7,7 @@ import game.model.Vector2D;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class Vector2DTest {
+public class Vector2DTest {
 
     static double limes = 0.0000001;
 
