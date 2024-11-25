@@ -12,6 +12,10 @@ import game.model.physicksbodies.PhysicksBody;
 
 
 public class CreateBodyDialog extends JDialog {
+    static final String BALL = "Ball";
+    static final String BRICK = "Brick";
+    static final String POLE = "Pole";
+
     private JComboBox<String> bodyTypeComboBox;
     private ColorPicker poleColorComboBox;
     private ColorPicker ballColorComboBox;
@@ -40,7 +44,7 @@ public class CreateBodyDialog extends JDialog {
         super(owner, "Create Body", true);
         setLayout(new BorderLayout());
         setLayout(new BorderLayout());
-        bodyTypeComboBox = new JComboBox<>(new String[]{"Ball", "Brick", "Pole"});
+        bodyTypeComboBox = new JComboBox<>(new String[]{BALL, BRICK, POLE});
         bodyTypeComboBox.addActionListener(s -> cardLayout.show(cardPanel, (String) bodyTypeComboBox.getSelectedItem()));
         poleColorComboBox = new ColorPicker();
         ballColorComboBox = new ColorPicker();
@@ -48,9 +52,9 @@ public class CreateBodyDialog extends JDialog {
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
 
-        cardPanel.add(createBallPanel(), "Ball");
-        cardPanel.add(createBrickPanel(), "Brick");
-        cardPanel.add(createPolePanel(), "Pole");
+        cardPanel.add(createBallPanel(), BALL);
+        cardPanel.add(createBrickPanel(), BRICK);
+        cardPanel.add(createPolePanel(), POLE);
         fillWithDefaultValues();
 
         add(bodyTypeComboBox, BorderLayout.NORTH);
@@ -123,20 +127,20 @@ public class CreateBodyDialog extends JDialog {
     private boolean validateFields() {
         try {
             switch ((String) bodyTypeComboBox.getSelectedItem()) {
-                case "Ball":
+                case BALL:
                     Double.parseDouble(ballCenterXField.getText());
                     Double.parseDouble(ballCenterYField.getText());
                     Double.parseDouble(ballRadiusField.getText());
                     Double.parseDouble(ballBouncinessField.getText());
                     Double.parseDouble(ballMassField.getText());
                     break;
-                case "Brick":
+                case BRICK:
                     Double.parseDouble(positionXField.getText());
                     Double.parseDouble(positionYField.getText());
                     Double.parseDouble(widthField.getText());
                     Double.parseDouble(heightField.getText());
                     break;
-                case "Pole":
+                case POLE:
                     Double.parseDouble(poleCenterXField.getText());
                     Double.parseDouble(poleCenterYField.getText());
                     Double.parseDouble(poleRadiusField.getText());
@@ -156,13 +160,13 @@ public class CreateBodyDialog extends JDialog {
             return;
         }
         switch ((String) bodyTypeComboBox.getSelectedItem()) {
-            case "Ball":
+            case BALL:
                 body = createBall();
                 break;
-            case "Brick":
+            case BRICK:
                 body = createBrick();
                 break;
-            case "Pole":
+            case POLE:
                 body = createPole();
                 break;
             default:
