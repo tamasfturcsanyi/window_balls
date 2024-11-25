@@ -8,6 +8,11 @@ import game.model.shapes.CollisionShape;
 import game.view.Visualizer.Visual;
 import game.view.Visualizer;
 
+/**
+ * The Pole class represents a fixed circular body in the game with a specified center, radius, and color.
+ * It extends the FixBody class and provides methods to get its dimensions, center, position, collision shape, 
+ * color, and to handle bouncing off other collision shapes.
+ */
 public class Pole extends FixBody{
     public Pole(Vector2D center, double radius, Color color){
         super(new CollisionCircle(center.add(new Vector2D(-radius,-radius)), radius),color);

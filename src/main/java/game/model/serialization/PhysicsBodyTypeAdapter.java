@@ -16,6 +16,24 @@ import game.model.physicsbodies.Wall;
 
 import java.lang.reflect.Type;
 
+/**
+ * Adapter class for serializing and deserializing PhysicsBody objects with Gson.
+ * This class implements both JsonSerializer and JsonDeserializer interfaces.
+ * 
+ * The serialize method converts a PhysicsBody object into its JSON representation,
+ * adding a "type" property to indicate the specific subclass of PhysicsBody.
+ * 
+ * The deserialize method converts a JSON representation back into a PhysicsBody object,
+ * using the "type" property to determine the specific subclass to instantiate.
+ * 
+ * Supported types:
+ * - Ball
+ * - Wall
+ * - Brick
+ * - Pole
+ * 
+ * If an unknown type is encountered during deserialization, a JsonParseException is thrown.
+ */
 public class PhysicsBodyTypeAdapter implements JsonSerializer<PhysicsBody>, JsonDeserializer<PhysicsBody>{
     @Override
     public PhysicsBody deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)throws JsonParseException {

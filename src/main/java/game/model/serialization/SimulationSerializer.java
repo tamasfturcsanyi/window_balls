@@ -12,11 +12,22 @@ import game.model.Simulation;
 import game.model.physicsbodies.PhysicsBody;
 import game.model.shapes.CollisionShape;
 
+
+/**
+ * SimulationSerializer is a utility class that provides static methods to save and load a Simulation object to and from a JSON file.
+ * It uses the Gson library to serialize and deserialize the Simulation object.
+ */
 public class SimulationSerializer {
     // Private constructor to hide the implicit public one
     private SimulationSerializer() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
+    /**
+     * Serializes the given Simulation object to a JSON file.
+     * The JSON file is saved in the "src/main/resources/jsons/" directory with the title of the world as the filename.
+     * 
+     * @param world the Simulation object to be serialized and saved
+     */
     public static void saveWorld(Simulation world){
         Gson gson = new GsonBuilder()
             .setPrettyPrinting()
@@ -36,7 +47,15 @@ public class SimulationSerializer {
         }
     }
 
-    public  static Simulation loadWorld(String path){
+    /**
+     * Loads a Simulation object from a JSON file at the specified path.
+     * The method uses Gson to deserialize the JSON content into a Simulation object.
+     * It also registers custom type adapters for CollisionShape, Color, and PhysicsBody.
+     *
+     * @param path the file path to the JSON file containing the simulation data
+     * @return a Simulation object initialized with the data from the JSON file
+     */
+    public static Simulation loadWorld(String path){
         Gson gson = new GsonBuilder()
             .setPrettyPrinting()
             .registerTypeAdapter(CollisionShape.class,new CollisionShapeTypeAdapter())

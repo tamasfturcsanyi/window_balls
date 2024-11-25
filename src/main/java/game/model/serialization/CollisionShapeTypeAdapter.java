@@ -14,6 +14,18 @@ import game.model.shapes.CollisionCircle;
 import game.model.shapes.CollisionRectangle;
 import game.model.shapes.CollisionShape;
 
+/**
+ * CollisionShapeTypeAdapter is a custom serializer and deserializer for the CollisionShape class.
+ * It implements both JsonSerializer and JsonDeserializer interfaces from the Gson library.
+ * 
+ * The deserialize method converts a JsonElement into a CollisionShape object based on the "type" property.
+ * Supported types are "CollisionCircle" and "CollisionRectangle".
+ * 
+ * The serialize method converts a CollisionShape object into a JsonElement, adding a "type" property
+ * to indicate the specific subclass of CollisionShape.
+ * 
+ * @throws JsonParseException if the "type" property is unknown or missing during deserialization.
+ */
 public class CollisionShapeTypeAdapter implements JsonSerializer<CollisionShape>, JsonDeserializer<CollisionShape>{
     @Override
     public CollisionShape deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)throws JsonParseException {

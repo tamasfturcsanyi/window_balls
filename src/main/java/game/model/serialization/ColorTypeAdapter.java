@@ -6,6 +6,10 @@ import com.google.gson.stream.JsonWriter;
 import java.awt.Color;
 import java.io.IOException;
 
+/**
+ * A custom {@link TypeAdapter} for serializing and deserializing {@link Color} objects.
+ * This adapter converts {@link Color} objects to and from their RGB string representation (e.g., "#RRGGBB").
+ */
 public class ColorTypeAdapter extends TypeAdapter<Color> {
     @Override
     public void write(JsonWriter out, Color color) throws IOException {

@@ -8,8 +8,12 @@ import game.model.shapes.CollisionRectangle;
 import game.model.shapes.CollisionShape;
 import game.view.Visualizer.Visual;
 import game.view.Visualizer;
+/**
+ * The Brick class represents a fixed body in the game with specific bounciness properties.
+ * It extends the FixBody class and provides methods to handle its position, dimension, and bouncing behavior.
+ */
 public class Brick extends FixBody{
-    double bounciness = 10;
+    private double bounciness = 10;
 
     static final double LIMES = 10;
 
@@ -32,6 +36,13 @@ public class Brick extends FixBody{
         return new Vector2D(collisionShape.getBoundingBox().getWidth(),collisionShape.getBoundingBox().getHeight());
     }
 
+    /**
+     * Calculates the vertical bounce vector for a collision between this object and another collision shape.
+     *
+     * @param a the collision shape that this object is colliding with
+     * @param intersectionRectangle the rectangle representing the intersection area of the collision
+     * @return a Vector2D representing the vertical bounce direction and magnitude
+     */
     Vector2D bounceVertically(CollisionShape a, Rectangle2D intersectionRectangle){
         if(getPosition().getY() - a.getPosition().getY() < 0){
             return new Vector2D(0,intersectionRectangle.getHeight()).stretch(intersectionRectangle.getHeight()*bounciness);
@@ -41,6 +52,13 @@ public class Brick extends FixBody{
         return new Vector2D(0,0);
     }
 
+    /**
+     * Calculates the horizontal bounce vector when this object collides with another object.
+     *
+     * @param a The collision shape of the other object.
+     * @param intersectionRectangle The rectangle representing the intersection area of the collision.
+     * @return A Vector2D representing the horizontal bounce direction and magnitude.
+     */
     Vector2D bounceHorizontally(CollisionShape a, Rectangle2D intersectionRectangle){
         if(getPosition().getX() - a.getPosition().getX() < 0){
             return new Vector2D(intersectionRectangle.getWidth(),0).stretch(intersectionRectangle.getWidth()*bounciness);
@@ -50,6 +68,16 @@ public class Brick extends FixBody{
         return new Vector2D(0,0);
     }
 
+    /**
+     * Calculates the bounce vector when this brick collides with another collision shape.
+     * The method determines whether the bounce should be vertical or horizontal based on the
+     * intersection dimensions of the bounding boxes of the two collision shapes.
+     *
+     * @param a The collision shape that this brick has collided with.
+     * @return A Vector2D representing the bounce direction and magnitude. If the collision
+     *         is near a corner (difference between width and height of intersection is less
+     *         than a threshold), a zero vector is returned to prevent corner rockets.
+     */
     @Override
     public Vector2D bounce(CollisionShape a) {
         Rectangle2D intersectionRectangle =  collisionShape.getBoundingBox().createIntersection(a.getBoundingBox());
@@ -66,6 +94,12 @@ public class Brick extends FixBody{
         }
     }
 
+    /**
+     * Returns the visual representation of this Brick object using the provided Visualizer.
+     *
+     * @param visualizer the Visualizer used to create the visual representation of this Brick
+     * @return the Visual object representing this Brick
+     */
     @Override
     public Visual getVisual(Visualizer visualizer) {
         return visualizer.visualize(this);
