@@ -3,6 +3,31 @@ package game.model.shapes;
 import game.model.Vector2D;
 import java.awt.geom.Rectangle2D;
 
+/**
+ * The CollisionRectangle class represents a rectangular collision shape.
+ * It extends Rectangle2D.Double and implements the CollisionShape interface.
+ * 
+ * This class provides methods to get and set the position, get the bounding box,
+ * get the center, calculate the maximum distance from the center, and check for collisions
+ * with other shapes.
+ * 
+ * Fields:
+ * - position: The upper left corner of the rectangle.
+ * - dimension: The width and height of the rectangle.
+ * 
+ * Constructor:
+ * - CollisionRectangle(Vector2D position, Vector2D dimension): Initializes the rectangle with the given position and dimension.
+ * 
+ * Methods:
+ * - getPosition(): Returns the position of the rectangle.
+ * - setPosition(Vector2D position): Sets the position of the rectangle.
+ * - getBoundingBox(): Returns the bounding box of the rectangle.
+ * - getCenter(): Returns the center of the rectangle.
+ * - getMaxDistanceFromCenter(): Returns the maximum distance from the center of the rectangle.
+ * - haveCollided(CollisionShape otherShape): Checks if the rectangle has collided with another shape.
+ * - equals(Object obj): Checks if this rectangle is equal to another object.
+ * - hashCode(): Returns the hash code of the rectangle.
+ */
 public class CollisionRectangle extends Rectangle2D.Double implements CollisionShape{
     //upper left corner
     Vector2D position;

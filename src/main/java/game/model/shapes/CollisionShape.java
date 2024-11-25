@@ -3,6 +3,10 @@ import game.model.Vector2D;
 
 import java.awt.geom.Rectangle2D;
 
+/**
+ * The CollisionShape interface defines the methods required for a shape
+ * that can participate in collision detection within a game.
+ */
 public interface CollisionShape{
     Vector2D getPosition();
 

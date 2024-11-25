@@ -6,6 +6,13 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
 
+/**
+ * The CollisionCircle class represents a circular collision shape.
+ * It extends Ellipse2D.Double and implements the CollisionShape interface.
+ * This class provides methods to get and set the position of the circle,
+ * check for collisions with other shapes, and retrieve the bounding box
+ * and center of the circle.
+ */
 public class CollisionCircle extends Ellipse2D.Double implements CollisionShape{
     double radius;
 
