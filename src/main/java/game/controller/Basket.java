@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -155,6 +156,7 @@ public class Basket extends SimulationWindow{
         }
     }
 
+    @SuppressWarnings("unused")
     void showGameOverDialog(JFrame parentFrame) {
         // Create JDialog
         JDialog gameOverDialog = new JDialog(parentFrame, "Game Over", true);
@@ -272,8 +274,8 @@ public class Basket extends SimulationWindow{
     void saveHighScore(){
         File highScoreFile = new File("src/main/resources/record.txt");
         try {
-            highScoreFile.createNewFile();
-        } catch (Exception e) {
+            highScoreFile.createNewFile();//NOSONAR
+        } catch (IOException e) {
             e.printStackTrace();
         }
         try (FileWriter writer = new FileWriter(highScoreFile)) {
