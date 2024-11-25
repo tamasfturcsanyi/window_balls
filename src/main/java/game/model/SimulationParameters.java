@@ -8,7 +8,7 @@ public class SimulationParameters{
     double bounceEnergyRemaining = 0.6;
     double speedLimit = 200;
     double generalEnergyLoss = 0.0001;
-    Color SimulationBackground = Color.WHITE;
+    Color simulationBackground = Color.WHITE;
 
     boolean shakeable = true;
 
@@ -23,7 +23,7 @@ public class SimulationParameters{
         this.speedLimit = speedLimit;
         this.generalEnergyLoss = generalEnergyLoss;
         this.shakeable = shakeable;
-        this.SimulationBackground = SimulationBackground;
+        this.simulationBackground = SimulationBackground;
     }
 
     public Vector2D getGravity() {
@@ -55,6 +55,6 @@ public class SimulationParameters{
     }
 
     public Color getSimulationBackground() {
-        return SimulationBackground;
+        return simulationBackground;
     }
 }

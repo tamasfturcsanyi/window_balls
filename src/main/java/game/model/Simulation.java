@@ -151,8 +151,8 @@ public class Simulation{
         addBody(new Pole(new Vector2D(windowBounds.width/2.0,300),15,Color.orange));
     }
 
-    public void MenuPreset(){//NOSONAR
-        Random rng = new Random();
+    public void MenuPreset(){
+        Random rng = new Random();//NOSONAR
 
         double windowX = windowBounds.getX();
         double windowY = windowBounds.getY();
@@ -165,7 +165,7 @@ public class Simulation{
 
         addBody(new Pole(new Vector2D(200, 200), 20, Color.black));
         for(int i = 0; i < 5;++i){
-            addBody(new Ball(new Vector2D(windowX+20 + 50*i,windowY + 50), (double)(20 + 5*i), new Color(rng.nextInt(0,256*256*256)), 0.5, 1.0 + i));
+            addBody(new Ball(new Vector2D(windowX+20 + 50*i,windowY + 50), (double)(20 + 5*i), new Color(rng.nextInt(0,256*256*256)), 0.5, (double)(1.0 + i)));
         }
 
         SimulationSerializer.saveWorld(this);
