@@ -118,7 +118,7 @@ public class Simulation{
         return walls[2].isIntersectingWith(body);
     }
 
-    public void stopSimulation(){
+    public void resetDeltaTime(){
         for (PhysicksBody physicksBody : bodies) {
             physicksBody.stop();
         }

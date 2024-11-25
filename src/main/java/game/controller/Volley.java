@@ -4,6 +4,7 @@ package game.controller;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Rectangle;
+import java.awt.event.KeyAdapter;
 
 import javax.swing.JLabel;
 import game.model.Player;
@@ -19,6 +20,8 @@ public class Volley extends SimulationWindow{
 
     JLabel score;
     JLabel vicotryLabel;
+    JLabel pauseLabel;
+    JLabel pauseTip;
 
     SolidButton restartButton;
     SolidButton exitButton;
@@ -26,6 +29,7 @@ public class Volley extends SimulationWindow{
     int pointsToVictory;
 
     boolean gameEnded = false;
+    boolean paused = false;
 
     public Volley(Player player1, Player player2, int pointsToVictory){
         super("Volley",new Rectangle(0, 0, 1024, 768));
@@ -46,7 +50,28 @@ public class Volley extends SimulationWindow{
 
         modelWorld.volleyPreset();
         modelWorld.addBody(ball);
+
+        initPause();
         initView();
+    }
+
+    void initPause(){
+        pauseLabel = new JLabel("Paused");
+        pauseLabel.setFont(new Font("Impact", Font.BOLD, 300));
+        pauseLabel.setVisible(false);
+        view.add(pauseLabel);
+        pauseTip = new JLabel("Press ESC to resume");
+        pauseTip.setFont(new Font("Impact", Font.BOLD, 110));
+        pauseTip.setVisible(false);
+        view.add(pauseTip);
+        window.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(java.awt.event.KeyEvent e) {
+                if(e.getKeyCode() == java.awt.event.KeyEvent.VK_ESCAPE){
+                    pauseGame();
+                }
+            }
+        });
     }
 
     void setupPlayer1(){
@@ -156,10 +181,28 @@ public class Volley extends SimulationWindow{
         disposeWindow();
     }
 
+    void pauseGame(){
+        paused = !paused;
+        pauseLabel.setVisible(paused);
+        pauseTip.setVisible(paused);
+        modelWorld.resetDeltaTime(); 
+        if(paused){
+            initRestartButton();  
+            initExitButton();
+        }else{
+            modelWorld.removeBody(exitButton.getBody());
+            view.remove(exitButton);
+            modelWorld.removeBody(restartButton.getBody());
+            view.remove(restartButton);
+        }
+    }
+
     @Override
     void cycle() {
         updatePlayers();
         updateGameLogic();
-        super.cycle();
+        if(!paused){
+            super.cycle();
+        }
     }
 }

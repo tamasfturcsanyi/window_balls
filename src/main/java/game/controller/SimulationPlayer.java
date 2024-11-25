@@ -217,7 +217,7 @@ public class SimulationPlayer extends SimulationWindow{
 
     void resumeSimulation(){
         playButton.setIcon(pauseIcon);
-        modelWorld.stopSimulation();
+        modelWorld.resetDeltaTime();
         settingsButton.setEnabled(false);
         addButton.setEnabled(false);
         saveButton.setEnabled(false);
