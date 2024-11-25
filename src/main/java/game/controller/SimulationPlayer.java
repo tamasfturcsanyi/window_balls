@@ -70,7 +70,7 @@ public class SimulationPlayer extends SimulationWindow{
      * It also initializes the necessary panels for the player.
      */
     public SimulationPlayer(){
-        super("Simulation", new Rectangle(500, 200, 700, 500));
+        super("Simulation", new Rectangle(500, 100, 700, 500));
         initPanels();
     }
 

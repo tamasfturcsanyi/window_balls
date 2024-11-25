@@ -57,7 +57,6 @@ import java.awt.Cursor;
  * - void startNewSimulation(): Starts a new simulation.
  * - void openSimulation(): Opens the selected simulation.
  * - void startMainMenu(): Navigates back to the main menu.
- * - public static void main(String[] args): The main method to run the application.
  */
 public class SimulationPicker {
     static final int WINDOW_WIDTH = 800;
