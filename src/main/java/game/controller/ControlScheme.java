@@ -1,6 +1,18 @@
 package game.controller;
 import java.awt.event.KeyEvent;
 
+/**
+ * The {@code ControlScheme} enum represents different control schemes for a game.
+ * Each control scheme maps specific keys to directional actions.
+ * <p>
+ * The available control schemes are:
+ * <ul>
+ *   <li>{@link #ARROWS} - Uses arrow keys for movement.</li>
+ *   <li>{@link #WASD} - Uses WASD keys for movement.</li>
+ * </ul>
+ * </p>
+ * Each control scheme defines the keys for moving up, down, left, and right.
+ */
 public enum ControlScheme {
     ARROWS(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT),
     WASD(KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D);
