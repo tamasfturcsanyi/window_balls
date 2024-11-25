@@ -119,7 +119,7 @@ public class Simulation{
 
     public void resetDeltaTime(){
         for (PhysicsBody physicsBody : bodies) {
-            physicsBody.stop();
+            physicsBody.resetDeltaTime();
         }
     }
 

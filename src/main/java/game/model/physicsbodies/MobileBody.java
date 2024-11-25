@@ -51,7 +51,7 @@ public abstract class MobileBody extends PhysicsBody {
     }
 
     @Override
-    public void stop() {
+    public void resetDeltaTime() {
         previousTime = 0;
     }
 
