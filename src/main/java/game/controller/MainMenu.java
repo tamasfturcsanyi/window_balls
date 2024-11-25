@@ -26,12 +26,14 @@ public class MainMenu extends SimulationWindow{
 
 
     FixLabel titleLabel;
+    FixLabel signo;
    
     public MainMenu(){
         super("WINDOW BALLS",new Rectangle(WINDOW_X, WINDOW_Y, WINDOW_WIDTH,WINDOW_HEIGHT));
         modelWorld.MenuPreset();
 
         initTitle();
+        addSigno();
 
         view.setLayout(null);
 
@@ -48,7 +50,13 @@ public class MainMenu extends SimulationWindow{
         titleLabel.setFont(new Font(FONT_NAME,Font.BOLD,50));
         titleLabel.setForeground(Color.ORANGE);
         view.add(titleLabel);
+    }
 
+    void addSigno(){
+        signo = new FixLabel("By: Turcsányi Tamás",new Vector2D(1200,600));
+        signo.setFont(new Font(FONT_NAME,Font.BOLD,30));
+        signo.setForeground(Color.BLACK);
+        view.add(signo);
     }
 
     @SuppressWarnings("unused")
@@ -134,6 +142,8 @@ public class MainMenu extends SimulationWindow{
     void updateTitle(){
         titleLabel.setSize(800, 100);
         titleLabel.updatePosition(modelWorld.getWindowBounds());
+        signo.setSize(800, 100);
+        signo.updatePosition(modelWorld.getWindowBounds());
     }
 
     @Override
