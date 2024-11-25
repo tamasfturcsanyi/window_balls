@@ -189,14 +189,7 @@ public class Basket extends SimulationWindow{
         gameOverDialog.add(buttonPanel, BorderLayout.SOUTH);
 
         // Button actions
-        restartButton.addActionListener(e -> {
-            MainMenu menu = new MainMenu();
-            menu.startBasket();
-            gameOverDialog.dispose(); // Close the dialog
-            disposeWindow();
-
-            // Add restart logic here
-        });
+        restartButton.addActionListener(r -> restartBasket()); // Restart game
         exitButton.addActionListener (e -> startMainMenu()); // Exit application
 
         // Display dialog
@@ -255,7 +248,14 @@ public class Basket extends SimulationWindow{
         }
         ballWasAboveRing = !ballUnderRing;
     }
+    
+    void restartBasket(){
+        Basket basket = new Basket();
+        Thread basketThread = new Thread(basket);
+        basketThread.start();
 
+        disposeWindow();
+    }
     void loadHighScore(){
         File highScoreFile = new File("src/main/resources/record.txt");
         if(!highScoreFile.isFile()){
