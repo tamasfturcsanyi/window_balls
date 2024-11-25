@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.MouseInfo;
@@ -64,7 +65,12 @@ public class SimulationPlayer extends SimulationWindow{
 
     void initPanels(){
         initButtonsPanel();
-        view.addMouseListener(new SimulationMouseListener(this));
+        view.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                click(e.getPoint());
+            }
+        });
         view.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
