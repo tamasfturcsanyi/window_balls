@@ -2,8 +2,6 @@ package game.controller;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
 
@@ -15,6 +13,7 @@ public class SaveDialog extends JDialog {
 
     boolean save = false;
 
+    @SuppressWarnings("unused")
     public SaveDialog(Frame parent) {
         super(parent, "Save Simulation", true);
         setLayout(new BorderLayout());
@@ -46,7 +45,7 @@ public class SaveDialog extends JDialog {
 
         cancelButton = new JButton("Cancel");
 
-        okButton.addActionListener(s -> save());
+        okButton.addActionListener(s -> makeSave());
 
         cancelButton.addActionListener(s -> setVisible(false));
 
@@ -73,19 +72,17 @@ public class SaveDialog extends JDialog {
             }
         });
 
-        saveToExistingFileCheckBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            nameField.setEnabled(!saveToExistingFileCheckBox.isSelected());
-            okButton.setEnabled(!nameField.getText().trim().isEmpty() || saveToExistingFileCheckBox.isSelected());
-            }
-        });
-
+        saveToExistingFileCheckBox.addActionListener(e -> enableSaving());
 
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
-    void save(){
+    void enableSaving(){
+        nameField.setEnabled(!saveToExistingFileCheckBox.isSelected());
+        okButton.setEnabled(!nameField.getText().trim().isEmpty() || saveToExistingFileCheckBox.isSelected());
+    }
+
+    void makeSave(){
         save = true;
         setVisible(false);
     }

@@ -69,6 +69,7 @@ public class ParamsDialog extends JDialog {
         add(backgroundColorPicker);
     }
 
+    @SuppressWarnings("unused")
     void initOKButton(){
         JButton okButton = new JButton("OK");
         okButton.addActionListener(o -> okPressed());
@@ -101,6 +102,7 @@ public class ParamsDialog extends JDialog {
         }
     }
 
+    @SuppressWarnings("unused")
     void initCancelButton(){
         JButton cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(c -> cancelPressed());
