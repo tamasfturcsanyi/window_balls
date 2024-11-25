@@ -19,6 +19,10 @@ public class FixLabel extends JLabel {
         this.position = position;
     }
 
+    public void setPosition(Vector2D position){
+        this.position = position;
+    }
+
 
     public void updatePosition(Rectangle2D windowBounds){
         setBounds((int)(position.getX() - windowBounds.getX()),(int)(position.getY() - windowBounds.getY()),getWidth(),getHeight());

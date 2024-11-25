@@ -7,6 +7,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import java.awt.Font;
 import java.awt.Color;
@@ -21,6 +22,11 @@ import java.awt.BorderLayout;
 
 
 public class Basket extends SimulationWindow{
+    private static final int SCREEN_WIDTH = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
+    private static final int SCREEN_HEIGHT = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
+
+    private static final int WINDOW_WIDTH = 500;
+    private static final int WINDOW_HEIGHT = 400;
     int score = 0;
     int timeLeft = 10;
 
@@ -31,42 +37,91 @@ public class Basket extends SimulationWindow{
 
     boolean timeIsTicking = false;
 
-    JLabel scoreLabel = new JLabel(score + "");
+    FixLabel scoreLabel;
 
     FixLabel timeLabel;
 
     HashMap<Integer,Color> colors = new HashMap<>();
 
-    Ball basketBall = new Ball(new Vector2D(500,400), 30, new Color(255,128,0), 0.6, 1);
-    Ring actualRing = new Ring();
+    Ball basketBall;
+    Ring actualRing;
 
 
     public Basket(){
-        super("Basket", new Rectangle(400, 300, 500, 400));
+        super("Basket", new Rectangle(SCREEN_WIDTH/2 - WINDOW_WIDTH/2, SCREEN_HEIGHT/2 - WINDOW_HEIGHT/2, WINDOW_WIDTH, WINDOW_HEIGHT));
         initColors();
+        initBalls();
 
+        initTimer();
+        initTimeLabel();
+        initScoreLabel();
+        
+        window.setResizable(false);
+        initView();
+        view.setBackgroundColor(colors.get(10));
+
+        updateBackground();
+    }
+
+    void initTimer(){
         Thread timeThread = new Thread(new Timer());
         timeIsTicking = true;
         timeThread.start();
-        view.setBackgroundColor(colors.get(10));
+    }
 
-        view.add(scoreLabel);
-        initTimeLabel();
+    void initBalls(){
+        basketBall = new Ball(new Vector2D(500,400), 30, new Color(255,128,0), 0.6, 1);
+        actualRing = new Ring();
         addToViewAndSimulation(basketBall);
         addToViewAndSimulation(actualRing.getLeftPole());
         addToViewAndSimulation(actualRing.getRightPole());
-        window.setResizable(false);
-        initView();
+    }
+
+    void initColors(){
+        Color green = Color.decode("#00ff00");
+        Color yellow = Color.decode("#fff500");
+        Color orange = Color.decode("#ffac00");
+        Color red = Color.decode("#ff0000");
+        colors.put(10, green);
+        colors.put(9, green);
+        colors.put(8, green);
+        colors.put(7,green);
+        colors.put(6,yellow);
+        colors.put(5,yellow);
+        colors.put(4,yellow);
+        colors.put(3,orange);
+        colors.put(2,orange);
+        colors.put(1,orange);
+        colors.put(0,red);
+    }
+
+    void initTimeLabel(){
+        timeLabel = new FixLabel(timeLeft+"",new Vector2D(0,0));
+        timeLabel.setFont(new Font("Impact",Font.BOLD,250));
+        timeLabel.setForeground(Color.WHITE);
+        view.add(timeLabel);
         updateBackground();
+    }
+
+    void initScoreLabel(){
+        scoreLabel = new FixLabel("Score: " + score,new Vector2D(0,0));
+        scoreLabel.setFont(new Font("Impact",Font.BOLD,52));
+        scoreLabel.setPosition(new Vector2D((SCREEN_WIDTH - 150)/2.0,(SCREEN_HEIGHT + 200)/2));
+        scoreLabel.setForeground(Color.WHITE);
+
+        view.add(scoreLabel);
     }
 
     void updateBackground(){
         if(timeLeft < 10){
+            timeLabel.setPosition(new Vector2D((SCREEN_WIDTH - 120)/2.0,(SCREEN_HEIGHT - 300)/2));
             view.setBackgroundColor(colors.get(timeLeft));
         }else{
+            timeLabel.setPosition(new Vector2D((SCREEN_WIDTH - 200)/2.0,(SCREEN_HEIGHT - 300)/2));
             view.setBackgroundColor(colors.get(10));
         }
         timeLabel.setText(timeLeft + "");
+        
         timeLabel.updatePosition(modelWorld.getWindowBounds());
     }
 
@@ -77,8 +132,9 @@ public class Basket extends SimulationWindow{
             while(timeIsTicking){
                 try {
                     Thread.sleep(1000);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt(); // Re-interrupt the thread
+                    return;
                 }
                 --timeLeft;
                 updateBackground();
@@ -97,7 +153,7 @@ public class Basket extends SimulationWindow{
         gameOverDialog.setLocationRelativeTo(parentFrame); // Center dialog on parent
 
         // Game Over message
-        JLabel gameOverLabel = new JLabel("Game Over", JLabel.CENTER);
+        JLabel gameOverLabel = new JLabel("Game Over", SwingConstants.CENTER);
         gameOverLabel.setFont(new Font("Impact", Font.BOLD, 24));
         gameOverDialog.add(gameOverLabel, BorderLayout.CENTER);
 
@@ -139,33 +195,6 @@ public class Basket extends SimulationWindow{
         showGameOverDialog(window);
     }
 
-    void initColors(){
-        Color green = Color.decode("#00ff00");
-        Color yellow = Color.decode("#fff500");
-        Color orange = Color.decode("#ffac00");
-        Color red = Color.decode("#ff0000");
-        colors.put(10, green);
-        colors.put(9, green);
-        colors.put(8, green);
-        colors.put(7,green);
-        colors.put(6,yellow);
-        colors.put(5,yellow);
-        colors.put(4,yellow);
-        colors.put(3,orange);
-        colors.put(2,orange);
-        colors.put(1,orange);
-        colors.put(0,red);
-    }
-
-    void initTimeLabel(){
-        timeLabel = new FixLabel(timeLeft+"",new Vector2D(512,200));
-        timeLabel.setFont(new Font("Impact",Font.BOLD,250));
-        timeLabel.setForeground(Color.WHITE);
-        view.add(timeLabel);
-        view.setComponentZOrder(timeLabel, view.getComponentCount()-1);
-        updateBackground();
-    }
-
     void scoredPoint(){
         ++score;
         if(score > 30){
@@ -178,8 +207,7 @@ public class Basket extends SimulationWindow{
         
         timeLeft += timeBonus;
         
-        
-        scoreLabel.setText(score + "");
+        scoreLabel.setText("Score: " + score);
         updateBackground();
         newRing();
     }
@@ -196,10 +224,8 @@ public class Basket extends SimulationWindow{
         boolean ballBetweenPoles = (basketBall.getCenter().getX() > actualRing.getLeftPole().getCenter().getX() &&
         basketBall.getCenter().getX() < actualRing.getRightPole().getCenter().getX());
         boolean ballUnderRing = basketBall.getCenter().getY() > actualRing.getLeftPole().getCenter().getY();
-        if(ballBetweenPoles){
-            if(ballWasAboveRing && ballUnderRing){
-                scoredPoint();
-            }
+        if(ballBetweenPoles && ballWasAboveRing && ballUnderRing){
+            scoredPoint();
         }
         ballWasAboveRing = !ballUnderRing;
     }
@@ -207,6 +233,7 @@ public class Basket extends SimulationWindow{
     @Override
     void cycle() {
         timeLabel.updatePosition(modelWorld.getWindowBounds());
+        scoreLabel.updatePosition(modelWorld.getWindowBounds());
         updateGameLogic();
         super.cycle();
     }
