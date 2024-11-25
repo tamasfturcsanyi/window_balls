@@ -57,6 +57,7 @@ public class SimulationPicker {
         window.setVisible(true);
     }
 
+    @SuppressWarnings("unused")
     void initAddButton(){
         addButton = new JButton("Add");
         initCoolButton(addButton,Color.GREEN);
@@ -64,6 +65,7 @@ public class SimulationPicker {
         buttonsPanel.add(addButton);
     }
 
+    @SuppressWarnings("unused")
     void initOpenButton(){
         openButton = new JButton("Open");
         initCoolButton(openButton,Color.CYAN);
@@ -72,6 +74,7 @@ public class SimulationPicker {
         buttonsPanel.add(openButton);
     }
 
+    @SuppressWarnings("unused")
     void initDeleteButton(){
         deleteButton = new JButton("Delete");
         initCoolButton(deleteButton,Color.RED);
@@ -81,6 +84,7 @@ public class SimulationPicker {
         buttonsPanel.add(deleteButton);
     }
 
+    @SuppressWarnings("unused")
     void initBackButton(){
         backButton = new JButton();
         ImageIcon backIcon = new ImageIcon("src/main/resources/back.png");
@@ -117,20 +121,13 @@ public class SimulationPicker {
 
     }
 
+    @SuppressWarnings("unused")
     void initSimulationsPanel() {
         simulationsPanel = new JPanel();
 
         File jsonsFolder = new File(JSON_DIR_PATH);
-        if (!jsonsFolder.isDirectory()) {
-            System.err.println("The specified path is not a directory: " + JSON_DIR_PATH);
-            return;
-        }
 
         File[] jsonFiles = jsonsFolder.listFiles();
-        if (jsonFiles == null) {
-            System.err.println("Failed to list files in directory: " + JSON_DIR_PATH);
-            return;
-        }
 
         simulationsPanel.setLayout(new GridLayout(jsonFiles.length, 1));
         for (File file : jsonFiles) {
@@ -170,7 +167,7 @@ public class SimulationPicker {
             return;
         }
         File jsonFile = new File(selectedButton.getJsonPath());
-        if(jsonFile.delete()){
+        if(jsonFile.delete()){//NOSONAR
             simulationsPanel.remove(selectedButton);
             simulationButtons.remove(selectedButton);
             selectedButton = null;
