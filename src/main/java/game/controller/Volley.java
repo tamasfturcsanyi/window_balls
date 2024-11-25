@@ -16,10 +16,15 @@ public class Volley extends SimulationWindow{
 
     JLabel score;
 
-    public Volley(Player player1, Player player2){
+    int pointsToVictory;
+
+    public Volley(Player player1, Player player2, int pointsToVictory){
         super("Volley",new Rectangle(0, 0, 1024, 768));
-        setupPlayer1(player1);
-        setupPlayer2(player2);
+        this.pointsToVictory = pointsToVictory;
+        this.player1 = player1;
+        this.player2 = player2;
+        setupPlayer1();
+        setupPlayer2();
         ball = new VolleyBall();
         score = new JLabel();
         updateScore();
@@ -30,14 +35,14 @@ public class Volley extends SimulationWindow{
         initView();
     }
 
-    void setupPlayer1(Player player1){
+    void setupPlayer1(){
         modelWorld.addBody(player1.getBody());
         visualizables.add(player1);
         PlayerController pc1 = new PlayerController(player1,ControlScheme.WASD);
         window.addKeyListener(pc1);
     }
 
-    void setupPlayer2(Player player2){
+    void setupPlayer2(){
         modelWorld.addBody(player2.getBody());
         visualizables.add(player2);
         PlayerController pc2 = new PlayerController(player2,ControlScheme.ARROWS);

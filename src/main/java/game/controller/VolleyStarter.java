@@ -25,7 +25,7 @@ public class VolleyStarter extends SimulationWindow {
 
     JSpinner pointsToVictorySpinner;
     Font font = new Font("Impact", Font.PLAIN, 42);
-    //Font font = new Font("Impact", Font.PLAIN, 12);
+    Font titleFont = new Font("Impact", Font.PLAIN, 72);
 
 
     public VolleyStarter(){
@@ -91,6 +91,7 @@ public class VolleyStarter extends SimulationWindow {
     void initStartButton(){
             JButton startButton = new JButton("Start");
             startButton.setFont(font);
+            startButton.addActionListener(e -> startVolley());
 
             view.add(startButton);
         }
@@ -104,7 +105,10 @@ public class VolleyStarter extends SimulationWindow {
         player1Label.setFont(font);
         view.add(player1Label);
 
-        view.add(new JLabel(""));
+        JLabel title = new JLabel("      VOLLEY");
+        title.setFont(titleFont);
+        title.setForeground(Color.ORANGE);
+        view.add(title);
 
 
         JLabel player2Label = new JLabel("Player 2");
@@ -114,22 +118,23 @@ public class VolleyStarter extends SimulationWindow {
         
         initPlayer1ColorPicker();
 
-        JLabel colorLabel = new JLabel("Color:");
-        colorLabel.setFont(font);
-        view.add(colorLabel);
+        view.add(new JLabel(""));
 
         initPlayer2ColorPicker();
 
 
         initPlayer1FacePicker();
 
-        JLabel faceLabel = new JLabel("Face:");
-        faceLabel.setFont(font);
-        view.add(faceLabel);
+        view.add(new JLabel(""));
+        
 
         initPlayer2FacePicker();
 
         initPointsToVictorySpinner();
+
+        view.add(new JLabel(""));
+        view.add(new JLabel(""));
+
 
         initStartButton();
 
@@ -166,5 +171,13 @@ public class VolleyStarter extends SimulationWindow {
 
         modelWorld.addBody(player2.getBody());
         visualizables.add(player2);
+    }
+
+    void startVolley(){
+        Volley volley = new Volley(player1, player2, (int) pointsToVictorySpinner.getValue());
+        Thread volleyThread = new Thread(volley);
+        volleyThread.start();
+
+        disposeWindow();
     }
 }
