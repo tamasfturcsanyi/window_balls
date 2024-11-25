@@ -2,6 +2,11 @@ package game.model;
 
 import java.awt.Color;
 
+/**
+ * The SimulationParameters class holds various parameters used to configure the simulation.
+ * It includes settings for gravity, simulation speed, bounce energy, speed limit, general energy loss,
+ * background color, and whether the simulation is shakeable.
+ */
 public class SimulationParameters{
     Vector2D gravity = new Vector2D(0,10);
     double simulationSpeed = 1;

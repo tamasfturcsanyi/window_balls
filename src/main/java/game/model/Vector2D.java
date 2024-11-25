@@ -1,5 +1,10 @@
 package game.model;
 
+/**
+ * The Vector2D class represents a 2-dimensional vector with x and y coordinates.
+ * It provides methods for vector addition, subtraction, scaling, and calculating
+ * the length and distance between vectors.
+ */
 public class Vector2D {
     double x;
     double y;

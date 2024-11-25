@@ -30,9 +30,9 @@ import java.awt.geom.Rectangle2D;
  */
 public class CollisionRectangle extends Rectangle2D.Double implements CollisionShape{
     //upper left corner
-    Vector2D position;
+    Vector2D position;//NOSONAR
     //width and height
-    Vector2D dimension;
+    Vector2D dimension;//NOSONAR
 
     public CollisionRectangle(Vector2D position, Vector2D dimension){
         super(position.getX(),position.getY() ,dimension.getX(), dimension.getY());

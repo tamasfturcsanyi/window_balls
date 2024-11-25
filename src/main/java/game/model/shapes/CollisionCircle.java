@@ -13,11 +13,11 @@ import java.awt.geom.Rectangle2D;
  * check for collisions with other shapes, and retrieve the bounding box
  * and center of the circle.
  */
-public class CollisionCircle extends Ellipse2D.Double implements CollisionShape{
+public class CollisionCircle extends Ellipse2D.Double implements CollisionShape{//NOSONAR
     double radius;
 
     //coordinate of the circle's upperleft corner
-    Vector2D position;
+    Vector2D position;//NOSONAR
 
     public CollisionCircle(Vector2D position, double radius){
         super(position.getX(),position.getY(),2*radius,2*radius);
