@@ -86,7 +86,7 @@ public class Volley extends SimulationWindow{
         window.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(java.awt.event.KeyEvent e) {
-                if(e.getKeyCode() == java.awt.event.KeyEvent.VK_ESCAPE){
+                if(!gameEnded && e.getKeyCode() == java.awt.event.KeyEvent.VK_ESCAPE){
                     pauseGame();
                 }
             }
