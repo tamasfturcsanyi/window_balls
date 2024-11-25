@@ -1,8 +1,10 @@
 package game.view;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Font;
 
 import game.model.Vector2D;
 import game.model.physicksbodies.Brick;
@@ -38,6 +40,13 @@ public class SolidButton extends JButton{
                         (int)body.getPosition().getY() - windowBounds.y,
                         (int)body.getDimension().getX(),
                         (int)body.getDimension().getY());
+    }
+
+    public void impactStyle(){
+        setFont(new Font("Impact",Font.BOLD,32));
+        setBorderPainted(true);
+        setBorder(BorderFactory.createLineBorder(Color.BLACK,5));
+        setFocusPainted(false);
     }
 
     public void setNormalColor(Color normalColor) {

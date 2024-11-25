@@ -59,10 +59,7 @@ public class MainMenu extends SimulationWindow{
                                  new Vector2D(200,100));
 
         simButton.setNormalColor(Color.PINK);
-        simButton.setFont(new Font(FONT_NAME,Font.BOLD,32));
-        simButton.setBorderPainted(true);
-        simButton.setBorder(BorderFactory.createLineBorder(Color.BLACK,5));
-        simButton.setFocusPainted(false);
+        simButton.impactStyle();
 
         simButton.addActionListener(e -> startSimPicker());
         modelWorld.addBody(simButton.getBody());
@@ -76,10 +73,7 @@ public class MainMenu extends SimulationWindow{
                                  new Vector2D(200,100));
 
         basketButton.setNormalColor(Color.ORANGE);
-        basketButton.setFont(new Font(FONT_NAME,Font.BOLD,32));
-        basketButton.setBorderPainted(true);
-        basketButton.setBorder(BorderFactory.createLineBorder(Color.BLACK,5));
-        basketButton.setFocusPainted(false);
+        basketButton.impactStyle();
 
         basketButton.addActionListener(e -> startBasket());
 
@@ -95,10 +89,7 @@ public class MainMenu extends SimulationWindow{
                                  new Vector2D(200,100));
 
         volleyButton.setNormalColor(Color.YELLOW);
-        volleyButton.setFont(new Font(FONT_NAME,Font.BOLD,32));
-        volleyButton.setBorderPainted(true);
-        volleyButton.setBorder(BorderFactory.createLineBorder(Color.BLACK,5));
-        volleyButton.setFocusPainted(false);
+        volleyButton.impactStyle();
 
         volleyButton.addActionListener(e -> startVolley());
 
