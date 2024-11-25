@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Rectangle;
 
-import javax.swing.BorderFactory;
 
 import game.model.Vector2D;
 import game.view.FixLabel;

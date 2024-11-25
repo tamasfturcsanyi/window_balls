@@ -131,31 +131,4 @@ public class ParamsDialog extends JDialog {
     public SimulationParameters getSimulationParameters() {
         return currentParameters;
     }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                JFrame frame = new JFrame("ParamsDialog Test");
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setSize(300, 200);
-                frame.setVisible(true);
-
-                ParamsDialog dialog = new ParamsDialog(frame,new SimulationParameters());
-                dialog.setVisible(true);
-
-                SimulationParameters params = dialog.getSimulationParameters();
-                if (params != null) {
-                    System.out.println("Gravity: " + params.getGravity());
-                    System.out.println("Simulation Speed: " + params.getSimulationSpeed());
-                    System.out.println("Bounce Energy Remaining: " + params.getBounceEnergyRemaining());
-                    System.out.println("Speed Limit: " + params.getSpeedLimit());
-                    System.out.println("General Energy Loss: " + params.getGeneralEnergyLoss());
-                    System.out.println("Shakeable: " + params.isShakeable());
-                } else {
-                    System.out.println("Dialog was cancelled.");
-                }
-            }
-        });
-    }
 }
