@@ -142,10 +142,16 @@ public class Volley extends SimulationWindow{
             player1.setScore(player1.getScore()+1);
             ball.reset(-1);
         }
+        resetPlayerPositions();
         updateScore();
         if(player1.getScore() == pointsToVictory || player2.getScore() == pointsToVictory){
             endGame();
         }
+    }
+
+    void resetPlayerPositions(){
+        player1.getBody().setPosition(new Vector2D(200,500));
+        player2.getBody().setPosition(new Vector2D(800,500));
     }
 
     void endGame(){
@@ -158,7 +164,6 @@ public class Volley extends SimulationWindow{
             vicotryLabel.setText("Player 2 wins!");
         }
         vicotryLabel.setVisible(true);
-
         initRestartButton();
         initExitButton();
     }
@@ -166,6 +171,7 @@ public class Volley extends SimulationWindow{
     void restart(){
         player1.setScore(0);
         player2.setScore(0);
+        resetPlayerPositions();
         Volley volley = new Volley(player1,player2,pointsToVictory);
         Thread volleyThread = new Thread(volley);
         volleyThread.start();

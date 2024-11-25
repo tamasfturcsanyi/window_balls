@@ -79,7 +79,7 @@ public class Player implements Visualizable{
     public Player(int num, Color color, Face face){
         this.num = num;
         this.face = face;
-        body = new Ball( num == 1 ? new Vector2D(500,500): new Vector2D(800,500),40, color,1,1);
+        body = new Ball( num == 1 ? new Vector2D(200,500): new Vector2D(800,500),40, color,1,1);
         body.setVisible(false);
     }
 
