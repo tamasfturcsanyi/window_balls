@@ -51,6 +51,7 @@ public class MainMenu extends SimulationWindow{
 
     }
 
+    @SuppressWarnings("unused")
     void initSimButton(){
         simButton = new SolidButton("SIMULATION",
                                  new Vector2D(WINDOW_X + WINDOW_WIDTH/2.0 - 100,
@@ -65,6 +66,7 @@ public class MainMenu extends SimulationWindow{
         view.add(simButton);
     }
 
+    @SuppressWarnings("unused")
     void initBasketButton(){
         basketButton = new SolidButton("BASKET",
                                  new Vector2D(WINDOW_X + WINDOW_WIDTH/2.0 - 100,
@@ -81,6 +83,7 @@ public class MainMenu extends SimulationWindow{
         view.add(basketButton);
     }
 
+    @SuppressWarnings("unused")
     void initVolleyButton(){
         volleyButton = new SolidButton("VOLLEY",
                                  new Vector2D(WINDOW_X + WINDOW_WIDTH/2.0 - 100,

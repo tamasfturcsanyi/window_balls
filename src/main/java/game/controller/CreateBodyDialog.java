@@ -40,6 +40,7 @@ public class CreateBodyDialog extends JDialog {
 
     private transient PhysicksBody body;
     
+    @SuppressWarnings("unused")
     public CreateBodyDialog(Frame owner) {
         super(owner, "Create Body", true);
         setLayout(new BorderLayout());

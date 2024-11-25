@@ -93,6 +93,7 @@ public class SimulationPlayer extends SimulationWindow{
         window.setResizable(true);
     }
 
+    @SuppressWarnings("unused")
     void initPlayButton(){
         playButton = new JButton();
         playButton.setPreferredSize(new Dimension(BUTTON_HEIGHT,BUTTON_HEIGHT));
@@ -103,6 +104,7 @@ public class SimulationPlayer extends SimulationWindow{
         
     }
 
+    @SuppressWarnings("unused")
     void initFastButton(){
         fastButton = new JButton();
         fastButton.setPreferredSize(new Dimension(BUTTON_HEIGHT,BUTTON_HEIGHT));
@@ -112,6 +114,7 @@ public class SimulationPlayer extends SimulationWindow{
         buttonPanel.add(fastButton);
     }
 
+    @SuppressWarnings("unused")
     void initSlowButton(){
         slowButton = new JButton();
         slowButton.setPreferredSize(new Dimension(BUTTON_HEIGHT,BUTTON_HEIGHT));
@@ -121,6 +124,7 @@ public class SimulationPlayer extends SimulationWindow{
         buttonPanel.add(slowButton);
     }
 
+    @SuppressWarnings("unused")
     void initSettingsButton(){
         settingsButton = new JButton();
         settingsButton.setPreferredSize(new Dimension(BUTTON_HEIGHT,BUTTON_HEIGHT));
@@ -130,6 +134,7 @@ public class SimulationPlayer extends SimulationWindow{
         buttonPanel.add(settingsButton);
     }
 
+    @SuppressWarnings("unused")
     void initSaveButton(){
         saveButton = new JButton();
         saveButton.setPreferredSize(new Dimension(BUTTON_HEIGHT,BUTTON_HEIGHT));
@@ -139,6 +144,7 @@ public class SimulationPlayer extends SimulationWindow{
         buttonPanel.add(saveButton);
     }
 
+    @SuppressWarnings("unused")
     void initAddButton(){
         addButton = new JButton();
         addButton.setPreferredSize(new Dimension(BUTTON_HEIGHT,BUTTON_HEIGHT));
@@ -148,6 +154,7 @@ public class SimulationPlayer extends SimulationWindow{
         buttonPanel.add(addButton);
     }
 
+    @SuppressWarnings("unused")
     void initBackButton(){
         backButton = new JButton();
         backButton.setPreferredSize(new Dimension(BUTTON_HEIGHT,BUTTON_HEIGHT));
