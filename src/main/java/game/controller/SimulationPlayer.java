@@ -33,6 +33,13 @@ import game.view.ParamsDialog;
 import game.view.SaveDialog;
 
 
+/**
+ * The SimulationPlayer class extends the SimulationWindow class and provides
+ * functionality for controlling a simulation through a graphical user interface.
+ * It includes buttons for saving, adding, playing, fast-forwarding, slowing down,
+ * accessing settings, and going back to a previous screen. The class also handles
+ * mouse and keyboard events for interacting with the simulation.
+ */
 public class SimulationPlayer extends SimulationWindow{
     static final int BUTTON_HEIGHT = 75;
 
@@ -56,16 +63,33 @@ public class SimulationPlayer extends SimulationWindow{
 
     PhysicksBody selectedBody;
 
+    /**
+     * Constructs a new SimulationPlayer instance.
+     * This constructor initializes the player with the name "Simulation" and sets
+     * the player's bounding rectangle to a specified size and position.
+     * It also initializes the necessary panels for the player.
+     */
     public SimulationPlayer(){
         super("Simulation", new Rectangle(500, 200, 700, 500));
         initPanels();
     }
 
+    /**
+     * Constructs a new SimulationPlayer with the specified JSON path.
+     *
+     * @param jsonPath the path to the JSON configuration file
+     */
     public SimulationPlayer(String jsonPath){
         super(jsonPath);
         initPanels();
     }
 
+    /**
+     * Initializes the panels by setting up the buttons panel and adding necessary
+     * mouse and key listeners to the view. The mouse listener handles mouse click
+     * events to trigger the click action. The key listener handles key press events
+     * to trigger copy and delete actions when specific keys are pressed.
+     */
     void initPanels(){
         initButtonsPanel();
         view.addMouseListener(new MouseAdapter() {
@@ -88,6 +112,16 @@ public class SimulationPlayer extends SimulationWindow{
         view.setFocusable(true);
     }
 
+    /**
+     * Initializes the window for the simulation player.
+     * This method sets the window size, layout, and resizable property.
+     * It first calls the superclass's initWindow method to perform any necessary
+     * initialization steps defined in the parent class.
+     * 
+     * The window size is adjusted by adding the BUTTON_HEIGHT to the current height.
+     * The layout of the window's content pane is set to a vertical BoxLayout.
+     * The window is made resizable.
+     */
     @Override
     void initWindow() {
         super.initWindow();
@@ -167,6 +201,12 @@ public class SimulationPlayer extends SimulationWindow{
         buttonPanel.add(backButton);
     }
 
+    /**
+     * Initializes the buttons panel for the simulation player interface.
+     * This method sets up the button panel with specific dimensions, border, and adds various buttons
+     * including save, add, slow, play, fast, settings, and back buttons. It also adds a speed label
+     * to display the current simulation speed and adds the button panel and view to the window.
+     */
     void initButtonsPanel(){
         buttonPanel = new JPanel();
         buttonPanel.setMaximumSize(new Dimension(1920,BUTTON_HEIGHT));
@@ -192,6 +232,16 @@ public class SimulationPlayer extends SimulationWindow{
         window.add(buttonPanel);
         window.add(view);
     }
+    /**
+     * Updates the model based on the current state of the simulation.
+     * 
+     * If the model world is shakeable, it adjusts the window bounds by subtracting
+     * the view's bounds and the button panel's height from the window's bounds,
+     * and then sets the new window bounds in the model world.
+     * 
+     * If the simulation is playing, it updates the model world.
+     * Otherwise, if a body is selected, it moves the selected body.
+     */
     @Override
     void updateModel() {
         if(modelWorld.getParams().isShakeable()){
@@ -210,12 +260,22 @@ public class SimulationPlayer extends SimulationWindow{
         }
     }
 
+    /**
+     * Moves the selected body to the current mouse pointer location.
+     * The new position is adjusted by subtracting 50.0 from the x-coordinate
+     * and 240.0 from the y-coordinate of the mouse pointer location.
+     */
     void moveSelectedBody(){
         PointerInfo pointerInfo = MouseInfo.getPointerInfo();
         Point point = pointerInfo.getLocation();
         selectedBody.setPosition(new Vector2D(point.x - 50.0, point.y - 240.0)); 
     }
 
+    /**
+     * Toggles the simulation between playing and paused states.
+     * If the simulation is currently not playing, it resumes the simulation.
+     * If the simulation is currently playing, it pauses the simulation.
+     */
     void playButtonAction(){
         if(!playing){
             resumeSimulation();
@@ -225,6 +285,11 @@ public class SimulationPlayer extends SimulationWindow{
         playing = !playing;
     }
 
+    /**
+     * Resumes the simulation by updating the play button icon, resetting the model world's delta time,
+     * disabling certain buttons, and making the window non-resizable. If a body is currently selected,
+     * it will be deselected and the reference will be cleared.
+     */
     void resumeSimulation(){
         playButton.setIcon(pauseIcon);
         modelWorld.resetDeltaTime();
@@ -238,6 +303,14 @@ public class SimulationPlayer extends SimulationWindow{
         }   
     }
 
+    /**
+     * Pauses the simulation by updating the UI components:
+     * - Sets the play button icon to the play icon.
+     * - Enables the settings button.
+     * - Enables the add button.
+     * - Enables the save button.
+     * - Makes the window resizable.
+     */
     void pauseSimulation(){
         playButton.setIcon(playIcon);
         settingsButton.setEnabled(true);
@@ -246,18 +319,32 @@ public class SimulationPlayer extends SimulationWindow{
         window.setResizable(true);
     }
 
+    /**
+     * Increases the simulation speed by 0.25 units.
+     * Updates the speed label to reflect the new simulation speed.
+     */
     void speedUp(){
         SimulationParameters params = modelWorld.getParams();
         modelWorld.setSimulationSpeed(params.getSimulationSpeed() + 0.25);
         speedLabel.setText("X"+modelWorld.getParams().getSimulationSpeed());
     }
 
+    /**
+     * Reduces the simulation speed by 0.25 units, ensuring that the speed does not go below 0.
+     * Updates the speed label to reflect the new simulation speed.
+     */
     void slowDown(){
         SimulationParameters params = modelWorld.getParams();
         modelWorld.setSimulationSpeed(Math.max(params.getSimulationSpeed() - 0.25,0));
         speedLabel.setText("X"+modelWorld.getParams().getSimulationSpeed());
     }
 
+    /**
+     * Opens a dialog to set simulation parameters.
+     * The dialog allows the user to modify simulation parameters.
+     * If the user confirms the changes, the new parameters are applied to the model world
+     * and the background color of the view is updated accordingly.
+     */
     void startParamsDialog(){
         ParamsDialog pDialog = new ParamsDialog(window,modelWorld.getParams());
         pDialog.setVisible(true);
@@ -269,6 +356,13 @@ public class SimulationPlayer extends SimulationWindow{
         }
     }
 
+    /**
+     * Initiates the creation dialog for a new physics body.
+     * 
+     * This method creates an instance of the CreateBodyDialog, makes it visible to the user,
+     * and retrieves the created PhysicksBody object from the dialog. If a body is created
+     * (i.e., the returned body is not null), it adds the body to the view and simulation.
+     */
     void startCreateDialog(){
         CreateBodyDialog cDialog = new CreateBodyDialog(window);
         cDialog.setVisible(true);
@@ -278,6 +372,19 @@ public class SimulationPlayer extends SimulationWindow{
         }
     }
 
+    /**
+     * Opens a save dialog for the user to save the current simulation state.
+     * If the user confirms the save action, the simulation state is saved to a file.
+     * 
+     * The dialog allows the user to choose whether to save to an existing file or create a new one.
+     * If a new file is chosen, the model world's title is updated with the new file name.
+     * 
+     * The method performs the following steps:
+     * 1. Displays the save dialog.
+     * 2. Checks if the user confirmed the save action.
+     * 3. If saving to a new file, updates the model world's title.
+     * 4. Saves the current state of the model world using the SimulationSerializer.
+     */
     void startSaveDialog(){
        SaveDialog sDialog = new SaveDialog(window);
         sDialog.setVisible(true);
@@ -290,12 +397,29 @@ public class SimulationPlayer extends SimulationWindow{
         }
     }
 
+    /**
+     * Opens the simulation picker window and disposes of the current window.
+     * This method creates a new instance of the SimulationPicker class and 
+     * then calls the disposeWindow method to close the current window.
+     */
     void openSimulationPicker(){
         new SimulationPicker();
 
         disposeWindow();
     }
 
+    /**
+     * Handles the click event on the simulation player.
+     * 
+     * @param p The point where the click occurred.
+     * 
+     * This method performs the following actions:
+     * 1. Requests focus for the view window.
+     * 2. If the simulation is currently playing, it returns immediately.
+     * 3. If a body is already selected, it deselects it and returns.
+     * 4. Translates the click point to the model world coordinates.
+     * 5. Selects the body at the translated point in the model world.
+     */
     void click(Point p){
         view.requestFocusInWindow();
         if(playing){
@@ -310,6 +434,22 @@ public class SimulationPlayer extends SimulationWindow{
         selectedBody = modelWorld.selectBodyAt(p);
     }
 
+    /**
+     * Copies the currently selected body, if any, and adds the copied body to the view and simulation.
+     * The copied body will have its selection status set to false and its position slightly offset from the original.
+     * The method uses Gson to serialize and deserialize the selected body to create a deep copy.
+     * 
+     * Dependencies:
+     * - Gson library for JSON serialization and deserialization.
+     * - Custom type adapters for PhysicksBody, CollisionShape, and Color.
+     * 
+     * Preconditions:
+     * - `selectedBody` must not be null.
+     * 
+     * Postconditions:
+     * - A new instance of `PhysicksBody` is created, with its position offset by (10, 10) from the original.
+     * - The new instance is added to the view and simulation.
+     */
     void copySelectedBody(){
         if(selectedBody != null){
             Gson gson = new GsonBuilder()
@@ -327,6 +467,11 @@ public class SimulationPlayer extends SimulationWindow{
         }
     }
 
+    /**
+     * Deletes the currently selected body from the simulation and view.
+     * If there is a selected body, it will be removed from both the view and the simulation,
+     * and the selected body reference will be set to null.
+     */
     void deleteSelectedBody(){
         if(selectedBody != null){
             removeBodyFromViewAndSimulation(selectedBody);
