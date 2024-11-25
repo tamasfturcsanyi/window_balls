@@ -11,12 +11,38 @@ import java.io.File;
 
 import javax.swing.JPanel;
 
+/**
+ * The GraphicsPanel class extends JPanel and is responsible for rendering visual elements
+ * onto a buffered image and displaying it. It also provides functionality to save the 
+ * rendered image as a PNG file.
+ * 
+ * <p>This class maintains a list of visual elements to be drawn and supports resetting 
+ * the list after each paint operation. The background color of the panel can be set 
+ * using the provided method.</p>
+ * 
+ * <p>Note: The image and visual elements are marked as transient to avoid serialization issues.</p>
+ * 
+ * <p>Methods:</p>
+ * <ul>
+ *   <li>{@link #GraphicsPanel()}: Constructor that initializes the list of visual elements.</li>
+ *   <li>{@link #reset()}: Resets the list of visual elements.</li>
+ *   <li>{@link #drawOnImage()}: Draws the visual elements onto a buffered image and returns it.</li>
+ *   <li>{@link #paintComponent(Graphics)}: Overrides the paintComponent method to draw the image onto the panel and reset the visual elements.</li>
+ *   <li>{@link #addVisual(Visual)}: Adds a visual element to the list.</li>
+ *   <li>{@link #getImagePath()}: Saves the current image as a PNG file and returns the file path.</li>
+ *   <li>{@link #setBackgroundColor(Color)}: Sets the background color of the panel.</li>
+ * </ul>
+ */
 public class GraphicsPanel extends JPanel{
 
     Color backgroundColor;
 
     transient BufferedImage image;
 
+    /**
+     * A list of visual elements to be rendered on the graphics panel.
+     * Is reset after each paint operation.
+     */
     transient List<Visual> visualElements;
 
     public GraphicsPanel(){
@@ -27,6 +53,15 @@ public class GraphicsPanel extends JPanel{
         visualElements = new ArrayList<>();
     }
 
+    /**
+     * Draws the visual elements on a new BufferedImage.
+     * 
+     * This method creates a new BufferedImage with the current width and height
+     * of the panel, sets the background color, and then draws each visual element
+     * onto the image using their respective draw methods.
+     * 
+     * @return A BufferedImage containing the drawn visual elements.
+     */
     public BufferedImage drawOnImage(){
         image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
 
@@ -39,6 +74,12 @@ public class GraphicsPanel extends JPanel{
         return image;
     }
 
+    /**
+     * Overrides the paintComponent method to perform custom painting.
+     * This method is called whenever the component needs to be repainted.
+     *
+     * @param g the Graphics object used for painting
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -54,7 +95,11 @@ public class GraphicsPanel extends JPanel{
         visualElements.add(v);
     }
 
-    //creates a png about the simulation and returns its path
+    /**
+     * Saves the current image to a file and returns the absolute path of the saved file.
+     *
+     * @return The absolute path of the saved image file, or null if an exception occurs.
+     */
     public String getImagePath(){
         try {
             File outputfile = new File("src/main/resources/simulation.png");
