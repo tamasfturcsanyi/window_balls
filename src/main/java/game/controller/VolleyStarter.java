@@ -42,6 +42,8 @@ public class VolleyStarter extends SimulationWindow {
         player1ColorPicker = new ColorPicker();
         player1ColorPicker.setFont(font);
         player1ColorPicker.addActionListener(e -> replacePlayer1());
+        player1ColorPicker.removeItem("Black");
+        player1ColorPicker.removeItem("White");
 
         view.add(player1ColorPicker);
     }
@@ -50,6 +52,8 @@ public class VolleyStarter extends SimulationWindow {
         player2ColorPicker = new ColorPicker();
         player2ColorPicker.setFont(font);
         player2ColorPicker.addActionListener(e -> replacePlayer2());
+        player2ColorPicker.removeItem("Black");
+        player2ColorPicker.removeItem("White");
 
         view.add(player2ColorPicker);
     }
@@ -89,9 +93,19 @@ public class VolleyStarter extends SimulationWindow {
 
         initPlayer2FacePicker();
 
+        setDefaultValues();
+
         window.add(view);
         window.revalidate();
         window.repaint();
+    }
+
+    void setDefaultValues(){
+        player1ColorPicker.setSelectedItem("Cyan");
+        player1FacePicker.setSelectedItem(Face.SERIOUS);
+
+        player2ColorPicker.setSelectedItem("Red");
+        player2FacePicker.setSelectedItem(Face.CUTE);
     }
 
     void replacePlayer1(){

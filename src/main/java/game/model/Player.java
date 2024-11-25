@@ -12,17 +12,31 @@ public class Player implements Visualizable{
     public enum Face{
         LEMMY(" ͡° ͜ʖ ͡°"),
         SERIOUS("▀̿Ĺ̯▀̿ ̿"),
-        SAD("ಠ╭╮ಠ"),
-        CUTE("｡◕‿◕｡"),
-        BEAR("ʕ•ᴥ•ʔ");
+        SAD("T ʖ̯ T"),
+        HAPPY("ʘ‿ʘ"),
+        EVIL("◣_◢"),
+        CUTE("｡◕‿◕｡" ,0,40),
+        BEAR("ʕ•ᴥ•ʔ", 8, 40),   
+        DOG("▼・ᴥ・▼",-15,40),
+        CAT("^•ﻌ•^");
 
 
         private final String string;
         private final Font font;
 
+        int offsetX = 12;
+        int offsetY = 40; 
+
         Face(String string){
             this.string = string;
             font = new Font("Arrial",Font.PLAIN,26);
+        }
+
+        Face(String string, int offsetX, int offsetY){
+            this.string = string;
+            font = new Font("Arrial",Font.PLAIN,26);
+            this.offsetX = offsetX;
+            this.offsetY = offsetY;
         }
 
         public String getString() {
@@ -30,6 +44,14 @@ public class Player implements Visualizable{
         }
         public Font getFont() {
             return font;
+        }
+
+        public int getOffsetX() {
+            return offsetX;
+        }
+
+        public int getOffsetY() {
+            return offsetY;
         }
     }
 

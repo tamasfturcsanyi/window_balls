@@ -2,6 +2,7 @@ package game.controller;
 
 import java.awt.Color;
 
+import javax.swing.ComboBoxEditor;
 import javax.swing.JComboBox;
 
 public class ColorPicker extends JComboBox<String> {
@@ -40,5 +41,9 @@ public class ColorPicker extends JComboBox<String> {
             default:
                 return Color.BLACK;
         }
+    }
+
+    public static void main(String[] args) {
+        JComboBox<String> colorPicker = new JComboBox<>();
     }
 }

@@ -97,8 +97,8 @@ public class Visualizer{
                 ball.getColor(),
                 false);
             this.face = face;
-            this.x = x;
-            this.y = y;
+            this.x = x + face.getOffsetX();
+            this.y = y + face.getOffsetY();
         }
 
         @Override
@@ -106,7 +106,7 @@ public class Visualizer{
             body.draw(g2);
             g2.setColor(Color.BLACK);
             g2.setFont(face.getFont());
-            g2.drawString(face.getString(), x + 12 ,y + 40);
+            g2.drawString(face.getString(), x ,y);
         }
     }
 
