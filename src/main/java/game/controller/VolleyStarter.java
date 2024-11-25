@@ -13,6 +13,7 @@ import javax.swing.SpinnerNumberModel;
 
 import game.model.Player;
 import game.model.Player.Face;
+import game.view.ColorPicker;
 
 public class VolleyStarter extends SimulationWindow {
     Player player1;

@@ -1,4 +1,4 @@
-package game.controller;
+package game.view;
 
 import java.awt.Color;
 
@@ -33,7 +33,7 @@ public class ColorPicker extends JComboBox<String> {
      *
      * @return the selected color as a {@link Color} object
      */
-    Color getColor(){
+    public Color getColor(){
         return toColor((String)getSelectedItem());
     }
     
@@ -43,7 +43,7 @@ public class ColorPicker extends JComboBox<String> {
      * @param colorName the name of the color as a {@link String}
      * @return the corresponding {@link Color} object, or {@link Color#BLACK} if the color name is not recognized
      */
-    Color toColor(String colorName){
+    public Color toColor(String colorName){
         switch (colorName) {
             case "Red":
                 return Color.RED;

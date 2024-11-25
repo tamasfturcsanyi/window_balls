@@ -6,8 +6,7 @@ import game.model.Vector2D;
 import game.model.physicksbodies.Ball;
 import game.model.physicksbodies.Brick;
 import game.model.physicksbodies.Pole;
-
-
+import game.view.ColorPicker;
 import game.model.physicksbodies.PhysicksBody;
 
 

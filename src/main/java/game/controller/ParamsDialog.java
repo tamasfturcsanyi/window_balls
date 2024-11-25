@@ -2,6 +2,8 @@ package game.controller;
 
 import game.model.SimulationParameters;
 import game.model.Vector2D;
+import game.view.ColorPicker;
+
 import javax.swing.*;
 import java.awt.*;
 
