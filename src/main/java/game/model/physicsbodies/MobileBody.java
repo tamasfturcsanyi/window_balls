@@ -5,18 +5,12 @@ import game.model.shapes.CollisionShape;
 import game.model.Vector2D;
 import game.model.SimulationParameters;
 
+/**
+ * The MobileBody class represents a physical body that can move within a simulation.
+ * It extends the PhysicsBody class and adds properties and methods related to motion,
+ * such as velocity, force, and mass.
+ */
 public abstract class MobileBody extends PhysicsBody {
-    protected MobileBody(CollisionShape collisionShape,double mass, Color color){
-        super(collisionShape,color);
-        this.mass = mass;
-
-        Vector2D nulla = new Vector2D(0,0);
-        force = nulla;
-        externalForces = nulla;
-        velocity = nulla;
-        previousTime = 0;
-    }
-
     long previousTime;
 
     //pos is modified by velocity every frame
@@ -28,6 +22,17 @@ public abstract class MobileBody extends PhysicsBody {
     Vector2D externalForces;
 
     double mass = 1;
+
+    protected MobileBody(CollisionShape collisionShape,double mass, Color color){
+        super(collisionShape,color);
+        this.mass = mass;
+
+        Vector2D nulla = new Vector2D(0,0);
+        force = nulla;
+        externalForces = nulla;
+        velocity = nulla;
+        previousTime = 0;
+    }
 
     public Vector2D getExternalForce(){
         return externalForces;
