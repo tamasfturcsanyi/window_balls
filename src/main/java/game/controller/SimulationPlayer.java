@@ -22,10 +22,10 @@ import javax.swing.JPanel;
 
 import game.model.SimulationParameters;
 import game.model.Vector2D;
-import game.model.physicksbodies.PhysicksBody;
+import game.model.physicsbodies.PhysicsBody;
 import game.model.serialization.CollisionShapeTypeAdapter;
 import game.model.serialization.ColorTypeAdapter;
-import game.model.serialization.PhysicksBodyTypeAdapter;
+import game.model.serialization.PhysicsBodyTypeAdapter;
 import game.model.serialization.SimulationSerializer;
 import game.model.shapes.CollisionShape;
 import game.view.CreateBodyDialog;
@@ -61,7 +61,7 @@ public class SimulationPlayer extends SimulationWindow{
 
     boolean playing = false;
 
-    PhysicksBody selectedBody;
+    PhysicsBody selectedBody;
 
     /**
      * Constructs a new SimulationPlayer instance.
@@ -361,13 +361,13 @@ public class SimulationPlayer extends SimulationWindow{
      * Initiates the creation dialog for a new physics body.
      * 
      * This method creates an instance of the CreateBodyDialog, makes it visible to the user,
-     * and retrieves the created PhysicksBody object from the dialog. If a body is created
+     * and retrieves the created physicsBody object from the dialog. If a body is created
      * (i.e., the returned body is not null), it adds the body to the view and simulation.
      */
     void startCreateDialog(){
         CreateBodyDialog cDialog = new CreateBodyDialog(window);
         cDialog.setVisible(true);
-        PhysicksBody body = cDialog.getBody();
+        PhysicsBody body = cDialog.getBody();
         if(body != null){
             addToViewAndSimulation(body);
         }
@@ -442,26 +442,26 @@ public class SimulationPlayer extends SimulationWindow{
      * 
      * Dependencies:
      * - Gson library for JSON serialization and deserialization.
-     * - Custom type adapters for PhysicksBody, CollisionShape, and Color.
+     * - Custom type adapters for physicsBody, CollisionShape, and Color.
      * 
      * Preconditions:
      * - `selectedBody` must not be null.
      * 
      * Postconditions:
-     * - A new instance of `PhysicksBody` is created, with its position offset by (10, 10) from the original.
+     * - A new instance of `physicsBody` is created, with its position offset by (10, 10) from the original.
      * - The new instance is added to the view and simulation.
      */
     void copySelectedBody(){
         if(selectedBody != null){
             Gson gson = new GsonBuilder()
             .setPrettyPrinting()
-            .registerTypeAdapter(PhysicksBody.class, new PhysicksBodyTypeAdapter())
+            .registerTypeAdapter(PhysicsBody.class, new PhysicsBodyTypeAdapter())
             .registerTypeAdapter(CollisionShape.class,new CollisionShapeTypeAdapter())
             .registerTypeAdapter(Color.class, new ColorTypeAdapter())
             .create();
 
             String json = gson.toJson(selectedBody);
-            PhysicksBody copiedBody = gson.fromJson(json, selectedBody.getClass());
+            PhysicsBody copiedBody = gson.fromJson(json, selectedBody.getClass());
             copiedBody.setSelected(false);
             copiedBody.setPosition(new Vector2D(selectedBody.getPosition().getX() + 10, selectedBody.getPosition().getY() + 10)); // Offset the position slightly
             addToViewAndSimulation(copiedBody);

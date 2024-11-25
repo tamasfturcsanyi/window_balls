@@ -9,7 +9,7 @@ import java.awt.event.KeyAdapter;
 import javax.swing.JLabel;
 import game.model.Player;
 import game.model.Vector2D;
-import game.model.physicksbodies.VolleyBall;
+import game.model.physicsbodies.VolleyBall;
 import game.view.SolidButton;
 
 /**

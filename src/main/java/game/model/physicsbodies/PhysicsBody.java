@@ -1,4 +1,4 @@
-package game.model.physicksbodies;
+package game.model.physicsbodies;
 
 import java.awt.Color;
 import game.view.Visualizer.Visualizable;
@@ -6,7 +6,7 @@ import game.model.SimulationParameters;
 import game.model.Vector2D;
 import game.model.shapes.CollisionShape;
 
-public abstract class PhysicksBody implements Visualizable{
+public abstract class PhysicsBody implements Visualizable{
     CollisionShape collisionShape;
 
     Color color = Color.BLUE;
@@ -16,7 +16,7 @@ public abstract class PhysicksBody implements Visualizable{
 
     boolean selected = false;
 
-    PhysicksBody(CollisionShape collisionShape, Color color){
+    PhysicsBody(CollisionShape collisionShape, Color color){
         this.collisionShape = collisionShape;
         this.color = color;
     }
@@ -26,12 +26,12 @@ public abstract class PhysicksBody implements Visualizable{
 
     public abstract Vector2D getDimension();
 
-    public abstract void collide(PhysicksBody otherBody);
+    public abstract void collide(PhysicsBody otherBody);
 
     public abstract Vector2D bounce(CollisionShape otherCollisionShape);
 
     //calculates new position, applies forces, moves Body
-    public abstract void physicksUpdate(SimulationParameters params);
+    public abstract void physicsUpdate(SimulationParameters params);
 
     public CollisionShape getCollisionShape() {
         return collisionShape;
@@ -66,7 +66,7 @@ public abstract class PhysicksBody implements Visualizable{
         return intersecting;
     }
 
-    public boolean isIntersectingWith(PhysicksBody otherBody){
+    public boolean isIntersectingWith(PhysicsBody otherBody){
         return (this != otherBody && this.getCollisionShape().haveCollided(otherBody.getCollisionShape()));
     }
 

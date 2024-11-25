@@ -1,4 +1,4 @@
-package game.model.physicksbodies;
+package game.model.physicsbodies;
 
 import java.awt.Color;
 

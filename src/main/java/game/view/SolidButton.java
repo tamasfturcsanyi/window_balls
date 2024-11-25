@@ -7,7 +7,8 @@ import java.awt.Color;
 import java.awt.Font;
 
 import game.model.Vector2D;
-import game.model.physicksbodies.Brick;
+import game.model.physicsbodies.Brick;
+
 import java.awt.Rectangle;
 
 public class SolidButton extends JButton{

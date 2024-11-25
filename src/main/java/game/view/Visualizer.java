@@ -3,9 +3,9 @@ package game.view;
 import java.awt.geom.Ellipse2D;
 
 import game.model.Vector2D;
-import game.model.physicksbodies.*;
 import game.model.Player;
 import game.model.Player.Face;
+import game.model.physicsbodies.*;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

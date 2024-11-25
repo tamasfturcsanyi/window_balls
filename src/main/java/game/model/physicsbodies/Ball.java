@@ -1,4 +1,4 @@
-package game.model.physicksbodies;
+package game.model.physicsbodies;
 
 import java.awt.Color;
 
@@ -112,7 +112,7 @@ public class Ball extends MobileBody{
      * @param otherBody the other physics body involved in the collision
      */
     @Override
-    public void collide(PhysicksBody otherBody) {
+    public void collide(PhysicsBody otherBody) {
         addForce(otherBody.bounce(collisionShape).stretch(1  + bounciness));
     }
 
@@ -129,7 +129,7 @@ public class Ball extends MobileBody{
     
     //calculates new position, applies forces, moves Body
     @Override
-    public void physicksUpdate(SimulationParameters params){
+    public void physicsUpdate(SimulationParameters params){
         long currentTime = System.nanoTime();
         //if theres no previous time: skip
         if(previousTime == 0){

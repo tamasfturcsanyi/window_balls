@@ -1,7 +1,7 @@
 package game.model;
 
-import game.model.physicksbodies.Ball;
 import game.view.Visualizer.Visual;
+import game.model.physicsbodies.Ball;
 import game.view.Visualizer;
 import game.view.Visualizer.Visualizable;
 import java.awt.Font;

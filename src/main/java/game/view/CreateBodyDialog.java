@@ -3,10 +3,10 @@ package game.view;
 import javax.swing.*;
 import java.awt.*;
 import game.model.Vector2D;
-import game.model.physicksbodies.Ball;
-import game.model.physicksbodies.Brick;
-import game.model.physicksbodies.Pole;
-import game.model.physicksbodies.PhysicksBody;
+import game.model.physicsbodies.Ball;
+import game.model.physicsbodies.Brick;
+import game.model.physicsbodies.PhysicsBody;
+import game.model.physicsbodies.Pole;
 
 
 /**
@@ -28,7 +28,7 @@ import game.model.physicksbodies.PhysicksBody;
  * - poleColorComboBox, ballColorComboBox: ColorPickers for selecting colors.
  * - cardPanel: JPanel with CardLayout to switch between different input panels.
  * - Various JTextFields for inputting properties of Ball, Brick, and Pole.
- * - body: The created PhysicksBody object.
+ * - body: The created physicsBody object.
  * 
  * Methods:
  * - CreateBodyDialog(Frame owner): Constructor to initialize the dialog.
@@ -40,7 +40,7 @@ import game.model.physicksbodies.PhysicksBody;
  * - createBall(): Creates and returns a Ball object based on the input fields.
  * - createBrick(): Creates and returns a Brick object based on the input fields.
  * - createPole(): Creates and returns a Pole object based on the input fields.
- * - getBody(): Returns the created PhysicksBody object.
+ * - getBody(): Returns the created physicsBody object.
  * - fillWithDefaultValues(): Fills the input fields with default values.
  */
 public class CreateBodyDialog extends JDialog {
@@ -70,7 +70,7 @@ public class CreateBodyDialog extends JDialog {
     private JTextField heightField;
 
 
-    private transient PhysicksBody body;
+    private transient PhysicsBody body;
     
     /**
      * CreateBodyDialog is a dialog window that allows the user to create a body
@@ -311,7 +311,7 @@ public class CreateBodyDialog extends JDialog {
                 poleColorComboBox.getColor());
     }
 
-    public PhysicksBody getBody() {
+    public PhysicsBody getBody() {
         return body;
     }
 

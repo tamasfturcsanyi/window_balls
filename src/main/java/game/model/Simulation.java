@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import game.model.physicksbodies.Ball;
-import game.model.physicksbodies.Brick;
-import game.model.physicksbodies.PhysicksBody;
-import game.model.physicksbodies.Pole;
-import game.model.physicksbodies.Wall;
+import game.model.physicsbodies.Ball;
+import game.model.physicsbodies.Brick;
+import game.model.physicsbodies.PhysicsBody;
+import game.model.physicsbodies.Pole;
+import game.model.physicsbodies.Wall;
 import game.model.serialization.SimulationSerializer;
 
 import java.awt.Color;
@@ -20,7 +20,7 @@ public class Simulation{
 
     SimulationParameters params = new SimulationParameters();
 
-    List<PhysicksBody> bodies = new ArrayList<>();
+    List<PhysicsBody> bodies = new ArrayList<>();
 
     Wall[] walls = new Wall[4];
 
@@ -44,41 +44,41 @@ public class Simulation{
         walls[3] = new Wall(Wall.Direction.WEST,50000,windowBounds);
     }
 
-    public void addBody(PhysicksBody body){
+    public void addBody(PhysicsBody body){
         bodies.add(body);
     }
 
-    public void removeBody(PhysicksBody body){
+    public void removeBody(PhysicsBody body){
         bodies.remove(body);
     }
 
-    void bounceOfWalls(PhysicksBody physicksBody){
+    void bounceOfWalls(PhysicsBody physicsBody){
         for( Wall wall : walls){
-            if(physicksBody.getCollisionShape().haveCollided(wall.getCollisionShape())){
-                physicksBody.collide(wall);
-                physicksBody.setIntersecting(true);
+            if(physicsBody.getCollisionShape().haveCollided(wall.getCollisionShape())){
+                physicsBody.collide(wall);
+                physicsBody.setIntersecting(true);
             }
         }
     }
 
-    void bounceOfOtherBodies(PhysicksBody physicksBody){
-        for (PhysicksBody otherBody : bodies) {
-            if(physicksBody != otherBody && physicksBody.getCollisionShape().haveCollided(otherBody.getCollisionShape())){
-                physicksBody.collide(otherBody);
-                physicksBody.setIntersecting(true);
+    void bounceOfOtherBodies(PhysicsBody physicsBody){
+        for (PhysicsBody otherBody : bodies) {
+            if(physicsBody != otherBody && physicsBody.getCollisionShape().haveCollided(otherBody.getCollisionShape())){
+                physicsBody.collide(otherBody);
+                physicsBody.setIntersecting(true);
             }
         }
     }
 
     //model update cycle
     public void update(){
-        for (PhysicksBody physicksBody : bodies) {
-            physicksBody.setIntersecting(false);
-            if(!physicksBody.getFix()){
-                bounceOfOtherBodies(physicksBody);
-                bounceOfWalls(physicksBody);
+        for (PhysicsBody physicsBody : bodies) {
+            physicsBody.setIntersecting(false);
+            if(!physicsBody.getFix()){
+                bounceOfOtherBodies(physicsBody);
+                bounceOfWalls(physicsBody);
             }
-            physicksBody.physicksUpdate(params);
+            physicsBody.physicsUpdate(params);
         }
     }
 
@@ -93,7 +93,7 @@ public class Simulation{
         }
     }
 
-    public List<PhysicksBody> getPhysicksBodies(){
+    public List<PhysicsBody> getphysicsBodies(){
         return bodies;
     }
 
@@ -113,13 +113,13 @@ public class Simulation{
         this.params = params;
     }
     
-    public boolean isOnTheGround(PhysicksBody body){
+    public boolean isOnTheGround(PhysicsBody body){
         return walls[2].isIntersectingWith(body);
     }
 
     public void resetDeltaTime(){
-        for (PhysicksBody physicksBody : bodies) {
-            physicksBody.stop();
+        for (PhysicsBody physicsBody : bodies) {
+            physicsBody.stop();
         }
     }
 
@@ -127,14 +127,14 @@ public class Simulation{
         params.simulationSpeed = speed;
     }
 
-    public PhysicksBody selectBodyAt(Point p){
-        for (PhysicksBody physicksBody : bodies) {
-            physicksBody.setSelected(false);
+    public PhysicsBody selectBodyAt(Point p){
+        for (PhysicsBody physicsBody : bodies) {
+            physicsBody.setSelected(false);
         }
-        for (PhysicksBody physicksBody : bodies) {
-            if(physicksBody.getCollisionShape().getBoundingBox().contains(p)){
-                physicksBody.setSelected(true);
-                return physicksBody;
+        for (PhysicsBody physicsBody : bodies) {
+            if(physicsBody.getCollisionShape().getBoundingBox().contains(p)){
+                physicsBody.setSelected(true);
+                return physicsBody;
             }
         }
         return null;
@@ -151,7 +151,7 @@ public class Simulation{
         addBody(new Pole(new Vector2D(windowBounds.width/2.0,300),15,Color.orange));
     }
 
-    public void MenuPreset(){
+    public void menuPreset(){
         Random rng = new Random();//NOSONAR
 
         double windowX = windowBounds.getX();
@@ -165,7 +165,7 @@ public class Simulation{
 
         addBody(new Pole(new Vector2D(200, 200), 20, Color.black));
         for(int i = 0; i < 5;++i){
-            addBody(new Ball(new Vector2D(windowX+20 + 50*i,windowY + 50), (double)(20 + 5*i), new Color(rng.nextInt(0,256*256*256)), 0.5, (double)(1.0 + i)));
+            addBody(new Ball(new Vector2D(windowX+20 + 50*i,windowY + 50),(20 + 5*i), new Color(rng.nextInt(0,256*256*256)), 0.5,(1.0 + i)));
         }
 
         SimulationSerializer.saveWorld(this);

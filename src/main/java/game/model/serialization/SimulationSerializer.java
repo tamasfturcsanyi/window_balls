@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import game.model.Simulation;
-import game.model.physicksbodies.PhysicksBody;
+import game.model.physicsbodies.PhysicsBody;
 import game.model.shapes.CollisionShape;
 
 public class SimulationSerializer {
@@ -20,7 +20,7 @@ public class SimulationSerializer {
     public static void saveWorld(Simulation world){
         Gson gson = new GsonBuilder()
             .setPrettyPrinting()
-            .registerTypeAdapter(PhysicksBody.class, new PhysicksBodyTypeAdapter())
+            .registerTypeAdapter(PhysicsBody.class, new PhysicsBodyTypeAdapter())
             .registerTypeAdapter(CollisionShape.class,new CollisionShapeTypeAdapter())
             .registerTypeAdapter(Color.class, new ColorTypeAdapter())
             .create();
@@ -41,7 +41,7 @@ public class SimulationSerializer {
             .setPrettyPrinting()
             .registerTypeAdapter(CollisionShape.class,new CollisionShapeTypeAdapter())
             .registerTypeAdapter(Color.class, new ColorTypeAdapter())
-            .registerTypeAdapter(PhysicksBody.class, new PhysicksBodyTypeAdapter())
+            .registerTypeAdapter(PhysicsBody.class, new PhysicsBodyTypeAdapter())
             .create();
         Simulation newWorld = null;
         try {

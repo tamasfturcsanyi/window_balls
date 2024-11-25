@@ -69,7 +69,7 @@ public class MainMenu extends SimulationWindow{
      */
     public MainMenu(){
         super("WINDOW BALLS",new Rectangle(WINDOW_X, WINDOW_Y, WINDOW_WIDTH,WINDOW_HEIGHT));
-        modelWorld.MenuPreset();
+        modelWorld.menuPreset();
 
         initTitle();
         addSigno();

@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import java.util.Random;
 
-import game.model.physicksbodies.Pole;
+import game.model.physicsbodies.Pole;
 
 public class Ring {
     static final double RADIUS_OF_POLES = 15;

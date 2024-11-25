@@ -19,7 +19,7 @@ import java.awt.Color;
 
 import game.model.Ring;
 import game.model.Vector2D;
-import game.model.physicksbodies.Ball;
+import game.model.physicsbodies.Ball;
 import game.view.FixLabel;
 import java.util.HashMap;
 

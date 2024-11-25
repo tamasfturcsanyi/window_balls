@@ -8,17 +8,17 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
+import game.model.physicsbodies.Ball;
+import game.model.physicsbodies.Brick;
+import game.model.physicsbodies.PhysicsBody;
+import game.model.physicsbodies.Pole;
+import game.model.physicsbodies.Wall;
+
 import java.lang.reflect.Type;
 
-import game.model.physicksbodies.Ball;
-import game.model.physicksbodies.Brick;
-import game.model.physicksbodies.PhysicksBody;
-import game.model.physicksbodies.Pole;
-import game.model.physicksbodies.Wall;
-
-public class PhysicksBodyTypeAdapter implements JsonSerializer<PhysicksBody>, JsonDeserializer<PhysicksBody>{
+public class PhysicsBodyTypeAdapter implements JsonSerializer<PhysicsBody>, JsonDeserializer<PhysicsBody>{
     @Override
-    public PhysicksBody deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)throws JsonParseException {
+    public PhysicsBody deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
         String type = jsonObject.get("type").getAsString();
 
@@ -37,7 +37,7 @@ public class PhysicksBodyTypeAdapter implements JsonSerializer<PhysicksBody>, Js
     }
     
     @Override
-    public JsonElement serialize(PhysicksBody src, Type typeOfSrc, JsonSerializationContext context) {
+    public JsonElement serialize(PhysicsBody src, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject jsonObject = context.serialize(src, src.getClass()).getAsJsonObject();
         jsonObject.addProperty("type",src.getClass().getSimpleName());
         return jsonObject;

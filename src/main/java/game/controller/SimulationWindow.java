@@ -1,7 +1,7 @@
 package game.controller;
 
 import game.model.Simulation;
-import game.model.physicksbodies.PhysicksBody;
+import game.model.physicsbodies.PhysicsBody;
 import game.model.serialization.SimulationSerializer;
 import game.view.Visualizer;
 import game.view.Visualizer.Visualizable;
@@ -87,7 +87,7 @@ public class SimulationWindow implements Runnable{
      */
     void initView(){
         view.setBackgroundColor(modelWorld.getParams().getSimulationBackground());
-        for (PhysicksBody body : modelWorld.getPhysicksBodies()) {
+        for (PhysicsBody body : modelWorld.getphysicsBodies()) {
             if(body.isVisible()){
                 visualizables.add(body);
             }
@@ -95,21 +95,21 @@ public class SimulationWindow implements Runnable{
     }
 
     /**
-     * Adds a given PhysicksBody to both the visualizables list and the modelWorld.
+     * Adds a given physicsBody to both the visualizables list and the modelWorld.
      *
-     * @param body the PhysicksBody to be added to the view and simulation
+     * @param body the physicsBody to be added to the view and simulation
      */
-    public void addToViewAndSimulation(PhysicksBody body){
+    public void addToViewAndSimulation(PhysicsBody body){
         visualizables.add(body);
         modelWorld.addBody(body);
     }
 
     /**
-     * Removes the specified PhysicksBody from both the visual representation and the simulation model.
+     * Removes the specified physicsBody from both the visual representation and the simulation model.
      *
-     * @param body the PhysicksBody to be removed from the view and simulation
+     * @param body the physicsBody to be removed from the view and simulation
      */
-    public void removeBodyFromViewAndSimulation(PhysicksBody body){
+    public void removeBodyFromViewAndSimulation(PhysicsBody body){
         visualizables.remove(body);
         modelWorld.removeBody(body);
     }

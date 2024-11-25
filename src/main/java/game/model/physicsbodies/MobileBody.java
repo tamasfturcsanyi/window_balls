@@ -1,11 +1,11 @@
-package game.model.physicksbodies;
+package game.model.physicsbodies;
 
 import java.awt.Color;
 import game.model.shapes.CollisionShape;
 import game.model.Vector2D;
 import game.model.SimulationParameters;
 
-public abstract class MobileBody extends PhysicksBody {
+public abstract class MobileBody extends PhysicsBody {
     protected MobileBody(CollisionShape collisionShape,double mass, Color color){
         super(collisionShape,color);
         this.mass = mass;
