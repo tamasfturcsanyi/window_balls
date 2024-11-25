@@ -15,8 +15,8 @@ public class ParamsDialog extends JDialog {
     private JCheckBox shakeableCheckBox;
     private ColorPicker backgroundColorPicker;
 
-    private SimulationParameters originalParameters;
-    private SimulationParameters currentParameters;
+    private transient SimulationParameters originalParameters;
+    private transient SimulationParameters currentParameters;
     
     public ParamsDialog(Frame parent, SimulationParameters simulationParameters) {
         super(parent, "Simulation Parameters", true);
