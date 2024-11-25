@@ -9,6 +9,39 @@ import game.model.Vector2D;
 import game.view.FixLabel;
 import game.view.SolidButton;
 
+/**
+ * The MainMenu class represents the main menu window of the application.
+ * It extends the SimulationWindow class and provides a graphical user interface
+ * with buttons to start different simulations and games.
+ * 
+ * The main menu includes buttons for:
+ * - Simulation
+ * - Basket
+ * - Volley
+ * 
+ * It also displays a title and a signature label.
+ * 
+ * Constants:
+ * - WINDOW_X: The x-coordinate of the window's position.
+ * - WINDOW_Y: The y-coordinate of the window's position.
+ * - WINDOW_WIDTH: The width of the window.
+ * - WINDOW_HEIGHT: The height of the window.
+ * - FONT_NAME: The name of the font used for labels.
+ * 
+ * Methods:
+ * - MainMenu(): Constructor that initializes the main menu window and its components.
+ * - initTitle(): Initializes the title label and adds it to the view.
+ * - addSigno(): Initializes the signature label and adds it to the view.
+ * - initSimButton(): Initializes the simulation button and adds it to the view.
+ * - initBasketButton(): Initializes the basket button and adds it to the view.
+ * - initVolleyButton(): Initializes the volley button and adds it to the view.
+ * - startVolley(): Starts the volley game in a new thread and disposes the main menu window.
+ * - startBasket(): Starts the basket game in a new thread and disposes the main menu window.
+ * - startSimPicker(): Starts the simulation picker and disposes the main menu window.
+ * - updateButtons(): Updates the appearance and position of the buttons.
+ * - updateTitle(): Updates the appearance and position of the title and signature labels.
+ * - updateView(): Overrides the updateView method to update the buttons and title, and then calls the superclass method.
+ */
 public class MainMenu extends SimulationWindow{
     static final int WINDOW_X = 500;
     static final int WINDOW_Y = 200;
