@@ -64,7 +64,7 @@ public class Ball extends MobileBody{
      * @param params The simulation parameters containing the gravity vector.
      */
     @Override
-    void calculateForces(SimulationParameters params){
+    public void calculateForces(SimulationParameters params){
 
         force.set(0, 0);
         //apply gravity
@@ -83,7 +83,7 @@ public class Ball extends MobileBody{
      * @param params The simulation parameters containing energy loss factors and other settings.
      */
     @Override
-    void calculateNewVelocity(double delta, SimulationParameters params){
+    public void calculateNewVelocity(double delta, SimulationParameters params){
         //apply mass
         Vector2D acceleration = force.stretch(1/mass);
 
@@ -123,7 +123,7 @@ public class Ball extends MobileBody{
      * @param delta the time interval over which to calculate the new position
      */
     @Override
-    void calculateNewPosition(double delta){
+    public void calculateNewPosition(double delta){
         setPosition(getPosition().add(velocity.stretch(delta)));
     }
     
