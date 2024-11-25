@@ -9,13 +9,28 @@ import game.view.Visualizer;
 import game.model.SimulationParameters;
 import game.model.Vector2D;
 
+/**
+ * The Ball class represents a mobile body in the simulation with properties such as bounciness and mass.
+ * It extends the MobileBody class and provides specific implementations for calculating forces, velocity, 
+ * and position updates, as well as handling collisions.
+ */
 public class Ball extends MobileBody{
-    double bounciness = 1; 
+    private double bounciness = 1;
+    private static final double SPEED_LIMIT_STRETCH_FACTOR = 0.9;
 
-    boolean previousIntersecting = false;
+    private boolean previousIntersecting = false;
 
-    public Ball(Vector2D center,double radius,Color color,double bounciness, double mass){
-        super(new CollisionCircle(center.add(new Vector2D(-radius,-radius)), radius),mass,color);
+    /**
+     * Constructs a new Ball object with the specified initial center, radius, color, bounciness, and mass.
+     *
+     * @param initialCenter the initial center position of the ball as a Vector2D object
+     * @param initialRadius the initial radius of the ball
+     * @param color the color of the ball
+     * @param bounciness the bounciness coefficient of the ball
+     * @param mass the mass of the ball
+     */
+    public Ball(Vector2D initialCenter,double initialRadius,Color color,double bounciness, double mass){
+        super(new CollisionCircle(initialCenter.add(new Vector2D(-initialRadius,-initialRadius)), initialRadius),mass,color);
         this.bounciness = bounciness;
     }
 
@@ -37,18 +52,36 @@ public class Ball extends MobileBody{
     public Vector2D getDimension() {
         return new Vector2D(collisionShape.getBoundingBox().getWidth(),collisionShape.getBoundingBox().getHeight());
     }
+
+    /**
+     * Calculates the forces acting on the ball.
+     * 
+     * This method resets the current force to zero, applies gravity based on the 
+     * simulation parameters and the mass of the ball, and adds any external forces 
+     * acting on the ball. After applying the external forces, it resets the 
+     * external forces to zero.
+     * 
+     * @param params The simulation parameters containing the gravity vector.
+     */
     @Override
     void calculateForces(SimulationParameters params){
 
-        force = new Vector2D(0,0);
+        force.set(0, 0);
         //apply gravity
         force = force.add(params.getGravity().stretch(mass));
 
         force = force.add(externalForces);
 
-        externalForces = new Vector2D(0,0);
+        externalForces.set(0, 0);
     }
 
+    /**
+     * Calculates the new velocity of the ball based on the applied forces, 
+     * simulation parameters, and time delta.
+     *
+     * @param delta The time delta for the simulation step.
+     * @param params The simulation parameters containing energy loss factors and other settings.
+     */
     @Override
     void calculateNewVelocity(double delta, SimulationParameters params){
         //apply mass
@@ -68,15 +101,27 @@ public class Ball extends MobileBody{
 
         //speed limit
         if(velocity.length() > params.getSpeedLimit()){
-            velocity = velocity.stretch(0.9);
+            velocity = velocity.stretch(SPEED_LIMIT_STRETCH_FACTOR);
         }
     }
 
+    /**
+     * Handles the collision with another physics body.
+     * Applies a force to this body based on the bounce effect from the collision.
+     *
+     * @param otherBody the other physics body involved in the collision
+     */
     @Override
     public void collide(PhysicksBody otherBody) {
         addForce(otherBody.bounce(collisionShape).stretch(1  + bounciness));
     }
 
+    /**
+     * Calculates the new position of the ball based on the given time delta.
+     * The new position is determined by adding the product of the velocity and delta to the current position.
+     *
+     * @param delta the time interval over which to calculate the new position
+     */
     @Override
     void calculateNewPosition(double delta){
         setPosition(getPosition().add(velocity.stretch(delta)));
@@ -109,27 +154,31 @@ public class Ball extends MobileBody{
         previousTime = currentTime;
     }
 
+    /**
+     * Calculates the bounce vector when this object collides with another collision shape.
+     *
+     * @param otherCollisionShape The other collision shape involved in the collision.
+     * @return A vector representing the direction and magnitude of the bounce.
+     */
     @Override
     public Vector2D bounce(CollisionShape otherCollisionShape) {
-        double maxDistance = otherCollisionShape.getMaxDistanceFromCenter()+collisionShape.getMaxDistanceFromCenter();
+        double maxDistanceFromCenters = otherCollisionShape.getMaxDistanceFromCenter() + collisionShape.getMaxDistanceFromCenter();
         Vector2D diff = collisionShape.getCenter().diff(otherCollisionShape.getCenter());
-        double clip = maxDistance-diff.length();
-        if (clip < 0){
-            clip = 0;
+        double overlapDistance = maxDistanceFromCenters-diff.length();
+        if (overlapDistance < 0){
+            overlapDistance = 0;
         }
-        return diff.stretch(clip);
+        return diff.stretch(overlapDistance);
     }
 
+    /**
+     * Returns the visual representation of this Ball object using the provided Visualizer.
+     *
+     * @param visualizer the Visualizer used to create the visual representation
+     * @return the visual representation of this Ball object
+     */
     @Override
     public Visual getVisual(Visualizer visualizer) {
         return visualizer.visualize(this);
-    }
-
-    @Override
-    public Color getColor() {
-        //if(intersecting){
-        //    return Color.RED;
-        //}
-        return color;
     }
 }

@@ -14,13 +14,9 @@ public class Vector2D {
         this.y = y;
     }
 
-    public Vector2D(double angle, double lenght,boolean deg){
-        if(deg){
-            angle = Math.toRadians(angle);
-        }
-        
-        x = Math.cos(angle)*lenght;
-        y =  -1 * Math.sin(angle)*lenght;
+    public void set(double x, double y){
+        this.x = x;
+        this.y = y;
     }
 
     public double getX(){
@@ -48,10 +44,6 @@ public class Vector2D {
 
     public Vector2D stretch(double ammount){
         return new Vector2D(x*ammount,y* ammount);
-    }
-
-    public Vector2D rotate(double radAngle){
-        return new Vector2D(Math.atan2(y,x) + radAngle,length(),false);
     }
 
     @Override

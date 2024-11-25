@@ -22,34 +22,6 @@ class Vector2DTest {
 
     }
 
-    @Test
-    void testConstructorDEG(){
-        Vector2D vect1 = new Vector2D(0, 1, true);
-
-        assertEquals(1,vect1.getX());
-        assertEquals(0, vect1.getY(), limes);
-        
-
-        Vector2D vect2 = new Vector2D(90, 1, true);
-
-        assertEquals(0, vect2.getX(), limes);
-        assertEquals(-1, vect2.getY());
-
-        Vector2D vect3 = new Vector2D(45,Math.sqrt(2),true);
-
-        assertEquals(1,vect3.getX(), limes);
-        assertEquals(-1,vect3.getY(), limes);
-
-        Vector2D vect4 = new Vector2D(180,1,true);
-
-        assertEquals(-1,vect4.getX(), limes);
-        assertEquals(0,vect4.getY(), limes);
-
-        Vector2D vect5 = new Vector2D(270,1,true);
-
-        assertEquals(0,vect5.getX(), limes);
-        assertEquals(1,vect5.getY(), limes);
-    }
 
     @Disabled
     @Test
@@ -71,21 +43,6 @@ class Vector2DTest {
 
         double distance = p1.distance(p2);
         assertEquals(5,distance);
-    }
-
-    @Test
-    void testRotate(){
-        Vector2D vect1 = new Vector2D(0, 1, true);
-        
-
-        assertEquals(1, vect1.getX(), limes);
-        assertEquals(0, vect1.getY(), limes);
-
-        vect1 = vect1.rotate(Math.toRadians(90));
-
-        assertEquals(0, vect1.getX(), limes);
-        assertEquals(-1, vect1.getY(), limes);
-
     }
 
     @Disabled
