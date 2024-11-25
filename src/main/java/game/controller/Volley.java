@@ -13,6 +13,8 @@ import game.model.physicksbodies.volley.VolleyBall;
 import game.view.SolidButton;
 
 public class Volley extends SimulationWindow{
+    private final static String FONT_NAME = "Impact";
+
     Player player1;
     Player player2;
 
@@ -41,7 +43,7 @@ public class Volley extends SimulationWindow{
         ball = new VolleyBall();
         score = new JLabel();
         updateScore();
-        score.setFont(new Font("Impact", Font.BOLD, 52));
+        score.setFont(new Font(FONT_NAME, Font.BOLD, 52));
         view.add(score);
 
         vicotryLabel = new JLabel();
@@ -57,11 +59,11 @@ public class Volley extends SimulationWindow{
 
     void initPause(){
         pauseLabel = new JLabel("Paused");
-        pauseLabel.setFont(new Font("Impact", Font.BOLD, 300));
+        pauseLabel.setFont(new Font(FONT_NAME, Font.BOLD, 300));
         pauseLabel.setVisible(false);
         view.add(pauseLabel);
         pauseTip = new JLabel("Press ESC to resume");
-        pauseTip.setFont(new Font("Impact", Font.BOLD, 110));
+        pauseTip.setFont(new Font(FONT_NAME, Font.BOLD, 110));
         pauseTip.setVisible(false);
         view.add(pauseTip);
         window.addKeyListener(new KeyAdapter() {
@@ -112,6 +114,7 @@ public class Volley extends SimulationWindow{
         score.setText(player1.getScore() + " : " + player2.getScore());
     }
 
+    @SuppressWarnings("unused")
     void initRestartButton(){
         Vector2D restartPosition = new Vector2D(window.getBounds().getX() + 150, window.getBounds().getY() + 400);
         restartButton = new SolidButton("Restart",restartPosition,new Vector2D(300,100));
@@ -123,6 +126,7 @@ public class Volley extends SimulationWindow{
         view.add(restartButton);
     }
 
+    @SuppressWarnings("unused")
     void initExitButton(){
         Vector2D exitPosition = new Vector2D(window.getBounds().getX() + 575, window.getBounds().getY() + 400);
         exitButton = new SolidButton("Exit",exitPosition,new Vector2D(300,100));
