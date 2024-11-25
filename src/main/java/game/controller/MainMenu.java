@@ -61,6 +61,12 @@ public class MainMenu extends SimulationWindow{
     FixLabel titleLabel;
     FixLabel signo;
    
+    /**
+     * Constructs a new MainMenu instance.
+     * Initializes the main menu window with the specified title and dimensions.
+     * Sets up the menu preset, title, buttons, and view layout.
+     * Ensures the window is not resizable.
+     */
     public MainMenu(){
         super("WINDOW BALLS",new Rectangle(WINDOW_X, WINDOW_Y, WINDOW_WIDTH,WINDOW_HEIGHT));
         modelWorld.MenuPreset();
@@ -140,7 +146,9 @@ public class MainMenu extends SimulationWindow{
         view.add(volleyButton);
     }
 
-    //starts a volley window, disposes the MainMenu Window
+    /**
+     * Starts a new thread to initiate the VolleyStarter process and then disposes of the current window.
+     */
     void startVolley(){
         Thread volleyThread = new Thread(new VolleyStarter());
         volleyThread.start();
@@ -148,6 +156,11 @@ public class MainMenu extends SimulationWindow{
         disposeWindow();
     }
 
+    /**
+     * Starts a new thread to run the Basket game and disposes of the current window.
+     * This method creates a new instance of the Basket class, starts it in a new thread,
+     * and then calls the disposeWindow method to close the current window.
+     */
     void startBasket(){
         Thread basketThread = new Thread(new Basket());
         basketThread.start();
@@ -155,6 +168,11 @@ public class MainMenu extends SimulationWindow{
         disposeWindow();
     }
 
+    /**
+     * Initializes and starts the SimulationPicker.
+     * This method creates a new instance of the SimulationPicker class
+     * and then disposes of the current window.
+     */
     void startSimPicker(){
         new SimulationPicker();
         
@@ -179,6 +197,10 @@ public class MainMenu extends SimulationWindow{
         signo.updatePosition(modelWorld.getWindowBounds());
     }
 
+    /**
+     * Updates the view by refreshing the buttons and title, then calls the superclass's updateView method.
+     * This method overrides the updateView method in the superclass.
+     */
     @Override
     void updateView() {
         updateButtons();
