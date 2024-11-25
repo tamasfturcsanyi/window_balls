@@ -28,6 +28,7 @@ import game.model.serialization.ColorTypeAdapter;
 import game.model.serialization.PhysicksBodyTypeAdapter;
 import game.model.serialization.SimulationSerializer;
 import game.model.shapes.CollisionShape;
+import game.view.CreateBodyDialog;
 
 
 public class SimulationPlayer extends SimulationWindow{
