@@ -26,6 +26,48 @@ import java.util.HashMap;
 import java.awt.BorderLayout;
 
 
+/**
+ * The Basket class represents a basketball game simulation window.
+ * It extends the SimulationWindow class and provides functionality
+ * for initializing and managing the game, including the timer, score,
+ * and game objects such as the basketball and ring.
+ * 
+ * The game starts with a timer and the player scores points by getting
+ * the basketball through the ring. The background color changes based
+ * on the remaining time, and the game ends when the timer reaches zero.
+ * 
+ * The class also handles displaying a game over dialog with the final
+ * score and high score, and provides options to restart the game or
+ * exit to the main menu.
+ * 
+ * Methods:
+ * - Basket(): Constructor to initialize the game window and components.
+ * - initTimer(): Initializes and starts the game timer.
+ * - initBalls(): Initializes the basketball and ring objects.
+ * - initBasketBall(): Initializes the basketball object.
+ * - initRing(): Initializes the ring object.
+ * - initColors(): Initializes the background colors based on remaining time.
+ * - initTimeLabel(): Initializes the time label.
+ * - initScoreLabel(): Initializes the score label.
+ * - updateBackground(): Updates the background color and time label.
+ * - updateTimeLabelPosition(): Updates the position of the time label.
+ * - updateBackgroundColor(): Updates the background color based on remaining time.
+ * - updateTimeLabelText(): Updates the text of the time label.
+ * - updateTimeLabelPositionInView(): Updates the position of the time label in the view.
+ * - showGameOverDialog(JFrame parentFrame): Displays a game over dialog with the final score and high score.
+ * - startMainMenu(): Starts the main menu thread and disposes the game window.
+ * - lose(): Handles the game over logic, including updating the background color, saving the high score, and showing the game over dialog.
+ * - scoredPoint(): Handles the logic for scoring a point, including updating the score, time bonus, and background.
+ * - newRing(): Creates a new ring object and adds it to the view and simulation.
+ * - updateGameLogic(): Updates the game logic, including checking if the basketball has passed through the ring.
+ * - restartBasket(): Restarts the game by creating a new Basket object and starting a new thread.
+ * - loadHighScore(): Loads the high score from a file.
+ * - saveHighScore(): Saves the high score to a file.
+ * - cycle(): Overrides the cycle method to update the time label, score label, and game logic.
+ * 
+ * Inner Classes:
+ * - Timer: Implements the Runnable interface to handle the game timer logic.
+ */
 public class Basket extends SimulationWindow{
     private static final int SCREEN_WIDTH = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
     private static final int SCREEN_HEIGHT = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -58,6 +100,13 @@ public class Basket extends SimulationWindow{
     private Ring actualRing;
 
 
+    /**
+     * Constructs a new Basket object.
+     * Initializes the window with a title "Basket" and sets its size and position.
+     * Calls methods to initialize colors, balls, timer, time label, high score, and score label.
+     * Sets the window to be non-resizable and sets the background color of the view.
+     * Updates the background.
+     */
     public Basket(){
         super("Basket", new Rectangle(SCREEN_WIDTH/2 - WINDOW_WIDTH/2, SCREEN_HEIGHT/2 - WINDOW_HEIGHT/2, WINDOW_WIDTH, WINDOW_HEIGHT));
         initColors();
@@ -85,17 +134,34 @@ public class Basket extends SimulationWindow{
         initRing();
     }
 
+    /**
+     * Initializes the basketball object with specified properties and adds it to the view and simulation.
+     * The basketball is created with a position of (700, 400), a radius of 30, an orange color (RGB: 255, 128, 0),
+     * a restitution coefficient of 0.6, and a mass of 1.
+     */
     void initBasketBall(){
         basketBall = new Ball(new Vector2D(700,400), 30, new Color(255,128,0), 0.6, 1);
         addToViewAndSimulation(basketBall);
     }
 
+    /**
+     * Initializes the ring by creating a new instance of the Ring class.
+     * Adds the left and right poles of the ring to the view and simulation.
+     */
     void initRing(){
         actualRing = new Ring();
         addToViewAndSimulation(actualRing.getLeftPole());
         addToViewAndSimulation(actualRing.getRightPole());
     }
 
+    /**
+     * Initializes the color mappings for different levels.
+     * The colors are mapped based on the level values:
+     * - Levels 10 to 7 are mapped to green (#00ff00).
+     * - Levels 6 to 4 are mapped to yellow (#fff500).
+     * - Levels 3 to 1 are mapped to orange (#ffac00).
+     * - Level 0 is mapped to red (#ff0000).
+     */
     void initColors(){
         Color green = Color.decode("#00ff00");
         Color yellow = Color.decode("#fff500");
@@ -114,6 +180,12 @@ public class Basket extends SimulationWindow{
         colors.put(0,red);
     }
 
+    /**
+     * Initializes the time label with the remaining time.
+     * The label is created with the current time left, set to a bold font of size 250,
+     * and its foreground color is set to white. The label is then added to the view,
+     * and the background is updated.
+     */
     void initTimeLabel(){
         timeLabel = new FixLabel(timeLeft+"",new Vector2D(0,0));
         timeLabel.setFont(new Font(FONT,Font.BOLD,250));
@@ -131,6 +203,14 @@ public class Basket extends SimulationWindow{
         view.add(scoreLabel);
     }
 
+    /**
+     * Updates the background of the basket game view.
+     * This method performs the following actions:
+     * 1. Updates the position of the time label.
+     * 2. Updates the background color.
+     * 3. Updates the text of the time label.
+     * 4. Updates the position of the time label within the view.
+     */
     void updateBackground() {
         updateTimeLabelPosition();
         updateBackgroundColor();
@@ -162,6 +242,26 @@ public class Basket extends SimulationWindow{
         timeLabel.updatePosition(modelWorld.getWindowBounds());
     }
 
+    /**
+     * Timer is a Runnable implementation that decrements a time counter every second.
+     * It updates the background and checks if the time has run out to trigger a loss condition.
+     * 
+     * <p>This class is intended to be run in a separate thread. It will continue to run
+     * until the timeIsTicking flag is set to false or the thread is interrupted.</p>
+     * 
+     * <p>Methods:</p>
+     * <ul>
+     *   <li>{@code run()}: The main logic of the timer, which decrements the timeLeft variable,
+     *   updates the background, and checks if the time has run out.</li>
+     * </ul>
+     * 
+     * <p>Usage:</p>
+     * <pre>{@code
+     * Timer timer = new Timer();
+     * Thread timerThread = new Thread(timer);
+     * timerThread.start();
+     * }</pre>
+     */
     class Timer implements Runnable{
 
         @Override
@@ -236,6 +336,15 @@ public class Basket extends SimulationWindow{
         disposeWindow();
     }
 
+    /**
+     * Handles the actions to be taken when the player loses the game.
+     * This method performs the following steps:
+     * 1. Stops the game timer.
+     * 2. Changes the background color of the view to red.
+     * 3. Removes the left and right poles of the current ring from the view and simulation.
+     * 4. Checks if the current score is higher than the high score and saves it if true.
+     * 5. Displays the game over dialog.
+     */
     void lose(){
         timeIsTicking = false;
         view.setBackgroundColor(Color.RED);
@@ -247,6 +356,21 @@ public class Basket extends SimulationWindow{
         showGameOverDialog(window);
     }
 
+    /**
+     * Updates the score and applies time bonuses based on the current score.
+     * 
+     * <p>This method increments the score by one and adjusts the time bonus 
+     * according to the following rules:
+     * <ul>
+     *   <li>If the score is greater than 30, the time bonus is set to 1.</li>
+     *   <li>If the score is greater than 20, the time bonus is set to 2.</li>
+     *   <li>If the score is greater than 10, the time bonus is set to 3.</li>
+     * </ul>
+     * The remaining time is then increased by the time bonus.
+     * 
+     * <p>Additionally, this method updates the score label with the new score, 
+     * updates the background, and creates a new ring.
+     */
     void scoredPoint(){
         ++score;
         if(score > 30){
@@ -264,6 +388,12 @@ public class Basket extends SimulationWindow{
         newRing();
     }
 
+    /**
+     * Replaces the current ring with a new one.
+     * 
+     * This method removes the left and right poles of the current ring from the view and simulation,
+     * creates a new ring, and then adds the new ring's left and right poles to the view and simulation.
+     */
     void newRing(){
         removeBodyFromViewAndSimulation(actualRing.getLeftPole());
         removeBodyFromViewAndSimulation(actualRing.getRightPole());
@@ -272,6 +402,16 @@ public class Basket extends SimulationWindow{
         addToViewAndSimulation(actualRing.getRightPole());
     }
 
+    /**
+     * Updates the game logic to determine if a point has been scored.
+     * 
+     * This method checks if the basketball is between the poles of the ring and 
+     * has passed below the ring after being above it. If these conditions are met, 
+     * it calls the scoredPoint() method to register a point.
+     * 
+     * The method also updates the state of whether the ball was above the ring 
+     * for the next call.
+     */
     void updateGameLogic(){
         boolean ballBetweenPoles = (basketBall.getCenter().getX() > actualRing.getLeftPole().getCenter().getX() &&
         basketBall.getCenter().getX() < actualRing.getRightPole().getCenter().getX());
@@ -282,6 +422,10 @@ public class Basket extends SimulationWindow{
         ballWasAboveRing = !ballUnderRing;
     }
     
+    /**
+     * Restarts the basket by creating a new instance of the Basket class,
+     * starting it in a new thread, and disposing of the current window.
+     */
     void restartBasket(){
         Basket basket = new Basket();
         Thread basketThread = new Thread(basket);
@@ -289,6 +433,11 @@ public class Basket extends SimulationWindow{
 
         disposeWindow();
     }
+
+    /**
+     * Loads the high score from a file named "record.txt" located in the "src/main/resources" directory.
+     * If the file does not exist or an error occurs while reading the file, the high score is set to 0.
+     */
     void loadHighScore(){
         File highScoreFile = new File("src/main/resources/record.txt");
         if(!highScoreFile.isFile()){
@@ -302,6 +451,11 @@ public class Basket extends SimulationWindow{
         }
     }
 
+    /**
+     * Saves the current high score to a file named "record.txt" located in the 
+     * "src/main/resources" directory. If the file does not exist, it will be created.
+     * The method handles any IOExceptions that may occur during file creation and writing.
+     */
     void saveHighScore(){
         File highScoreFile = new File("src/main/resources/record.txt");
         try {
@@ -316,6 +470,11 @@ public class Basket extends SimulationWindow{
         }
     }
 
+    /**
+     * Updates the positions of the time and score labels based on the current window bounds,
+     * updates the game logic, and then calls the superclass's cycle method.
+     * This method is called periodically to update the game state.
+     */
     @Override
     void cycle() {
         timeLabel.updatePosition(modelWorld.getWindowBounds());
