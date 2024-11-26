@@ -1,5 +1,6 @@
 target
 .vscode
-src/main/resources
 Specification.md
 USERMANUAL.md
+src/main/resources/record.txt
+src/main/resources/jsons
