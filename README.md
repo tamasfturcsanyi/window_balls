@@ -1,103 +1,90 @@
-# Turcsányi Tamás (CQUG9B) SPECIFIKÁCIÓ
+# Window Balls - User Manual
 
-## Rövid ismertetés
+## Brief Overview
 
-A Programozás alapjai 3 tárgyhoz készülő házi feladatom, egy labdákat szimuláló program.
-A program 2 dimenzióban szimulál labdákat, ahogy pattognak és összeütköznek.
+This is a ball simulation program. The program simulates balls in 2D as they collide with each other and bounce off the window walls.
 
-A program három módban fog működni.
+The program operates in three modes:
 
-1. Szimuláció
+1. **Simulation**
+2. **Basket**
+3. **Volley**
 
-2. Rekord
+## Detailed Operation
 
-3. Röplapda
+### Main Menu
 
-### Szimuláció
+You can try the simulation here. If you move the window on your screen, you will see that the labels and buttons stay in place, and the balls are pushed by the window movement. The buttons also participate in the simulation, and the balls bounce off them. You can access the three modes with the three buttons. To exit, just close the window. This is true for the rest of the program as well.
 
-Ebben a módban a felhasználó tervezhet és lejátszhat egy szimulációt melyben három szereplő van.
-- labda
-- fix kör
-- téglafal
+---
 
-A szimulációnak meghatározhatja a sebességét, gravitációját és, hogy mennyire vesszen el energia(milyen gyorsan áljanak meg a labdák). A szimulációt megtudja állítani, felgyorsítani vagy újra indítani.
+### Simulation
 
-A falaknak és fix köröknek meg lehet adni a méretét, helyzetét és színét. A labdáknak méretét, helyzetét, színét, tömegét, pattogóságát. A fix elemek mint a körök és falakról csak lepattannak a labdák, ők maguk nem mozdulnak.
+#### Simulation Picker
 
-A szimulációra az is hatással van hogyan mozog a program ablaka az asztalon. Ha megrázzuk akkor a falakról lepatannak a labdák.
-A szimulációkat el lehet menteni fáljba és késöbb megnyitni. Minden elmentődik a szimulációról, még az egyes labdák sebessége is.
+You can open simulations through the Simulation Picker. The Simulation Picker consists of two parts: buttons at the top and simulations below.
 
-### Rekord
+The simulations are in a scrollable panel. If you click on one, you select it. If you click again or select another simulation, you deselect the originally selected simulation.
 
-Ez egy árkád stílusu mini játék melyben az ablak mozgatásával kell a labdát a mindig új helyen feltűnő célba juttatni. Egy időzítő leszámol és ha nullához ér vesztettél. Minden sikeresen elért célpont egy kis időt ad a vissza számlálóhoz és egy pontot ad a pontszámhoz. A játék megjegyzi mi volt az eddig elért legnagyobb pontszám.
+There are four buttons in the button section. Their functions from left to right:
 
-### Röplapda
+1. **Add**: Creates and opens a new, empty simulation with default settings.
+2. **Open**: Opens an existing simulation. It can only be pressed if a simulation is selected beforehand.
+3. **Delete**: Deletes the selected simulation. It can only be pressed if a simulation is selected beforehand.
+4. **Back**: Closes the Simulation Picker and opens the Main Menu.
 
-A Röplapda egy kétszemélyes játék amit két emberi játékos játszhat. Két térfélen van két eleven labda amit a két játékos irányít. Egy téglafal választja el őket. Egy labda feldobásával kezdetét veszi a játék. Ha egy játékos térfelén földet ér a labda veszít. Ezt megakadályozhatja úgy, hogy alámegy és átfejeli a túloldalra.
+---
 
-Az elérendő győzelmek száma, két játékos milyen színű eleven labdát irányít mind testreszabhatóak.
+#### Simulation Player
 
-## Use-Case-ek
+In the Simulation Player, you can create, modify, and play different simulations. The simulation is visible on the bottom panel. The top panel controls it. The Simulation Player has two states: Running and Stopped.
 
-### FőMenü
+- **In Stopped mode**:
+    - If you move the window, the balls do not move on the screen.
+    - You can freely resize the window.
+    - If you click on a participant in the simulation, you select it. Only one participant can be selected at a time.
+    - While a participant is selected, it follows the mouse movement. This way, you can move participants in the simulation.
+    - You can delete the selected participant by pressing the `Delete` key.
+    - You can copy the selected participant with the `Ctrl` + `C` combination.
 
-A programban egy menün keresztül érhetjük el a különböző módokat. A menükben az egérrel lehet rányomni a különböző opciókra.
+- **In Running mode**:
+    - The balls react to window movement.
+    - You cannot resize the window.
 
-### Szimuláció
+The buttons in the top row are all usable in Stopped mode. Here is their functionality from left to right:
 
-#### Menü
-A szimuláció menüjében egyik gomb egy üres szimulációt nyit meg. A másik pedig a program mappájában lévő szimulációk listáját nyitja meg, melyek közül választhat. Ha rányom egy szimuláció gombjára kijelöli azt. A kijelölt szimulációval két dolgot tehet.
-- megnyitás
-- törlés
+1. **Save**: Usable only in Stopped mode. Opens the Save Dialog. Here you can choose to save the simulation to the opened file or a new one. If you choose the new one, you must provide a name for the simulation. If you provide a name that already exists, it will overwrite that file. The `Cancel` button discards the save and returns to the Simulation Player. The `OK` button can only be pressed if a file to save to is provided. Pressing it performs the actual save.
+2. **Add**: Usable only in Stopped mode. Opens the Create Body Dialog. Here you can specify a participant with text fields and comboboxes. The `Create` button can only be pressed with correctly provided values. Pressing it closes the Dialog and adds the new participant to the simulation. If you close the Dialog, the addition is discarded.
+3. **Slow Down**: Decreases the simulation speed by 0.25. It does not allow going below 0. The simulation speed is visible in a Label in the same row. Usable in Running mode as well.
+4. **Start/Stop**: Switches between Stopped and Running mode. Starts or stops the simulation.
+5. **Speed Up**: Same as Slow Down, but increases by 0.25.
+6. **Settings**: Usable only in Stopped mode. Here you can modify the simulation parameters through a Dialog. The `Cancel` button discards the changes and returns to the Simulation Player. The `OK` button can only be pressed if all parameters are correctly provided. Pressing it performs the actual save.
+7. **Back**: Closes the Simulation Player and returns to the Simulation Picker. Usable in both Stopped and Running mode.
 
-#### Futó
-A futó szimulációt egy az ablak tetején látható kazetta lejátszóra emlékeztető gombok vezérelnek.
-- Lelassítja
-- Elindítják/megállítják
-- Felgyorsítja
-- Kilép
+---
 
-#### Álló
-Az álló szimulációban van a mentés gomb, ami pedig egy új ablakot nyit meg.
-Itt megadhatjuk dialog box-okkal, hogy új fáljba, vagy a régibe mentse illetve a nevét a szimulációnak.
-Egy fogaskerék gomb megnyomásával állíthatjuk be a szimuláció paramétereit egy új ablakban.
-Egy háromszög alakú gombbal elinditjuk a szimulációt.
-Egy plusz szimbólumu gomb megnyomásával az új szereplő ablak nyílik meg. Itt adjuk meg a szereplő paramétereit.
+### Basket
 
-Ha rányomunk egy szereplőre akkor kijelöljük azt. A kijelölt szereplőt:
-- mozgathatjuk az egérrel
-- törölhetjük egy gombbal
-- megduplázhatjuk egy gombbal
+An arcade-style game where you need to break the record.
 
-### Rekord
+You need to perform as many dunks as possible with the orange ball within the time limit. You can manipulate the ball by moving the window on the screen. Somewhere on the screen, there is a "Backboard" consisting of two fixed balls. If you move the basketball down through the backboard, you score a dunk. Each dunk adds some time to your remaining time and gives you a point. The game ends when your remaining time runs out.
 
-A rekord gomb megnyomásával elindul a játék. Nincsen semmi beállítandó. Irányítani trükkösen, az ablak mozgatásával lehet. A hátérben látszik majd a pontunk, rekordunk és hátra lévő időnk.
+The remaining time is displayed prominently on the screen. Below it is your current score. The background color changes according to the remaining time.
 
-Ha vesztünk kiírja pontszámunk és két gomb tűnik fel.
-- Újrakezdés
-- Kilépés
+When the game ends, you can see your score and the current record. You can choose to restart the game or return to the main menu.
 
-### Röplapda
+---
 
-#### Menü
-Itt beállítjuk, hány pontig menjen a mérkőzés, milyen színű eleven labdával játszanak a játékosok. Egy gombal pedig elindul a mérkőzés.
+### Volley
 
-#### Játékban
-Az első játékos wasd gombokkal mozog, ugrik. A második a nyilakat használja.A sarokban lévő pause gombbal megállíthatjuk. A pause menü két új gombot tüntet fel.
-- Kilépés 
-- Folytatás
+#### Goal
 
-Ha az egyik játékos nyer, kiírja pontszámunk és két gomb tűnik fel.
-- Újrakezdés
-- Kilépés
+This is a two-player game reminiscent of volleyball. The two players play against each other. A wall divides the playing field into two parts. The goal is to reach the set score first. You score a point when the ball lands on your opponent's side. You control a live ball on your side to prevent the ball from landing on your side.
 
-## Megoldási ötletek
-### Ablak és Menük 
-Java Swing által nyújtott osztályok segítségével.
+#### Controls
 
-### Formák színek.
-A Java AWT geom által adott osztályok segítségével.
+One player uses WASD, and the other uses the arrow keys to move. The up key allows you to jump, but not very high. To reach the real height, you need to use the fact that you are also a ball. The down key allows you to bounce yourself. You can pause the game by pressing the `Escape` key. When paused, two buttons appear. `Restart` restarts the match with the same settings. `Exit` returns you to the Main Menu. Pressing `Escape` again resumes the game. If one player wins, you will see the same buttons.
 
-### Szerializálás
-A szimuláció mentését és visszatöltését a JSON fáljformátummal fogom megoldani.
-A GSON library-t fogom használni a JSON-ba átírás, olvasáshoz.
+#### Setup
+
+Before starting the game, you enter the Volley Starter. Here you can set the color and face of your ball. Additionally, you can set the number of points for the match. Pressing the Start button begins the match.
