@@ -183,6 +183,10 @@ public class SimulationPicker {
 
         File jsonsFolder = new File(JSON_DIR_PATH);
 
+        if (!jsonsFolder.exists()) {
+            jsonsFolder.mkdirs();
+        }
+
         File[] jsonFiles = jsonsFolder.listFiles();
 
         simulationsPanel.setLayout(new GridLayout(jsonFiles.length, 1));

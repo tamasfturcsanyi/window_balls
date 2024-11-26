@@ -9,7 +9,6 @@ import game.model.physicsbodies.Brick;
 import game.model.physicsbodies.PhysicsBody;
 import game.model.physicsbodies.Pole;
 import game.model.physicsbodies.Wall;
-import game.model.serialization.SimulationSerializer;
 
 import java.awt.Color;
 import java.awt.Point;
@@ -241,7 +240,5 @@ public class Simulation{
         for(int i = 0; i < 5;++i){
             addBody(new Ball(new Vector2D(windowX+20 + 50*i,windowY + 50),(20 + 5*i), new Color(rng.nextInt(0,256*256*256)), 0.5,(1.0 + i)));
         }
-
-        SimulationSerializer.saveWorld(this);
     }
 }
